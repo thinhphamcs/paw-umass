@@ -4,7 +4,8 @@
   "description": "This is the idea I had when taking COMPSCI 326 at UMass Amherst. The idea was mine alone but the site never finished due to lack of time. Therefore, I will try to finish this as a side project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",

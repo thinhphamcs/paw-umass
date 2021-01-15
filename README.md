@@ -2,11 +2,13 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 1. Checkout files with `git clone https://github.com/thinhphamcs/paw-umass.git && cd paw-umass`
 
-2. If package.json is missing run `npm init -y`
+2. Build all dependencies with `npm install` 
 
-3. Build and run all dependencies with `npm start`
+3. If package.json is missing please contact me at `phamtuongthinh@gmail.com`
 
-3. APIs: \
+4. Build and run server with `npm start`
+
+5. APIs: \
     Sign up:
     ```
      http://localhost:#/signup/
