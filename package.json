@@ -1,0 +1,20 @@
+{
+  "name": "paw-umass",
+  "version": "1.0.0",
+  "description": "This is the idea I had when taking COMPSCI 326 at UMass Amherst. The idea was mine alone but the site never finished due to lack of time. Therefore, I will try to finish this as a side project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinhphamcs/paw-umass.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thinhphamcs/paw-umass/issues"
+  },
+  "homepage": "https://github.com/thinhphamcs/paw-umass#readme"
+}
