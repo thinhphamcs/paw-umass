@@ -2,7 +2,15 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 1. Checkout files with `git clone https://github.com/thinhphamcs/paw-umass.git && cd paw-umass`
 
-2. Build all dependencies with `npm install` 
+2. Build all dependencies with `npm install` which will install:
+
+```
+"dotenv": "^8.2.0",
+"express": "^4.17.1",
+"hbs": "^4.1.1",
+"mysql": "^2.18.1",
+"nodemon": "^2.0.7"
+```
 
 3. If package.json is missing please contact me at `phamtuongthinh@gmail.com`
 
