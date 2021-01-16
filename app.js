@@ -44,6 +44,6 @@ app.get("/", (req, res) => {
 });
 
 // Tell express which port to listen
-app.listen("5050", () => {
-    console.log("Server started on port 5050");
+app.listen(process.env.PORT || 5050, () => {
+    console.log("Server started on port " + process.env.PORT || 5050);
 });
