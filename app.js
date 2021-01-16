@@ -2,6 +2,7 @@
 const express = require("express"); // Start server from nodejs
 const mysql = require("mysql"); // For MySQL database
 const dotenv = require("dotenv"); // For more secure way to connect to database
+const path = require("path"); // Default with nodejs so no need to install but do need to require
 
 /**
  * Tell dotenv where is the variables I want
@@ -28,6 +29,15 @@ const db = mysql.createConnection({
     database: process.env.DATABASE_NAME
 });
 
+/**
+ * Where I want to define my css and js files/directory
+ * Make sure express.server is using these files/directory
+ * Then set it through view engine
+ */
+const publicDirectory = path.join(__dirname, './public');
+app.use(express.static(publicDirectory)); // static is for static file such ass .css or .js
+app.set('view engine', 'hbs'); // View engine
+
 // Connect to database
 db.connect((err) => {
     if (err) {
@@ -40,7 +50,7 @@ db.connect((err) => {
 
 // APIs
 app.get("/", (req, res) => {
-    res.send("<h1> Home Page </h1>");
+    res.render("home");
 });
 
 // Tell express which port to listen
