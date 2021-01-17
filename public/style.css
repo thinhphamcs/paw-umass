@@ -1,3 +1,10 @@
-body {
-    background-color: orange;
+nav {
+    background-color: #563d7c;
+    color: #fff;
+    padding: 30px 60px; /* 30px top and bottom and 60px left and right */
+    /*
+    *   'display: flex' and 'justify content: space between' will grab elements and push them to side corners
+    */
+    display: flex;
+    justify-content: space-between;
 }
