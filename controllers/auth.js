@@ -1,3 +1,12 @@
+const mysql = require("mysql");
+
+const db = mysql.createConnection({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME
+});
+
 exports.register = (req, res) => {
     console.log(req.body);
 
@@ -12,6 +21,6 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-
+    db.query();
     res.send("Form Submitted");
 }
