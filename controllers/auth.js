@@ -73,6 +73,13 @@ exports.login = async (req, res) => {
                     message: 'Email or Password is incorrect'
                 });
             }
+            else {
+                const id = results[0].id;
+                const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN
+                });
+                console.log("The token is: " + token);
+            }
         });
     } catch (err) {
         console.log(err);
