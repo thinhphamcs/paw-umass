@@ -38,6 +38,11 @@ const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory)); // static is for static file such ass .css or .js
 app.set('view engine', 'hbs'); // View engine
 
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: false }));
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
 // Connect to database
 db.connect((err) => {
     if (err) {
@@ -48,10 +53,9 @@ db.connect((err) => {
     }
 });
 
-// Routes
-app.get("/", (req, res) => {
-    res.render("home");
-});
+// Define routes
+app.use('/', require('./routes/apis'));
+app.use('/auth', require('./routes/auth'));
 
 // Tell express which port to listen
 app.listen(process.env.PORT || 5050, () => {
