@@ -56,3 +56,11 @@ exports.register = (req, res) => {
         }
     });
 }
+
+exports.login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+    } catch (err) {
+        console.log(err);
+    }
+}
