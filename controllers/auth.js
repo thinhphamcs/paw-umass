@@ -21,6 +21,22 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-    db.query();
+    db.query('SELECT email FROM users-info WHERE email = ?', [email], (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            if (results.length > 0) {
+                return res.render('register', {
+                    message: 'That email is already in use'
+                });
+            }
+            else if (password !== passwordConfirm) {
+                return res.render('register', {
+                    message: 'Password do not match'
+                });
+            }
+        }
+    });
     res.send("Form Submitted");
 }
