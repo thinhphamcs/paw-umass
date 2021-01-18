@@ -23,7 +23,7 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-    db.query('SELECT email FROM users-info WHERE email = ?', [email], async (err, results) => {
+    db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
         if (err) {
             console.log(err);
         }
@@ -41,7 +41,18 @@ exports.register = (req, res) => {
 
             let hashedPassword = await bcrypt.hash(password, 8);
             console.log(hashedPassword);
+
+            db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(results);
+                    return res.render('register', {
+                        message: 'User Registered'
+                    });
+                }
+            });
         }
     });
-    res.send("Form Submitted");
 }
