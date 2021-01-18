@@ -48,9 +48,16 @@ db.connect((err) => {
     }
 });
 
-// Routes
+/**
+ * Routes:
+ * / => home
+ * /register => register
+ */
 app.get("/", (req, res) => {
     res.render("home");
+});
+app.get("/register", (req, res) => {
+    res.render("register");
 });
 
 // Tell express which port to listen
