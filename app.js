@@ -50,6 +50,7 @@ db.connect((err) => {
 
 // Define routes
 app.use('/', require('./routes/apis'));
+app.use('/auth', require('./routes/auth'));
 
 // Tell express which port to listen
 app.listen(process.env.PORT || 5050, () => {
