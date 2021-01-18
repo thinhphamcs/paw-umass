@@ -38,6 +38,9 @@ const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory)); // static is for static file such ass .css or .js
 app.set('view engine', 'hbs'); // View engine
 
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: false }));
+
 // Connect to database
 db.connect((err) => {
     if (err) {
