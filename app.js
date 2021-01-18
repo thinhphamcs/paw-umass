@@ -3,6 +3,7 @@ const express = require("express"); // Start server from nodejs
 const mysql = require("mysql"); // For MySQL database
 const dotenv = require("dotenv"); // For more secure way to connect to database
 const path = require("path"); // Default with nodejs so no need to install but do need to require
+const cookieParser = require("cookie-parser"); // To enable cookie in browser
 
 /**
  * Tell dotenv where is the variables I want
@@ -42,6 +43,8 @@ app.set('view engine', 'hbs'); // View engine
 app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
+// Enable Cookie-parser in browser
+app.use(cookieParser());
 
 // Connect to database
 db.connect((err) => {
