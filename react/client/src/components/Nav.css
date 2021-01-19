@@ -10,6 +10,10 @@ nav ul {
     list-style: none;
 }
 
+nav li {
+    display: inline-block;
+}
+
 nav a {
     text-decoration: none;
     padding: 5px 10px;
