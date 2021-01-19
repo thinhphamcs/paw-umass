@@ -21,7 +21,7 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 3. If package.json is missing please contact me at `phamtuongthinh@gmail.com`
 
-4. Build and run server with `npm start`
+4. Build and run both server and client with `npm run dev`
 
 5. APIs: \
     Sign up:
@@ -52,4 +52,3 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
     ```
      http://localhost:#/donate/
     ```
-<hr>
