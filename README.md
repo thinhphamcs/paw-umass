@@ -5,14 +5,17 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 2. Build all dependencies with `npm install` which will install:
 
 ```
+"axios": "^0.21.1",
 "bcryptjs": "^2.4.3",
 "cookie-parser": "^1.4.5",
 "dotenv": "^8.2.0",
 "express": "^4.17.1",
 "hbs": "^4.1.1",
+"http-proxy-middleware": "^1.0.6",
 "jsonwebtoken": "^8.5.1",
 "mysql": "^2.18.1",
-"nodemon": "^2.0.7"
+"nodemon": "^2.0.7",
+"react-router-dom": "^5.2.0"
 ```
 
 3. If package.json is missing please contact me at `phamtuongthinh@gmail.com`
