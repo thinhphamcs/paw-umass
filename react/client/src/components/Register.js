@@ -7,8 +7,10 @@ const Register = () => {
             <form>
                 <label>Name: </label>
                 <input required type="text" id="userName" name="userName"></input>
+                <br />
                 <label>Email: </label>
                 <input required type="email" id="userEmail" name="userEmail"></input>
+                <br />
                 <button type="submit">Register</button>
             </form>
         </div>
