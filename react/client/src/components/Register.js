@@ -3,6 +3,7 @@ import './Register.css';
 import axios from 'axios';
 
 const Register = () => {
+    // React hook
     const [userDetails, setUserDetails] = useState({
         firstName: '',
         lastName: '',
@@ -13,6 +14,7 @@ const Register = () => {
         message: ''
     });
 
+    // Event listening function, basically listen to user inputs
     const formValues = (event) => {
         setUserDetails({
             ...userDetails,
@@ -22,6 +24,11 @@ const Register = () => {
     // This is what will be sending to backend
     const register = async (event) => {
         event.preventDefault(); // when you submit a form by default you are reloading the page or go somewhere so this will prevent it
+        /**
+         * One thing to remember
+         * I don't need JSON.string() since axios already convert to json already
+         * https://stackoverflow.com/questions/65802652/req-body-is-undefined-react-nodejs
+         */
         const body = {
             firstName: userDetails.firstName,
             lastName: userDetails.lastName,
@@ -30,7 +37,7 @@ const Register = () => {
             passwordConfirm: userDetails.passwordConfirm,
             phone: userDetails.phone
         };
-        // Using post method to send to database
+        // Using post method to send to database through axios
         const response = await axios.post("/auth/register", body, {
             header: {
                 'Content-Type': 'application/json'

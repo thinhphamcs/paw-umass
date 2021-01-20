@@ -1,7 +1,9 @@
+// Import require
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+// Connect to database again
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
@@ -9,6 +11,7 @@ const db = mysql.createConnection({
     database: process.env.DATABASE_NAME
 });
 
+// Export as module
 exports.register = (req, res) => {
     /**
      * Better way to write this 
@@ -21,6 +24,7 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
+    // Look through our database
     db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
         if (err) {
             console.log(err);
@@ -36,9 +40,11 @@ exports.register = (req, res) => {
                     message: 'Password do not match'
                 });
             }
+            // Hashing user input password
             let hashedPassword = await bcrypt.hash(password, 8);
             console.log(hashedPassword);
 
+            // Insert data to our database
             db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
                 if (err) {
                     console.log(err);
@@ -54,6 +60,7 @@ exports.register = (req, res) => {
     });
 }
 
+// Export as module
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -63,8 +70,13 @@ exports.login = async (req, res) => {
             });
         }
 
+        // Look through our database
         db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
-            console.log(results);
+            /**
+             * If user input nothing or wrong password
+             * bcrypt compare user input password and the hashed password in our database
+             * since it takes sometimes we have to use await and async
+             */
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
                 res.status(401).render('login', {
                     message: 'Email or Password is incorrect'
@@ -72,18 +84,25 @@ exports.login = async (req, res) => {
             }
             else {
                 const id = results[0].id;
+                /**
+                 * Create token through jsonwebtoken by sign function with id as param
+                 * We need a secret password and when it should be expire
+                 */
                 const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN
                 });
-                console.log("The token is: " + token);
-
+                /**
+                 * Create cookie to enable it through html
+                 * the way it expires we need to convert it to miliseconds
+                 * so Today + How many days it expires (3 days) * 24 hours a day * 60 minutes per hour * 60 seconds per minute and 1000 miliseconds per second
+                 */
                 const cookieOptions = {
                     expires: new Date(
                         Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
                     ),
                     httpOnly: true,
                 }
-                res.cookie('jwt', token, cookieOptions);
+                res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
                 res.status(200).redirect("/");
             }
         });
