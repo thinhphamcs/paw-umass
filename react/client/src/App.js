@@ -16,8 +16,8 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/" exact component={Home} />
+          <Route exact path="/register" exact component={Register} />
         </Switch>
       </BrowserRouter>
     </>

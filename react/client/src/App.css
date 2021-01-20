@@ -64,10 +64,10 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-.home, .donate, .profile, .submit, .logout {
+/* .home, .donate, .profile, .submit, .logout {
   display: flex;
   height: 90vh;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-}
+} */
