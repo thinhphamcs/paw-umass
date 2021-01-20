@@ -6,6 +6,17 @@ nav {
     color: #fff;
 }
 
+/* Set a container for image */
+.logoImage {
+    width: 100px;
+    height: 100px;
+}
+/* Then resize it */
+.logoImage img {
+    width: 100%;
+    height: auto;
+}
+
 nav ul {
     list-style: none;
 }
