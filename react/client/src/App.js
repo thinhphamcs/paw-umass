@@ -12,15 +12,15 @@ function App() {
      * Switch will make sure we only render one component per url
      */
     // 
-    <BrowserRouter>
-      <div className="App">
+    <>
+      <BrowserRouter>
         <Nav />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/register" component={Register} />
         </Switch>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
   );
 }
 
