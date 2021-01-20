@@ -7,6 +7,7 @@ const Register = () => {
         lastName: '',
         email: '',
         password: '',
+        passwordConfirm: '',
         phone: '',
         message: ''
     });
@@ -25,6 +26,7 @@ const Register = () => {
             lastName: userDetails.lastName,
             email: userDetails.email,
             password: userDetails.password,
+            passwordConfirm: userDetails.passwordConfirm,
             phone: userDetails.phone
         });
         // Using post method to send to database
@@ -49,7 +51,10 @@ const Register = () => {
                 <input required type="email" id="email" name="email" onChange={formValues}></input>
                 <br />
                 <label>Password: </label>
-                <input required type="text" id="password" name="password" onChange={formValues}></input>
+                <input required type="password" id="password" name="password" onChange={formValues}></input>
+                <br />
+                <label>Confirm Password: </label>
+                <input required type="password" id="passwordConfirm" name="passwordConfirm" onChange={formValues}></input>
                 <br />
                 <label>Phone: </label>
                 <input required type="text" id="phone" name="phone" onChange={formValues}></input>
