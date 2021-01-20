@@ -4,6 +4,7 @@ const mysql = require("mysql"); // For MySQL database
 const dotenv = require("dotenv"); // For more secure way to connect to database
 const path = require("path"); // Default with nodejs so no need to install but do need to require
 const cookieParser = require("cookie-parser"); // To enable cookie in browser
+const bodyParser = require('body-parser');
 
 /**
  * Tell dotenv where is the variables I want
@@ -45,6 +46,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json({ extended: false }));
 // Enable Cookie-parser in browser
 app.use(cookieParser());
+// Using body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect to database
 db.connect((err) => {

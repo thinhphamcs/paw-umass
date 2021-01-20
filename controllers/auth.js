@@ -10,8 +10,6 @@ const db = mysql.createConnection({
 });
 
 exports.register = (req, res) => {
-    console.log(req.body);
-
     /**
      * Better way to write this 
      * const firstName = req.body.firstName;
@@ -38,7 +36,6 @@ exports.register = (req, res) => {
                     message: 'Password do not match'
                 });
             }
-
             let hashedPassword = await bcrypt.hash(password, 8);
             console.log(hashedPassword);
 

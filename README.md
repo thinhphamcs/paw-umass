@@ -7,6 +7,7 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 ```
 "axios": "^0.21.1",
 "bcryptjs": "^2.4.3",
+"body-parser": "^1.19.0",
 "concurrently": "^5.3.0",
 "cookie-parser": "^1.4.5",
 "dotenv": "^8.2.0",
