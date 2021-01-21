@@ -31,12 +31,12 @@ exports.register = (req, res) => {
         }
         else {
             if (results.length > 0) {
-                return res.render('register', {
+                return res.status(409).render('register', {
                     message: 'That email is already in use'
                 });
             }
             else if (password !== passwordConfirm) {
-                return res.render('register', {
+                return res.status(401).render('register', {
                     message: 'Password do not match'
                 });
             }
@@ -51,7 +51,7 @@ exports.register = (req, res) => {
                 }
                 else {
                     console.log(results);
-                    return res.render('register', {
+                    return res.status(200).render('register', {
                         message: 'User Registered'
                     });
                 }
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(400).render('login', {
+            return res.status(204).render('login', {
                 message: 'Please provide an email and password'
             });
         }
@@ -103,7 +103,7 @@ exports.login = async (req, res) => {
                     httpOnly: true,
                 }
                 res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                res.status(200).redirect("/");
+                res.status(200).redirect("/home");
             }
         });
     } catch (err) {
