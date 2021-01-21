@@ -31,12 +31,12 @@ exports.register = (req, res) => {
         }
         else {
             if (results.length > 0) {
-                return res.status(409).render('register', {
+                return res.json({
                     message: 'That email is already in use'
                 });
             }
             else if (password !== passwordConfirm) {
-                return res.status(401).render('register', {
+                return res.json({
                     message: 'Password do not match'
                 });
             }
@@ -51,7 +51,7 @@ exports.register = (req, res) => {
                 }
                 else {
                     console.log(results);
-                    return res.status(200).render('register', {
+                    return res.status(200).json({
                         message: 'User Registered'
                     });
                 }
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(204).render('login', {
+            return res.json({
                 message: 'Please provide an email and password'
             });
         }
@@ -78,7 +78,7 @@ exports.login = async (req, res) => {
              * since it takes sometimes we have to use await and async
              */
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
-                res.status(401).render('login', {
+                res.json({
                     message: 'Email or Password is incorrect'
                 });
             }

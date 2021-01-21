@@ -43,6 +43,11 @@ const Register = () => {
                 'Content-Type': 'application/json'
             }
         });
+
+        setUserDetails({
+            ...userDetails,
+            message: response.data.message
+        });
     }
     return (
         <div className="container">
@@ -67,6 +72,7 @@ const Register = () => {
                 <input required type="text" id="phone" name="phone" onChange={formValues}></input>
                 <br />
                 <button type="submit">Register</button>
+                {userDetails.message ? <h1 className="result-message">{userDetails.message}</h1> : null}
             </form>
         </div>
     )
