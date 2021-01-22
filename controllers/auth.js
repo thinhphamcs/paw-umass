@@ -51,9 +51,7 @@ exports.register = (req, res) => {
                 }
                 else {
                     console.log(results);
-                    return res.status(200).json({
-                        message: 'User Registered'
-                    });
+                    return res.status(200); // User registered
                 }
             });
         }
@@ -103,7 +101,7 @@ exports.login = async (req, res) => {
                     httpOnly: true,
                 }
                 res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                res.status(200).redirect("/home");
+                res.status(200); // User logged in
             }
         });
     } catch (err) {

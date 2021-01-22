@@ -28,6 +28,10 @@ const Login = () => {
                 'Content-type': 'application/json'
             }
         });
+        setLoginValues({
+            ...loginValues,
+            message: response.data.message
+        });
 
     }
     return (
