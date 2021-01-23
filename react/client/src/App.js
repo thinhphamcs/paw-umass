@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Nav from './components/Nav';
+import Choose from './components/Choose';
+import Login from './components/Login'
+// import Nav from './components/Nav';
 import Home from './components/Home';
 import Register from './components/Register';
 
@@ -12,15 +14,17 @@ function App() {
      * Switch will make sure we only render one component per url
      */
     // 
-    <BrowserRouter>
-      <div className="App">
-        <Nav />
+    <>
+      <BrowserRouter>
+        {/* <Nav /> */}
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/" exact component={Choose} />
+          <Route exact path="/login" exact component={Login} />
+          <Route exact path="/register" exact component={Register} />
+          <Route exact path="/home" exact component={Home} />
         </Switch>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
   );
 }
 

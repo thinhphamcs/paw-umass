@@ -29,3 +29,8 @@ button {
 button:hover {
     background-color: green;
 }
+
+.result-message {
+    background-color: orange;
+    padding: 10px 20px;
+}

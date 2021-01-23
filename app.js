@@ -4,9 +4,10 @@ const mysql = require("mysql"); // For MySQL database
 const dotenv = require("dotenv"); // For more secure way to connect to database
 const path = require("path"); // Default with nodejs so no need to install but do need to require
 const cookieParser = require("cookie-parser"); // To enable cookie in browser
+const bodyParser = require('body-parser'); // To enable body-parser
 
 /**
- * Tell dotenv where is the variables I want
+ * Tell dotenv where are the environment setting variables
  * ./ means the same directory
  * The file .env can be name anything such as password.env or stuff.env
  */
@@ -42,9 +43,12 @@ app.set('view engine', 'hbs'); // View engine
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({ extended: false }));
 // Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+app.use(express.json({ extended: false }));
 // Enable Cookie-parser in browser
 app.use(cookieParser());
+// Using body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect to database
 db.connect((err) => {
