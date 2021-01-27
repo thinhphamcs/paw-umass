@@ -42,7 +42,6 @@ exports.register = (req, res) => {
             }
             // Hashing user input password
             let hashedPassword = await bcrypt.hash(password, 8);
-            console.log(hashedPassword);
 
             // Insert data to our database
             db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
@@ -50,7 +49,6 @@ exports.register = (req, res) => {
                     console.log(err);
                 }
                 else {
-                    console.log(results);
                     return res.status(200); // User registered
                 }
             });
@@ -101,7 +99,9 @@ exports.login = async (req, res) => {
                     httpOnly: true,
                 }
                 res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                res.status(200); // User logged in
+                res.status(200).json({
+                    message: 'LoggedIn'
+                }); // User logged in
             }
         });
     } catch (err) {

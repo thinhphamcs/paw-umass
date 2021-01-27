@@ -4,10 +4,11 @@ import { Redirect, Link } from 'react-router-dom';
 import './Choose.css';
 import Logo from '../logo3.png';
 import * as FaIcons from 'react-icons/fa';
+import axios from 'axios';
 
 // Function
 const Choose = () => {
-    // Hook
+    // Hooks
     const [page, setPage] = useState({
         page: ''
     });

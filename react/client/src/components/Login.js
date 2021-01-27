@@ -1,8 +1,9 @@
 // Import
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({ LoggedIn, err }) => {
     // Hook for event listener function 'loginForm'
     const [loginValues, setLoginValues] = useState({
         email: '',
@@ -16,7 +17,7 @@ const Login = () => {
             [event.target.name]: event.target.value
         });
     };
-    // form onsubmit function
+    // form onsubmit function handler
     const login = async (event) => {
         event.preventDefault();
         const body = {
@@ -30,9 +31,9 @@ const Login = () => {
         });
         setLoginValues({
             ...loginValues,
-            message: response.data.message
+            message: response.data.message,
         });
-
+        LoggedIn(response);
     }
     return (
         /**
@@ -44,17 +45,24 @@ const Login = () => {
             <div className="form-container">
                 <h1 className="form-title">Login</h1>
                 <form onSubmit={login}>
-                    <label>Email: </label>
-                    <input required type="email" id="email" name="email" onChange={loginForm}></input>
-                    <br />
-                    <label>Password: </label>
-                    <input required type="password" id="password" name="password" onChange={loginForm}></input>
-                    <br />
-                    <button type="submit">Login</button>
+                    <div className="form-inner">
+                        <div className="form-group">
+                            <label>Email: </label>
+                            <input required type="email" id="email" name="email" onChange={loginForm}></input>
+                        </div>
+                        <br />
+                        {/* ERROR */}
+                        {loginValues.message ? <h2 className="result-message">{loginValues.message}</h2> : null}
+                        <br />
+                        <div className="form-group">
+                            <label>Password: </label>
+                            <input required type="password" id="password" name="password" onChange={loginForm}></input>
+                        </div>
+                        <button type="submit" >Login</button>
+                    </div>
                 </form>
             </div>
         </div>
     )
 }
-
 export default Login;
