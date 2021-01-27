@@ -9,37 +9,33 @@ import Register from './components/Register';
 
 function App() {
   const [user, setUser] = useState({
-    email: '',
-    token: '',
-    cookie: '',
-  });
-  const [err, setErr] = useState({
-
+    token: ''
   });
 
   const LoggedIn = details => {
-    if (details.data.message === "LoggedIn") {
+    if (details.data.auth === true && details.data.email !== "" && details.data.token !== "") {
       setUser({
-        email: details.email,
-        token: details.token,
-        cookie: details.cookie
+        ...user,
+        token: details.data.token
       });
-      console.log("Yo1", user.email);
+
     }
     else {
       setUser({
-        email: '',
-        token: '',
-        cookie: ''
+        ...user,
+        token: ''
       });
       <Redirect to="/login" />
     }
-    console.log("Yo2", user.email);
   }
   const LoggedOut = () => {
     console.log("Logout");
   }
-  console.log("Yo3", user.email);
+
+  if (user.token !== "") {
+    localStorage.setItem('token', user.token);
+  }
+  const userToken = window.localStorage.getItem('token');
   return (
     /**
      * BrowserRouter will allow to navigate through different pages with react 
@@ -56,9 +52,9 @@ function App() {
      */
     // 
     <>
-      {(user.email !== "") ? (
+      {(userToken !== null) ? (
         <Home />
-      ) : (<Login LoggedIn={LoggedIn} err={err} />)}
+      ) : (<Login LoggedIn={LoggedIn} />)}
     </>
   );
 }

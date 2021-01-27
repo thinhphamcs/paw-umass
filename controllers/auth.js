@@ -100,7 +100,10 @@ exports.login = async (req, res) => {
                 }
                 res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
                 res.status(200).json({
-                    message: 'LoggedIn'
+                    auth: true,
+                    token: token,
+                    cookie: cookieOptions,
+                    email: email
                 }); // User logged in
             }
         });
