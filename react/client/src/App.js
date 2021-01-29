@@ -69,7 +69,6 @@ function App() {
     // 
     <>
       {((user.auth === true) || (userAuth === 'true' && userRemember === 'true' && userToken !== "")) ? (<Home />) : (<Login LoggedIn={LoggedIn} />)}
-
     </>
   );
 }
