@@ -2,37 +2,44 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import './Login.css';
 
 const Login = ({ LoggedIn }) => {
     // Hook for event listener function 'loginForm'
     const [loginValues, setLoginValues] = useState({
         email: '',
         password: '',
+        checkBox: false,
         message: ''
     });
     // Event listener function to update the hook
     const loginForm = (event) => {
         setLoginValues({
             ...loginValues,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            checkBox: event.target.checked
         });
     };
-    // form onsubmit function handler
+    // Form onsubmit function handler
     const login = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Prevent page to go have params on the url
         const body = {
             email: loginValues.email,
-            password: loginValues.password
+            password: loginValues.password,
+            checkBox: loginValues.checkBox
         }
+        // Send the body of front end to backend using axios
         const response = await axios.post("/auth/login", body, {
             header: {
                 'Content-type': 'application/json'
             }
         });
+        // Get the message to display
         setLoginValues({
             ...loginValues,
             message: response.data.message,
         });
+        // Get the data to implement logic
         LoggedIn(response);
     }
     return (
@@ -57,6 +64,10 @@ const Login = ({ LoggedIn }) => {
                         <div className="form-group">
                             <label>Password: </label>
                             <input required type="password" id="password" name="password" onChange={loginForm}></input>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="checkBox" name="checkBox" onChange={loginForm}></input>
+                            <label>Remember Me</label>
                         </div>
                         <button type="submit" >Login</button>
                     </div>
