@@ -21,14 +21,14 @@ const Choose = () => {
     return (
         // Determine which page to redirect
         <>
-            <div className="container-header">
+            <div className="choose-container-header">
                 <img src={Logo} alt="Logo" />
             </div>
-            <div className="container-body">
+            <div className="choose-container-body">
                 <div className="intro">
-                    <h2>See what's going on</h2>
+                    <h2 className="texts">See what's going on</h2>
                     <br />
-                    <h4>Join PawUMass today</h4>
+                    <h4 className="texts">Join PawUMass today</h4>
                     <br />
                 </div>
                 <div className="buttons">
@@ -40,28 +40,20 @@ const Choose = () => {
                     </button>
                 </div>
             </div>
-            <div className="container-footer">
-                <Link to="#" className='list-items'>
-                    
-                        About
-                    
+            <div className="choose-container-footer">
+                <Link to="/about" className='choose-list-items'>
+                    About
                 </Link>
-                <Link to="#" className='list-items'>
-                    
-                        Terms of Service
-                    
+                <Link to="/terms" className='choose-list-items'>
+                    Terms of Service
                 </Link>
-                <Link to="#" className='list-items'>
-                    
-                        Privacy Policy
-                    
+                <Link to="/privacy" className='choose-list-items'>
+                    Privacy Policy
                 </Link>
-                <Link to="#" className='list-items'>
-                    
-                        Cookie Policy
-                    
+                <Link to="/cookie" className='choose-list-items'>
+                    Cookie Policy
                 </Link>
-                <p>
+                <p className="copyright">
                     <FaIcons.FaRegCopyright /> 2021 PawUMass
                 </p>
             </div>

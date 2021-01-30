@@ -1,4 +1,4 @@
-.container {
+.login-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -9,20 +9,20 @@
     padding: 0 0 50px;
 }
 /* === Logo === */
-.container-header {
+.login-container-header {
     position: fixed;
     top: -10%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 /* === Form === */
-.form-title {
+.login-form-title {
     justify-content: center;
     display: flex;
     padding: 15px 5px;
 }
 
-.form-container {
+.login-form-container {
     background: none !important;
     width: 320px !important;
     display: inline-block;
@@ -32,26 +32,26 @@
     min-width: 320px !important;
 }
 
-.form-group, .form-check {
+.login-form-group, .login-form-check {
     display: table;
 }
 
 
-form input {
+.login-input {
     font-size: 20px !important;
     margin-bottom: 15px !important;
     line-height: 40px !important;
     padding: 10px 30px !important;
 }
 
-form label {
+.login-label {
     position: fixed;
     left: 40px;
     font-size: 15px;
     font-weight: unset;
 }
 /* === Button === */
-button {
+.login-form-button {
     background-color: #6A150D !important;
     color: white !important;
     font-size: 20px !important;
@@ -62,14 +62,13 @@ button {
     width: 100%;
 }
 
-.container-footer {
+.login-container-footer {
     position: fixed;
-    padding: 15px;
     width: 100%;
     text-align: center;
 }
 
-.list-items {
+.login-list-items {
     color: #6A150D;
     text-decoration: none;
     padding: 10px;
@@ -91,17 +90,17 @@ button {
         top: 50%;
         left: 50%;
     }
-    .container {
+    .login-container {
         position: fixed;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-    .container-header {
+    .login-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -55%);
         transform: translate(-50%, -55%);
     }
-    .container-footer {
+    .login-container-footer {
         position: fixed;
         -webkit-transform: translate(0%, -5%);
         transform: translate(0%, -5%);

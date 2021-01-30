@@ -68,7 +68,15 @@ function App() {
      */
     // 
     <>
-      {((user.auth === true) || (userAuth === 'true' && userRemember === 'true' && userToken !== "")) ? (<Home />) : (<Login LoggedIn={LoggedIn} />)}
+
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" exact component={Choose} />
+          <Route exact path="/login" exact component={Login} />
+          <Route exact path="/register" exact component={Register} />
+          <Route exact path="/home" exact component={Home} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }

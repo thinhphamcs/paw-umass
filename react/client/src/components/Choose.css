@@ -4,12 +4,12 @@ body {
     background-color: #6A150D;
 }
 
-h2, h4{
+.texts{
     color: white;
     text-decoration: none;
 }
 /* === Containers === */
-.container-header {
+.choose-container-header {
     position: fixed;
     top: 25%;
     left: 50%;
@@ -17,7 +17,7 @@ h2, h4{
     transform: translate(-50%, -50%);
 }
 
-.container-body {
+.choose-container-body {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -26,7 +26,7 @@ h2, h4{
     width: 320px;
 }
 
-.container-footer {
+.choose-container-footer {
     position: fixed;
     padding: 10px;
     width: 100%;
@@ -88,18 +88,18 @@ button {
 }
 /* === Lists === */
 
-.list-items {
+.choose-list-items {
     color: white;
     text-decoration: none;
     padding: 10px;
     display: inline-flex;
 }
 
-.list-items:hover {
+.choose-list-items:hover {
     text-decoration: underline;
 }
 
-p {
+.copyright {
     color: white;
     text-decoration: none;
     display: inline-flex;
@@ -121,12 +121,12 @@ p {
         top: 50%;
         left: 50%;
     }
-    .container-header {
+    .choose-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -125%);
         transform: translate(-50%, -125%);
     }
-    .container-footer {
+    .choose-container-footer {
         position: fixed;
         -webkit-transform: translate(-50%, 330%);
         transform: translate(-50%, 330%);

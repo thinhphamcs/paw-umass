@@ -1,7 +1,7 @@
 // Import
 import React, { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.css';
 import Logo from '../logo3.png';
 
@@ -49,43 +49,37 @@ const Login = ({ LoggedIn }) => {
          * upper part of the parent container would be the form
          * lower part of the parent container would be the forgot and sign up
          */
-         <>
-         <div className="container">
-            <div className="container-header">
-                <img src={Logo} alt="Logo" />
-            </div>
-            <h1 className="form-title">Log in to PawUMass </h1>
-            <form className="form-container" onSubmit={login}>
-                <div className="form-group">
-                    <input required type="email" id="email" name="email" placeholder="Email" onChange={loginForm} ></input>
+        <>
+            <div className="login-container">
+                <div className="login-container-header">
+                    <img src={Logo} alt="Logo" />
                 </div>
-                {/* ERROR */}
-                {loginValues.message ? <h2 className="result-message">{loginValues.message}</h2> : null}
-                <div className="form-group">
-                    <input required type="password" id="password" name="password" placeholder="Password" onChange={loginForm}></input>
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" id="checkBox" name="checkBox" onChange={loginForm}></input>
-                    <label>Remember Me</label>
-                </div>
-                <button type="submit" >Login</button>
-            </form>
-            <div className="container-footer">
-                <BrowserRouter>
-                <Link to="#" className='list-items'>
-                    
+                <h1 className="login-form-title">Log in to PawUMass </h1>
+                <form className="login-form-container" onSubmit={login}>
+                    <div className="login-form-group">
+                        <input required className="login-input" type="email" id="email" name="email" placeholder="Email" onChange={loginForm} ></input>
+                    </div>
+                    {/* ERROR */}
+                    {loginValues.message ? <h2 className="result-message">{loginValues.message}</h2> : null}
+                    <div className="login-form-group">
+                        <input required className="login-input" type="password" id="password" name="password" placeholder="Password" onChange={loginForm}></input>
+                    </div>
+                    <div className="login-form-check">
+                        <input type="checkbox" id="checkBox" name="checkBox" onChange={loginForm}></input>
+                        <label className="login-label">Remember Me</label>
+                    </div>
+                    <button className="login-form-button" type="submit" >Login</button>
+                </form>
+                <div className="login-container-footer">
+                    <Link to="/forgot" className='login-list-items'>
                         Forgot Password
-                    
                 </Link>
-                <Link to="/register" className='list-items'>
-                    
+                    <Link to="/register" className='login-list-items' >
                         Sign up
-                    
                 </Link>
-                </BrowserRouter>
+                </div>
             </div>
-        </div>
-         </>  
+        </>
     );
 }
 export default Login;
