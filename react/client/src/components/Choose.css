@@ -4,26 +4,45 @@ body {
     background-color: #6A150D;
 }
 
-.container {
+.texts{
+    color: white;
+    text-decoration: none;
+}
+/* === Containers === */
+.choose-container-header {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.choose-container-body {
     position: fixed;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: 300px;
-    border: 1px solid black;
+    width: 320px;
 }
 
-.container-header {
+.choose-container-footer {
     position: fixed;
-    left: 50%;
-    -webkit-transform: translate(-50%, -75%);
-    transform: translate(-50%, -75%);
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+}
+/* === Buttons === */
+button {
+    outline: none;
+    box-shadow: none;
 }
 
-h2, h4 {
-    color: white;
-    font-family: 'Lato', sans-serif;
+.buttons, .intro {
+    margin: auto;
+    width: 100%;
+    text-align: center;
 }
 
 .login-button {
@@ -35,10 +54,16 @@ h2, h4 {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    justify-content: center;
     font-size: 21px;
     margin: 4px 2px;
     border-radius: 30px;
     width: 95%;
+}
+
+.login-button:hover {
+    background-color: white;
+    color: #6A150D;
 }
 
 .register-button {
@@ -49,20 +74,62 @@ h2, h4 {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    justify-content: center;
     font-size: 21px;
     margin: 4px 2px;
     border-radius: 30px;
     width: 95%;
 }
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+.register-button:hover {
+    background-color: #6A150D;
+    color: white;
+    border: 1px solid white;
+}
+/* === Lists === */
+
+.choose-list-items {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-flex;
+}
+
+.choose-list-items:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    color: white;
+    text-decoration: none;
+    display: inline-flex;
+}
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
     html {
-      transform: rotate(-90deg);
-      transform-origin: left top;
-      width: 100vh;
-      overflow-x: hidden;
-      position: absolute;
-      top: 100%;
-      left: 50%;
+        overflow-x: hidden;
+        position: absolute;
     }
+    
   }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .choose-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -125%);
+        transform: translate(-50%, -125%);
+    }
+    .choose-container-footer {
+        position: fixed;
+        -webkit-transform: translate(-50%, 330%);
+        transform: translate(-50%, 330%);
+        width: 375px;
+    }
+}

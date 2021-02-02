@@ -1,29 +1,40 @@
+// Import
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
-import Choose from './components/Choose';
-import Login from './components/Login'
+import routes from './routes/Routes';
+import Auth from './components/Auth';
 // import Nav from './components/Nav';
-import Home from './components/Home';
-import Register from './components/Register';
+
+// Function to determine authentication
+const AuthRoute = (route) => {
+  const history = useHistory();
+  if (route.auth && !Auth()) {
+    history.push('/');
+  }
+  return (
+    <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
+  );
+}
 
 function App() {
+
   return (
     /**
      * BrowserRouter will allow to navigate through different pages with react 
      * Switch will make sure we only render one component per url
+     * Define routes in a different file then map it
      */
     // 
     <>
       <BrowserRouter>
-        {/* <Nav /> */}
         <Switch>
-          <Route exact path="/" exact component={Choose} />
-          <Route exact path="/login" exact component={Login} />
-          <Route exact path="/register" exact component={Register} />
-          <Route exact path="/home" exact component={Home} />
+          {routes.map(
+            (route, index) => (<AuthRoute {...route} key={index} />)
+          )}
         </Switch>
       </BrowserRouter>
+
     </>
   );
 }

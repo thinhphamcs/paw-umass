@@ -42,7 +42,6 @@ exports.register = (req, res) => {
             }
             // Hashing user input password
             let hashedPassword = await bcrypt.hash(password, 8);
-            console.log(hashedPassword);
 
             // Insert data to our database
             db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
@@ -50,7 +49,6 @@ exports.register = (req, res) => {
                     console.log(err);
                 }
                 else {
-                    console.log(results);
                     return res.status(200); // User registered
                 }
             });
@@ -61,13 +59,14 @@ exports.register = (req, res) => {
 // Export as module
 exports.login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, checkBox } = req.body;
+        // If email or password is empty
         if (!email || !password) {
             return res.json({
+                auth: false,
                 message: 'Please provide an email and password'
             });
         }
-
         // Look through our database
         db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
             /**
@@ -77,10 +76,12 @@ exports.login = async (req, res) => {
              */
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
                 res.json({
+                    auth: false,
                     message: 'Email or Password is incorrect'
                 });
             }
             else {
+                // Getting our id from database since each user will have a unique id
                 const id = results[0].id;
                 /**
                  * Create token through jsonwebtoken by sign function with id as param
@@ -101,7 +102,12 @@ exports.login = async (req, res) => {
                     httpOnly: true,
                 }
                 res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                res.status(200); // User logged in
+                // Send it back to the front end
+                res.status(200).json({
+                    auth: true,
+                    token: token,
+                    checkBox: checkBox
+                }); // User logged in
             }
         });
     } catch (err) {
