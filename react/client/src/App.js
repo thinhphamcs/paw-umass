@@ -1,82 +1,40 @@
 // Import
-import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
-import Choose from './components/Choose';
-import Login from './components/Login'
+import routes from './routes/Routes';
+import Auth from './components/Auth';
 // import Nav from './components/Nav';
-import Home from './components/Home';
-import Register from './components/Register';
+
+// Function to determine authentication
+const AuthRoute = (route) => {
+  const history = useHistory();
+  if (route.auth && !Auth()) {
+    history.push('/');
+  }
+  return (
+    <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
+  );
+}
 
 function App() {
-  // Hook
-  const [user, setUser] = useState({
-    auth: '',
-    checkBox: '',
-    token: ''
-  });
-  // Token
-  const userAuth = localStorage.getItem('auth');
-  const userRemember = localStorage.getItem('checkBox');
-  const userToken = localStorage.getItem('token');
-  // loggedIn handle function
-  const LoggedIn = details => {
-    console.log("Printing out the details ", details);
-    // If the user auth is true and the remember me checked then we store the token
-    if (details.data.auth === true && details.data.token !== "") {
-      setUser({
-        ...user,
-        auth: details.data.auth,
-        checkBox: details.data.checkBox,
-        token: details.data.token
-      });
-
-    }
-    else {
-      setUser({
-        ...user,
-        auth: '',
-        checkBox: '',
-        token: ''
-      });
-    }
-  }
-  const LoggedOut = () => {
-    console.log("Logout");
-  }
-  console.log(user.checkBox);
-  // We store it here
-  if (user.checkBox === true) {
-    localStorage.setItem('auth', user.auth);
-    localStorage.setItem('checkBox', user.checkBox);
-    localStorage.setItem('token', user.token);
-  }
 
   return (
     /**
      * BrowserRouter will allow to navigate through different pages with react 
      * Switch will make sure we only render one component per url
-     * <BrowserRouter>
-        <Nav />
-        <Switch>
-          <Route exact path="/" exact component={Choose} />
-          <Route exact path="/login" exact component={Login} />
-          <Route exact path="/register" exact component={Register} />
-          <Route exact path="/home" exact component={Home} />
-        </Switch>
-      </BrowserRouter>
+     * Define routes in a different file then map it
      */
     // 
     <>
-
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" exact component={Choose} />
-          <Route exact path="/login" exact component={Login} />
-          <Route exact path="/register" exact component={Register} />
-          <Route exact path="/home" exact component={Home} />
+          {routes.map(
+            (route, index) => (<AuthRoute {...route} key={index} />)
+          )}
         </Switch>
       </BrowserRouter>
+
     </>
   );
 }

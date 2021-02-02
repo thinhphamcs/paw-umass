@@ -106,7 +106,6 @@ exports.login = async (req, res) => {
                 res.status(200).json({
                     auth: true,
                     token: token,
-                    cookie: cookieOptions,
                     checkBox: checkBox
                 }); // User logged in
             }

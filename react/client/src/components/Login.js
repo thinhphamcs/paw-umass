@@ -1,16 +1,17 @@
 // Import
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './Login.css';
 import Logo from '../logo3.png';
 
-const Login = ({ LoggedIn }) => {
+const Login = () => {
     // Hook for event listener function 'loginForm'
     const [loginValues, setLoginValues] = useState({
         email: '',
         password: '',
         checkBox: false,
+        auth: '',
         message: ''
     });
     // Event listener function to update the hook
@@ -38,10 +39,15 @@ const Login = ({ LoggedIn }) => {
         // Get the message to display
         setLoginValues({
             ...loginValues,
+            auth: response.data.auth,
             message: response.data.message,
         });
-        // Get the data to implement logic
-        LoggedIn(response);
+        if (response.data.checkBox === true) {
+            localStorage.setItem('auth', response.data.auth);
+            localStorage.setItem('checkBox', response.data.checkBox);
+            localStorage.setItem('token', response.data.token);
+        }
+        localStorage.setItem('token', response.data.token);
     }
     return (
         /**
@@ -79,6 +85,7 @@ const Login = ({ LoggedIn }) => {
                 </Link>
                 </div>
             </div>
+            {loginValues.auth === true ? <Redirect to="home" /> : <Redirect to="/login" />}
         </>
     );
 }
