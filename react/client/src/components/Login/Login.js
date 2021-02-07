@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 import './Login.css';
-import Logo from '../logo3.png';
+import Logo from '../../assets/images/logo3.png';
 
 const Login = () => {
     // Hook for event listener function 'loginForm'
@@ -85,7 +85,7 @@ const Login = () => {
                 </Link>
                 </div>
             </div>
-            {loginValues.auth === true ? <Redirect to="home" /> : <Redirect to="/login" />}
+            {loginValues.auth === true ? <Redirect to="/home" /> : <Redirect to="/login" />}
         </>
     );
 }

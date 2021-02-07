@@ -1,8 +1,8 @@
 // Import
-import Choose from '../components/Choose';
-import Register from '../components/Register';
-import Login from '../components/Login';
-import Home from '../components/Home';
+import Choose from '../components/Choose/Choose';
+import Register from '../components/Register/Register';
+import Login from '../components/Login/Login';
+import Home from '../components/Home/Home';
 
 // Define the routes
 const routes = [

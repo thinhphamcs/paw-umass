@@ -4,7 +4,7 @@ import './Nav.css';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 // import logo from '../logo.png';
-import { SideBarData } from './SideBarData';
+import { SideBarData } from '../SideBar/SideBarData';
 
 const Nav = () => {
     const [sidebar, setSideBar] = useState(false);
