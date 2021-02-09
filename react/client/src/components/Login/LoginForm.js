@@ -1,18 +1,15 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { register } from '../../context/actions/Register';
+import { login } from '../../context/actions/Login';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 export default () => {
     // Hook
     const [form, setForm] = useState({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
-        passwordConfirm: '',
-        phone: '',
+        checkBox: '',
     });
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -31,24 +28,30 @@ export default () => {
     const onChange = (event) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
+            checkBox: event.target.checked
         });
     };
 
     // Function to check if user have typed everything
-    const registerFormValid =
-        !form.firstName?.length ||
-        !form.lastName?.length ||
+    const loginFormValid =
         !form.email?.length ||
-        !form.password?.length ||
-        !form.passwordConfirm?.length ||
-        !form.phone?.length;
+        !form.password?.length
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        register(form)(authDispatch);
+        login(form)(authDispatch);
     }
 
+    /**
+     * if (response.data.checkBox === true) {
+            localStorage.setItem('auth', response.data.auth);
+            localStorage.setItem('checkBox', response.data.checkBox);
+            localStorage.setItem('token', response.data.token);
+        }
+        localStorage.setItem('token', response.data.token);
+     */
+
     // Return this so we can use these as props on the UI (front end)
-    return { form, onChange, loading, registerFormValid, onSubmit };
+    return { form, onChange, loading, loginFormValid, onSubmit };
 }

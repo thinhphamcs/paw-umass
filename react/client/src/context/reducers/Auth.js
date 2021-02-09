@@ -1,8 +1,18 @@
-import { REGISTER_LOADING, REGISTER_SUCCESS, REGISTER_ERROR } from "../../constants/actionTypes";
+// Import
+import {
+    REGISTER_LOADING,
+    REGISTER_SUCCESS,
+    REGISTER_ERROR,
+    LOGIN_LOADING,
+    LOGIN_SUCCESS,
+    LOGIN_ERROR
+} from "../../constants/actionTypes";
 
+// Reducer function with states and data payload
 const reducerAuth = (state, { payload, type }) => {
     switch (type) {
         case REGISTER_LOADING:
+        case LOGIN_LOADING:
             return {
                 ...state,
                 auth: {
@@ -12,6 +22,7 @@ const reducerAuth = (state, { payload, type }) => {
                 },
             };
         case REGISTER_SUCCESS:
+        case LOGIN_SUCCESS:
             return {
                 ...state,
                 auth: {
@@ -21,6 +32,7 @@ const reducerAuth = (state, { payload, type }) => {
                 },
             };
         case REGISTER_ERROR:
+        case LOGIN_ERROR:
             return {
                 ...state,
                 auth: {

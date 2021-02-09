@@ -1,5 +1,7 @@
+// Import
 import React from 'react'
 
+// This will be the font end with props I can use to display data
 function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loading } }) {
     return (
         <form>

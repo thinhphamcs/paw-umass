@@ -49,9 +49,7 @@ exports.register = (req, res) => {
                     console.log(err);
                 }
                 else {
-                    return res.status(200).json({
-                        message: "User Registered"
-                    }); // User registered
+                    return res.status(200); // User registered
                 }
             });
         }
