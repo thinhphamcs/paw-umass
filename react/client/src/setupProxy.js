@@ -9,7 +9,7 @@ module.exports = function (app) {
     app.use(
         '/auth',
         createProxyMiddleware({
-            target: 'http://localhost:5050',
+            target: 'http://[::1]:5050',
             changeOrigin: true,
         })
     );

@@ -24,8 +24,6 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-    console.log(req);
-
     // Look through our database
     db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
         if (err) {
@@ -51,7 +49,9 @@ exports.register = (req, res) => {
                     console.log(err);
                 }
                 else {
-                    return res.status(200); // User registered
+                    return res.status(200).json({
+                        message: "User Registered"
+                    }); // User registered
                 }
             });
         }
