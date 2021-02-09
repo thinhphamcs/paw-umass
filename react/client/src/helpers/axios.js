@@ -3,7 +3,6 @@ import axios from 'axios';
 
 // variables needed
 const baseURL = process.env.REACT_APP_BACKEND_URL; // For the same backend-server-database url
-console.log('baseURL ', baseURL);
 let headers = {}; // For authentication
 
 // We check if there is a token

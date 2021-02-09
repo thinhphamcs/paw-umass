@@ -18,6 +18,7 @@ export const login = ({
             checkBox
         })
         .then(res => {
+            localStorage.token = res.data.token;
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data,
