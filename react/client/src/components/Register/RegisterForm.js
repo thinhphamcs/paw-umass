@@ -23,7 +23,7 @@ export default () => {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            history.push('/home');
+            history.push('/login');
         }
     }, [data]);
 
