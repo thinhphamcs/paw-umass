@@ -37,7 +37,7 @@ const reducerAuth = (state, { payload, type }) => {
                 ...state,
                 auth: {
                     ...state.auth,
-                    loading: true,
+                    loading: false,
                     error: payload,
                 },
             };

@@ -1,6 +1,6 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { login } from '../../context/actions/Login';
+import { login } from '../../context/actions/auth/Login';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
@@ -23,6 +23,9 @@ export default () => {
             if (data.auth) {
                 history.push('/home');
             }
+        }
+        else {
+            history.push('/login');
         }
     }, [data]);
 

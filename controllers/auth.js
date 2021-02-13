@@ -31,12 +31,12 @@ exports.register = (req, res) => {
         }
         else {
             if (results.length > 0) {
-                return res.json({
+                return res.status(403).json({
                     message: 'That email is already in use'
                 });
             }
             else if (password !== passwordConfirm) {
-                return res.json({
+                return res.status(403).json({
                     message: 'Password do not match'
                 });
             }
@@ -49,7 +49,9 @@ exports.register = (req, res) => {
                     console.log(err);
                 }
                 else {
-                    return res.status(200); // User registered
+                    return res.status(200).json({
+                        message: 'User Registered'
+                    }); // User registered
                 }
             });
         }
@@ -62,7 +64,7 @@ exports.login = async (req, res) => {
         const { email, password, checkBox } = req.body;
         // If email or password is empty
         if (!email || !password) {
-            return res.json({
+            return res.status(204).json({
                 auth: false,
                 message: 'Please provide an email and password'
             });
@@ -75,7 +77,7 @@ exports.login = async (req, res) => {
              * since it takes sometimes we have to use await and async
              */
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
-                res.json({
+                res.status(401).json({
                     auth: false,
                     message: 'Email or Password is incorrect'
                 });

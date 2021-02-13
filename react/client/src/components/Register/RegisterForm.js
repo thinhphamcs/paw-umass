@@ -1,6 +1,6 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { register } from '../../context/actions/Register';
+import { register } from '../../context/actions/auth/Register';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
@@ -24,6 +24,9 @@ export default () => {
     useEffect(() => {
         if (data) {
             history.push('/login');
+        }
+        else {
+            history.push('/register');
         }
     }, [data]);
 

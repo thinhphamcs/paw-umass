@@ -1,6 +1,6 @@
 // Import
-import { LOGIN_LOADING, LOGIN_SUCCESS, LOGIN_ERROR } from '../../constants/actionTypes';
-import axiosInstance from '../../helpers/axios';
+import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_LOADING } from '../../../constants/actionTypes';
+import axiosInstance from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
 export const login = ({
@@ -11,7 +11,7 @@ export const login = ({
     dispatch({
         type: LOGIN_LOADING,
     });
-    axiosInstance
+    axiosInstance()
         .post("/auth/login", {
             email,
             password,
