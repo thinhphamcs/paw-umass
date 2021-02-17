@@ -2,7 +2,7 @@
 import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
-import Home from '../components/Home/Home';
+import Home from '../layout/Home/Home';
 
 // Define the routes
 const routes = [
@@ -34,16 +34,25 @@ const routes = [
         path: '/forgot',
         component: '',
         title: 'Forgot',
+        auth: true,
+    },
+    {
+        path: '/profile',
+        component: '',
+        title: 'Profile',
+        auth: true,
     },
     {
         path: '/submit',
         component: '',
         title: 'Submit',
+        auth: true,
     },
     {
         path: '/donate',
         component: '',
         title: 'Donate',
+        auth: true,
     }
 ];
 

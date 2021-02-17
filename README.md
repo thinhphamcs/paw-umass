@@ -46,6 +46,10 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
     ```
      http://localhost:#/forgot/
     ```
+    profile:
+    ```
+     http://localhost:#/profile/
+    ```
     submit:
     ```
      http://localhost:#/submit/

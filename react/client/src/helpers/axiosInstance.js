@@ -6,9 +6,6 @@ export default (history = null) => {
     const baseURL = process.env.REACT_APP_BACKEND_URL; // For the same backend-server-database url
     let headers = {}; // For authentication
 
-    console.log("baseURL", baseURL);
-    console.log(headers);
-
     // We check if there is a token
     if (localStorage.getItem('token')) {
         headers.Authorization = `Bearer ${localStorage.getItem('token')}`; // Format it as follow Bearer + token
@@ -32,12 +29,14 @@ export default (history = null) => {
             }
             if (error.response.status === 403) {
                 localStorage.removeItem("token");
-                if (history) {
-                    history.push("/register");
-                }
-                else {
-                    window.location = "/register";
-                }
+                return new Promise((resolve, reject) => {
+                    reject(error);
+                });
+            }
+            if (error.response.status === 404) {
+                return new Promise((resolve, reject) => {
+                    reject(error);
+                });
             }
             else {
                 return new Promise((resolve, reject) => {

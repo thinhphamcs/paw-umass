@@ -23,12 +23,22 @@ export default () => {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            history.push('/login');
+            if (data.message) {
+                history.push('/login');
+                data.message = "";
+            }
         }
         else {
             history.push('/register');
         }
     }, [data]);
+
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
+
 
     // onChange function
     const onChange = (event) => {
@@ -53,5 +63,5 @@ export default () => {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, onChange, loading, registerFormValid, onSubmit };
+    return { form, error, loading, registerFormValid, onSubmit, onChange, };
 }

@@ -65,7 +65,6 @@ exports.login = async (req, res) => {
         // If email or password is empty
         if (!email || !password) {
             return res.status(204).json({
-                auth: false,
                 message: 'Please provide an email and password'
             });
         }
@@ -78,7 +77,6 @@ exports.login = async (req, res) => {
              */
             if (!results || !(await bcrypt.compare(password, results[0].password))) {
                 res.status(401).json({
-                    auth: false,
                     message: 'Email or Password is incorrect'
                 });
             }

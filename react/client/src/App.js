@@ -5,7 +5,6 @@ import './App.css';
 import routes from './routes/Routes';
 import TokenAuth from './components/TokenAuth/TokenAuth';
 import { GlobalProvider } from './context/Provider';
-// import Nav from './components/Nav';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
@@ -13,9 +12,11 @@ const AuthRoute = (route) => {
   if (route.auth && !TokenAuth()) {
     history.push('/');
   }
-  return (
-    <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
-  );
+  else {
+    return (
+      <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
+    );
+  }
 }
 
 function App() {

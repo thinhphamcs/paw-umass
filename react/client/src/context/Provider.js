@@ -12,7 +12,6 @@ export const GlobalContext = createContext({}); // application state and it is e
 export const GlobalProvider = ({ children }) => {
     const [authState, authDispatch] = useReducer(Auth, AuthInitialState);
     const [profileState, profileDispatch] = useReducer(Profile, ProfileInitialState);
-
     return (
         <GlobalContext.Provider value={{ authState, authDispatch, profileState, profileDispatch }}>
             {children}

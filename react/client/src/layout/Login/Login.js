@@ -2,6 +2,7 @@
 import React from 'react';
 import Logo from '../../assets/images/logo3.png';
 import { Link } from 'react-router-dom';
+import './Login.css';
 
 function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading } }) {
     return (

@@ -1,10 +1,13 @@
 // Import
-import React from 'react'
+import React from 'react';
+import './Register.css';
 
 // This will be the font end with props I can use to display data
-function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loading } }) {
+function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loading, error } }) {
+
     return (
         <form>
+            {error ? <div>{error.message}</div> : null}
             <label>First: </label>
             <input required type="text" id="firstName" name="firstName" value={form.firstName} onChange={onChange}></input>
             <br />

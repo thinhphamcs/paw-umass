@@ -1,29 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import GetProfiles from '../../context/actions/profiles/GetProfiles';
-import { GlobalContext } from '../../context/Provider';
-import './Home.css';
+// Import
+import React from 'react';
+import HomeUI from '../../layout/Home/Home';
 
-
-function Home() {
-    const context = useContext(GlobalContext);
-
-    const history = useHistory();
-
-    useEffect(() => {
-        GetProfiles(history);
-    }, []);
-
+const Home = () => {
     return (
-        <div className="container">
-            <h1 className="title">All users</h1>
-            <ul className="users">
-                <li><b>Name:</b> Thinh / <b>Email:</b> thinh@gmail.com</li>
-                <li><b>Name:</b> Thinh / <b>Email:</b> thinh@gmail.com</li>
-            </ul>
-        </div>
+        <HomeUI />
     );
 }
-
 export default Home;
-
