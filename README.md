@@ -17,6 +17,7 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 "jsonwebtoken": "^8.5.1",
 "mysql": "^2.18.1",
 "nodemon": "^2.0.7",
+"react-bootstrap": "^1.5.0",
 "react-icons": "^4.1.0",
 "react-router-dom": "^5.2.0"
 ```

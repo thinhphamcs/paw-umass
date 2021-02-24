@@ -27,6 +27,12 @@ export default (history = null) => {
                     reject(error);
                 })
             }
+            if (error.response.status === 400) {
+                localStorage.removeItem("token");
+                return new Promise((resolve, reject) => {
+                    reject(error);
+                });
+            }
             if (error.response.status === 403) {
                 localStorage.removeItem("token");
                 return new Promise((resolve, reject) => {

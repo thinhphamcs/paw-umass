@@ -14,6 +14,7 @@ export default () => {
         passwordConfirm: '',
         phone: '',
     });
+    const [validated, setValidated] = useState(false);
     // use history from react-router-dom to redirect
     const history = useHistory();
 

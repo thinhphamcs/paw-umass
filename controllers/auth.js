@@ -24,38 +24,57 @@ exports.register = (req, res) => {
      */
     const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-    // Look through our database
-    db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            if (results.length > 0) {
-                return res.status(403).json({
-                    message: 'That email is already in use'
-                });
+    // This regular expression will look for @ sign in the email address provided by user
+    const emailRE = /\S+@\S+\.\S+/;
+    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+    // If user provide the correct format which is anystring@anystring.anystring then we will register
+    if (emailRE.test(email) && phoneRE.test(phone)) {
+        // Look through our database
+        db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
+            if (err) {
+                console.log(err);
             }
-            else if (password !== passwordConfirm) {
-                return res.status(403).json({
-                    message: 'Password do not match'
-                });
-            }
-            // Hashing user input password
-            let hashedPassword = await bcrypt.hash(password, 8);
+            else {
+                // We check the email from database if email exists then 
+                if (results.length > 0) {
+                    return res.status(403).json({
+                        message: 'That email is already in use'
+                    });
+                }
+                // We check the password from user input with the confirm password from user input
+                else if (password !== passwordConfirm) {
+                    return res.status(403).json({
+                        message: 'Password do not match'
+                    });
+                }
+                // Hashing user input password
+                let hashedPassword = await bcrypt.hash(password, 8);
 
-            // Insert data to our database
-            db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    return res.status(200).json({
-                        message: 'User Registered'
-                    }); // User registered
-                }
-            });
-        }
-    });
+                // Insert data to our database
+                db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        return res.status(200).json({
+                            message: 'User Registered'
+                        }); // User registered
+                    }
+                });
+            }
+        });
+    }
+    // If the email address format is incorrect
+    if (!emailRE.test(email)) {
+        return res.status(400).json({
+            message: "Invalid Email Format"
+        });
+    }
+    if (!phoneRE.test(phone)) {
+        return res.status(400).json({
+            message: "Invalid Phone Format"
+        });
+    }
 }
 
 // Export as module
