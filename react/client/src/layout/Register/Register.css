@@ -6,7 +6,7 @@
     transform: translate(-50%, -50%);
     border-radius: 30px;
     background-color: white;
-    padding: 0 0 50px;
+    padding: 0 0 55px;
 }
 /* === Logo === */
 .register-container-header {
@@ -15,6 +15,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/* === Error Display === */
+.register-error {
+    line-height: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: unset;
+}
+
 /* === Form === */
 .register-form-title {
     justify-content: center;
@@ -26,7 +34,7 @@
     background: none !important;
     width: 320px !important;
     display: inline-block;
-    padding: 20px !important;
+    padding: 0px 20px !important;
     text-align: center !important;
     border: 0 !important;
     min-width: 320px !important;
@@ -36,19 +44,11 @@
     display: table;
 }
 
-
 .register-input {
     font-size: 20px !important;
     margin-bottom: 15px !important;
-    line-height: 40px !important;
+    line-height: 30px !important;
     padding: 10px 30px !important;
-}
-
-.register-label {
-    position: fixed;
-    left: 40px;
-    font-size: 15px;
-    font-weight: unset;
 }
 /* === Button === */
 .register-form-button {
@@ -66,6 +66,7 @@
     position: fixed;
     width: 100%;
     text-align: center;
+    padding: 10px;
 }
 
 .register-list-items {
@@ -92,8 +93,8 @@
     }
     .register-container {
         position: fixed;
-        -webkit-transform: translate(-50%, -45%);
-        transform: translate(-50%, -45%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
     .register-container-header {
         position: fixed;

@@ -1,6 +1,5 @@
 // Import
 import React from 'react';
-import Logo from '../../assets/images/logo3.png';
 import { Link } from 'react-router-dom';
 import './Register.css';
 
@@ -9,12 +8,9 @@ function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loadi
 
     return (
         <div className="register-container">
-            <div className="register-container-header">
-                <img src={Logo} alt="Logo" />
-            </div>
             <h1 className="register-form-title">Create your account </h1>
             <form className="register-form-container">
-                {error ? <div>{error.message}</div> : null}
+                {error ? <div className="register-error">{error.message}</div> : null}
                 <div className="register-form-group">
                     <input required className="register-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={form.firstName} onChange={onChange}></input>
                 </div>
