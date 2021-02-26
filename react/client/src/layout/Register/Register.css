@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -6,52 +6,52 @@
     transform: translate(-50%, -50%);
     border-radius: 30px;
     background-color: white;
-    padding: 0 0 50px;
+    padding: 0 0 55px;
 }
 /* === Logo === */
-.login-container-header {
+.register-container-header {
     position: fixed;
     top: -10%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+/* === Error Display === */
+.register-error {
+    line-height: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: unset;
+}
+
 /* === Form === */
-.login-form-title {
+.register-form-title {
     justify-content: center;
     display: flex;
     padding: 15px 5px;
 }
 
-.login-form-container {
+.register-form-container {
     background: none !important;
     width: 320px !important;
     display: inline-block;
-    padding: 20px !important;
+    padding: 0px 20px !important;
     text-align: center !important;
     border: 0 !important;
     min-width: 320px !important;
 }
 
-.login-form-group, .login-form-check {
+.register-form-group, .register-form-check {
     display: table;
 }
 
-
-.login-input {
+.register-input {
     font-size: 20px !important;
     margin-bottom: 15px !important;
-    line-height: 40px !important;
+    line-height: 30px !important;
     padding: 10px 30px !important;
 }
-
-.login-label {
-    position: fixed;
-    left: 40px;
-    font-size: 15px;
-    font-weight: unset;
-}
 /* === Button === */
-.login-form-button {
+.register-form-button {
     background-color: #6A150D !important;
     color: white !important;
     font-size: 20px !important;
@@ -62,13 +62,18 @@
     width: 100%;
 }
 
-.login-container-footer {
+.register-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+.register-container-footer {
     position: fixed;
     width: 100%;
     text-align: center;
+    padding: 10px;
 }
 
-.login-list-items {
+.register-list-items {
     color: #6A150D;
     text-decoration: none;
     padding: 10px;
@@ -90,17 +95,17 @@
         top: 50%;
         left: 50%;
     }
-    .login-container {
+    .register-container {
         position: fixed;
-        -webkit-transform: translate(-50%, -45%);
-        transform: translate(-50%, -45%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
-    .login-container-header {
+    .register-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -55%);
         transform: translate(-50%, -55%);
     }
-    .login-container-footer {
+    .register-container-footer {
         position: fixed;
         -webkit-transform: translate(0%, -5%);
         transform: translate(0%, -5%);

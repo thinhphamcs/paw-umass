@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './Choose.css';
-import Logo from '../logo3.png';
+import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from 'react-icons/fa';
 
 // Function

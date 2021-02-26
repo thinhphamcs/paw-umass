@@ -3,18 +3,20 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 import routes from './routes/Routes';
-import Auth from './components/Auth';
-// import Nav from './components/Nav';
+import TokenAuth from './components/TokenAuth/TokenAuth';
+import { GlobalProvider } from './context/Provider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
   const history = useHistory();
-  if (route.auth && !Auth()) {
+  if (route.auth && !TokenAuth()) {
     history.push('/');
   }
-  return (
-    <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
-  );
+  else {
+    return (
+      <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
+    );
+  }
 }
 
 function App() {
@@ -26,7 +28,7 @@ function App() {
      * Define routes in a different file then map it
      */
     // 
-    <>
+    <GlobalProvider>
       <BrowserRouter>
         <Switch>
           {routes.map(
@@ -35,7 +37,7 @@ function App() {
         </Switch>
       </BrowserRouter>
 
-    </>
+    </GlobalProvider>
   );
 }
 
