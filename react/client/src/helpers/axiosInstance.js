@@ -27,27 +27,21 @@ export default (history = null) => {
                     reject(error);
                 })
             }
-            if (error.response.status === 400) {
-                localStorage.removeItem("token");
-                return new Promise((resolve, reject) => {
-                    reject(error);
-                });
-            }
-            if (error.response.status === 403) {
-                localStorage.removeItem("token");
-                return new Promise((resolve, reject) => {
-                    reject(error);
-                });
-            }
-            if (error.response.status === 404) {
-                return new Promise((resolve, reject) => {
-                    reject(error);
-                });
-            }
-            else {
-                return new Promise((resolve, reject) => {
-                    reject(error);
-                })
+            switch (error.response.status) {
+                case 204:
+                case 400:
+                case 401:
+                case 403:
+                case 404:
+                    localStorage.removeItem("token");
+                    return new Promise((resolve, reject) => {
+                        reject(error);
+                    });
+                default:
+                    localStorage.removeItem("token");
+                    return new Promise((resolve, reject) => {
+                        reject(error);
+                    });
             }
         }
     );

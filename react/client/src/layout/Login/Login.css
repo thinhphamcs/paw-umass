@@ -6,7 +6,7 @@
     transform: translate(-50%, -50%);
     border-radius: 30px;
     background-color: white;
-    padding: 0 0 50px;
+    padding: 0 0 51px;
 }
 /* === Logo === */
 .login-container-header {
@@ -32,10 +32,17 @@
     min-width: 320px !important;
 }
 
-.login-form-group, .login-form-check {
+.login-form-group {
     display: table;
 }
 
+.login-form-check {
+    display: flex;
+    float: left;
+}
+.checkBox {
+    height: 40px;
+}
 
 .login-input {
     font-size: 20px !important;
@@ -44,11 +51,25 @@
     padding: 10px 30px !important;
 }
 
+.login-error {
+    padding: 0px 0 15px;
+}
+
+.login-forgot {
+    position: relative;
+    display: flex;
+    float: right;
+    padding: 0 0px 0 9px;
+}
+
+.options {
+    position: relative;
+    display: flex;
+    padding-bottom: 10px;
+}
+
 .login-label {
-    position: fixed;
-    left: 40px;
-    font-size: 15px;
-    font-weight: unset;
+    padding: 10px 5px 0 5px;
 }
 /* === Button === */
 .login-form-button {

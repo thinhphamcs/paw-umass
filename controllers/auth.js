@@ -94,39 +94,46 @@ exports.login = async (req, res) => {
              * bcrypt compare user input password and the hashed password in our database
              * since it takes sometimes we have to use await and async
              */
-            if (!results || !(await bcrypt.compare(password, results[0].password))) {
-                res.status(401).json({
-                    message: 'Email or Password is incorrect'
+            if (results.length === 0) {
+                return res.status(401).json({
+                    message: 'Please provide valid email or password'
                 });
             }
             else {
-                // Getting our id from database since each user will have a unique id
-                const id = results[0].id;
-                /**
-                 * Create token through jsonwebtoken by sign function with id as param
-                 * We need a secret password and when it should be expire
-                 */
-                const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-                    expiresIn: process.env.JWT_EXPIRES_IN
-                });
-                /**
-                 * Create cookie to enable it through html
-                 * the way it expires we need to convert it to miliseconds
-                 * so Today + How many days it expires (3 days) * 24 hours a day * 60 minutes per hour * 60 seconds per minute and 1000 miliseconds per second
-                 */
-                const cookieOptions = {
-                    expires: new Date(
-                        Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-                    ),
-                    httpOnly: true,
+                if (!results || !(await bcrypt.compare(password, results[0].password))) {
+                    res.status(401).json({
+                        message: 'Email or Password is incorrect'
+                    });
                 }
-                res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                // Send it back to the front end
-                res.status(200).json({
-                    auth: true,
-                    token: token,
-                    checkBox: checkBox
-                }); // User logged in
+                else {
+                    // Getting our id from database since each user will have a unique id
+                    const id = results[0].id;
+                    /**
+                     * Create token through jsonwebtoken by sign function with id as param
+                     * We need a secret password and when it should be expire
+                     */
+                    const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+                        expiresIn: process.env.JWT_EXPIRES_IN
+                    });
+                    /**
+                     * Create cookie to enable it through html
+                     * the way it expires we need to convert it to miliseconds
+                     * so Today + How many days it expires (3 days) * 24 hours a day * 60 minutes per hour * 60 seconds per minute and 1000 miliseconds per second
+                     */
+                    const cookieOptions = {
+                        expires: new Date(
+                            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                        ),
+                        httpOnly: true,
+                    }
+                    res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
+                    // Send it back to the front end
+                    res.status(200).json({
+                        auth: true,
+                        token: token,
+                        checkBox: checkBox
+                    }); // User logged in
+                }
             }
         });
     } catch (err) {
