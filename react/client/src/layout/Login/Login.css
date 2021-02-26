@@ -83,6 +83,10 @@
     width: 100%;
 }
 
+.login-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
 .login-container-footer {
     position: fixed;
     width: 100%;

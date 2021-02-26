@@ -62,6 +62,10 @@
     width: 100%;
 }
 
+.register-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
 .register-container-footer {
     position: fixed;
     width: 100%;
