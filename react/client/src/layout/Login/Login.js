@@ -15,8 +15,16 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
                 <div className="login-form-group">
                     <input required className="login-input" type="email" id="email" name="email" placeholder="Email" value={form.email} onChange={onChange} ></input>
                 </div>
-                {error.message ? null : null}
-                {error ? <div className="login-error">{error.message}</div> : null}
+                {error ?
+                    [error.message === "Please provide valid email or password" ?
+                        <div className="login-error">
+                            {error.message}, don't have an account?
+                            <Link to="/register" className='login-list-items' >
+                                Sign up
+                            </Link>
+                        </div> :
+                        null] :
+                    null}
                 <div className="login-form-group">
                     <input required className="login-input" type="password" id="password" name="password" placeholder="Password" value={form.password} onChange={onChange}></input>
                 </div>

@@ -33,11 +33,11 @@ export default () => {
         }
     }, [data]);
 
-    useEffect(() => {
-        if (error) {
-            console.log(error);
-        }
-    }, [error]);
+    // useEffect(() => {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    // }, [error]);
 
 
     // onChange function
