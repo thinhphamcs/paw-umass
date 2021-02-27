@@ -62,7 +62,7 @@ button {
 }
 
 .login-button:hover {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     color: #6A150D;
 }
 
@@ -82,8 +82,8 @@ button {
 }
 
 .register-button:hover {
-    background-color: #6A150D;
-    color: white;
+    background-color: #EAECEE;
+    color: #6A150D;
     border: 1px solid white;
 }
 /* === Lists === */
