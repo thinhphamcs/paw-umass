@@ -1,0 +1,160 @@
+.profile-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    padding: 0 0 40px 0;
+    background-color: white;
+    border: 3px solid #6A150D;
+}
+/* === Logo === */
+.profile-container-header {
+    position: fixed;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.right-arrow {
+    top: -5%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+.left-arrow {
+    top: -5%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+/* === Form === */
+.profile-form-title {
+    justify-content: center;
+    display: flex;
+    padding: 15px 5px;
+    color: #6A150D;
+}
+
+.profile-form-container {
+    background: none !important;
+    width: 100%;
+    display: inline-block;
+    padding: 20px !important;
+    text-align: center !important;
+    min-width: 320px !important;
+}
+
+.profile-form-group {
+    display: grid;
+}
+
+.profile-data-display {
+    padding: 10px;
+    color: #6A150D;
+}
+
+.profile-input {
+    font-size: 20px !important;
+    line-height: 20px !important;
+    padding: 10px 30px !important;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
+}
+
+.login-error {
+    padding: 0 0 16px 0;
+}
+
+/* === Button === */
+.profile-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.profile-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+.profile-container-footer {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-delete {
+    background: none;
+    border: none;
+    color: #6A150D;
+    text-decoration: none;
+    display: inline-flex;
+    font-size: inherit;
+    cursor: pointer;
+    float: left;
+    padding: 10px 0 10px 20px;
+}
+
+.profile-delete::after {
+    content: "";
+    background-color: #6A150D;
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    left: 53%;
+    display: inline-block;
+}
+
+.profile-change {
+    color: #6A150D;
+    text-decoration: none;
+    padding: 10px 15px 10px 0px;
+    display: inline-flex;
+    float: right;
+}
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .profile-container {
+        position: fixed;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .profile-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -55%);
+        transform: translate(-50%, -55%);
+    }
+    .profile-container-footer {
+        position: fixed;
+        -webkit-transform: translate(0%, -5%);
+        transform: translate(0%, -5%);
+    }
+}
