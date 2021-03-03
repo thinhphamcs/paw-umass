@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as AiIcons from "react-icons/ai";
+import GetProfiles from '../../context/actions/profiles/GetProfiles';
 import './Profile.css';
 
 function ProfileUI({ form: onChange, form, loginFormValid, onSubmit, loading, error }) {
     useEffect(() => {
         document.body.style.backgroundColor = "white";
+        GetProfiles();
     }, []);
     return (
         <div className="profile-container">

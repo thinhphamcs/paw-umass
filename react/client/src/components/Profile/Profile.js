@@ -4,8 +4,6 @@ import ProfileUI from '../../layout/Profile/Profile';
 import ProfileForm from './ProfileForm';
 
 const Profile = () => {
-    useEffect(() => {
-    }, []);
     return (
         <ProfileUI form={ProfileForm()} />
     );

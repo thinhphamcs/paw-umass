@@ -11,6 +11,7 @@ const AuthRoute = (route) => {
   const history = useHistory();
   if (route.auth && !TokenAuth()) {
     history.push('/');
+    window.location = "/"; // temporary solution for now
   }
   else {
     return (
