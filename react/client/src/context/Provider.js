@@ -1,5 +1,5 @@
 // Import
-import React, { createContext, useReducer, children } from 'react';
+import React, { createContext, useReducer } from 'react';
 import AuthInitialState from './initialstates/AuthInitialState';
 import ProfileInitialState from './initialstates/ProfileInitialState';
 import Auth from './reducers/Auth';

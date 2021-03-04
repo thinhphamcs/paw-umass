@@ -1,7 +1,7 @@
 // Import
 import React, { useEffect } from 'react';
 import LoginUI from '../../layout/Login/Login';
-import LoginForm from './LoginForm';
+import { LoginForm } from './LoginForm';
 
 const Login = () => {
     useEffect(() => {

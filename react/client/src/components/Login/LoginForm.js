@@ -4,7 +4,7 @@ import { login } from '../../context/actions/auth/Login';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export function LoginForm() {
     // Hook
     const [form, setForm] = useState({
         email: '',
@@ -27,7 +27,7 @@ export default () => {
         else {
             history.push('/login');
         }
-    }, [data]);
+    }, [data, history]);
 
     // useEffect(() => {
     //     if (error) {

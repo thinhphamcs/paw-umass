@@ -1,6 +1,6 @@
 // Import
 import { REGISTER_SUCCESS, REGISTER_ERROR, REGISTER_LOADING } from '../../../constants/actionTypes';
-import axiosInstance from '../../../helpers/axiosInstance';
+import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Register function that will send data to backend with dispatch and axios
 export const register = ({

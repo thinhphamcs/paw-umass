@@ -1,7 +1,7 @@
 // Import
 import axios from 'axios';
 
-export default (history = null) => {
+export function axiosInstance(history = null) {
     // variables needed
     const baseURL = process.env.REACT_APP_BACKEND_URL; // For the same backend-server-database url
     let headers = {}; // For authentication

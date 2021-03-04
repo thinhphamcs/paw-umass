@@ -39,7 +39,7 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
                         </Link>
                     </div>
                 </div>
-                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} loading={loading} type="submit" >Login</button>
+                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} loading={loading.toString()} type="submit" >Login</button>
             </form>
             <div className="login-container-footer">
                 Already have an account?

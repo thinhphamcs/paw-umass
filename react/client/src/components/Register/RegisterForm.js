@@ -4,7 +4,7 @@ import { register } from '../../context/actions/auth/Register';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export function RegisterForm() {
     // Hook
     const [form, setForm] = useState({
         firstName: '',
@@ -31,7 +31,7 @@ export default () => {
         else {
             history.push('/register');
         }
-    }, [data]);
+    }, [data, history]);
 
     // useEffect(() => {
     //     if (error) {

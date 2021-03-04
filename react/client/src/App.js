@@ -3,13 +3,12 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
 import routes from './routes/Routes';
-import TokenAuth from './components/TokenAuth/TokenAuth';
 import { GlobalProvider } from './context/Provider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
   const history = useHistory();
-  if (route.auth && !TokenAuth()) {
+  if (route.auth && !(!!localStorage.token)) {
     history.push('/');
     window.location = "/"; // temporary solution for now
   }

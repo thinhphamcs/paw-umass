@@ -1,6 +1,6 @@
-import axiosInstance from "../../../helpers/axiosInstance"
+import { axiosInstance } from "../../../helpers/axiosInstance"
 
-export default (history) => {
+export function GetProfiles(history) {
     axiosInstance(history)
         .get('http://localhost:5050/profile')
         .then((res) => console.log('yo im at profile', res))

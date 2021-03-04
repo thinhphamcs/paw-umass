@@ -29,7 +29,7 @@ function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loadi
                 <div className="register-form-group">
                     <input required className="register-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
                 </div>
-                <button className="register-form-button" onClick={onSubmit} disabled={registerFormValid || loading} loading={loading} type="submit">Register</button>
+                <button className="register-form-button" onClick={onSubmit} disabled={registerFormValid || loading} loading={loading.toString()} type="submit">Register</button>
             </form>
             <div className="register-container-footer">
                 Already have an account?
