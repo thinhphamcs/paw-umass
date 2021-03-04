@@ -7,8 +7,9 @@ export default (history = null) => {
     let headers = {}; // For authentication
 
     // We check if there is a token
+    // `Bearer ${localStorage.getItem('token')}`
     if (localStorage.getItem('token')) {
-        headers.Authorization = `Bearer ${localStorage.getItem('token')}`; // Format it as follow Bearer + token
+        headers.Authorization = localStorage.getItem('token'); // Format it as follow Bearer + token
     }
 
     // This will create the axiosInstance

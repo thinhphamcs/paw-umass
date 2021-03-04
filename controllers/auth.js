@@ -140,7 +140,3 @@ exports.login = async (req, res) => {
         console.log(err);
     }
 }
-
-exports.profile = (req, res) => {
-    res.json({ msg: 'This is CORS-enabled for only example.com.' })
-}
