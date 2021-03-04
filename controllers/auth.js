@@ -10,7 +10,6 @@ const db = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
 });
-
 // Export as module
 exports.register = (req, res) => {
     /**
