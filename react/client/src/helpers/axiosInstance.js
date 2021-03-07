@@ -35,9 +35,8 @@ export function axiosInstance(history = null) {
                 case 403:
                 case 404:
                     localStorage.removeItem("token");
-                    return new Promise((resolve, reject) => {
-                        reject(error);
-                    });
+                    window.location = "/";
+                    break;
                 default:
                     localStorage.removeItem("token");
                     return new Promise((resolve, reject) => {

@@ -6,6 +6,7 @@ const router = express.Router();
 // Define routes
 router.post('/register', authController.register);
 router.post('/login', authController.login);
+router.post('/profile', authController.profile);
 
 // Export it as module
 module.exports = router;

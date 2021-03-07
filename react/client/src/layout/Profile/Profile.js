@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as AiIcons from "react-icons/ai";
-import { GetProfiles } from '../../context/actions/profiles/GetProfiles';
 import './Profile.css';
 
-function ProfileUI({ form: onChange, form, loginFormValid, onSubmit, loading, error }) {
-    useEffect(() => {
-        document.body.style.backgroundColor = "white";
-        GetProfiles();
-    }, []);
+function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading, error } }) {
     return (
         <div className="profile-container">
             <AiIcons.AiOutlineArrowRight className="right-arrow" />
@@ -25,32 +20,27 @@ function ProfileUI({ form: onChange, form, loginFormValid, onSubmit, loading, er
                     <div className="profile-data-display">
                         First
                     </div>
-                    {/* id="firstName" name="firstName" placeholder="First Name" value={form.firstName} onChange={onChange} */}
-                    <input className="profile-input" type="text" ></input>
+                    <input className="profile-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={form.firstName} onChange={onChange} ></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         Last
                     </div>
-                    {/* id="lastName" name="lastName" placeholder="Last Name" value={form.lastName} onChange={onChange} */}
-                    <input className="profile-input" type="text" ></input>
+                    <input className="profile-input" type="text" id="lastName" name="lastName" placeholder="Last Name" value={form.lastName} onChange={onChange}></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         Email
                     </div>
-                    {/* id="email" name="email" placeholder="Email" value={form.email} onChange={onChange} */}
-                    <input className="profile-input" type="email" ></input>
+                    <input className="profile-input" type="email" id="email" name="email" placeholder="Email" value={form.email} onChange={onChange}></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         Phone
                     </div>
-                    {/* id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange} */}
-                    <input className="profile-input" type="text" ></input>
+                    <input className="profile-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
                 </div>
-                {/* onClick={onSubmit} disabled={profileFormValid || loading} loading={loading.toString()} */}
-                <button className="profile-form-button" type="submit">Update</button>
+                <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={profileFormValid || loading} loading={loading.toString()}>Update</button>
             </form>
             <div className="profile-container-footer">
                 <button className="profile-delete">

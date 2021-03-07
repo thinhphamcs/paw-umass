@@ -139,3 +139,27 @@ exports.login = async (req, res) => {
         console.log(err);
     }
 }
+
+// Export as module
+exports.profile = async (req, res) => {
+    const { firstName, lastName, email, password, phone } = req.body;
+
+    // This regular expression will look for @ sign in the email address provided by user
+    const emailRE = /\S+@\S+\.\S+/;
+    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+    // If user provide the correct format which is anystring@anystring.anystring then we will register
+    if (emailRE.test(email) && phoneRE.test(phone)) {
+        console.log("YES!");
+    }
+    // If the email address format is incorrect
+    if (!emailRE.test(email)) {
+        return res.status(400).json({
+            message: "Invalid Email Format"
+        });
+    }
+    if (!phoneRE.test(phone)) {
+        return res.status(400).json({
+            message: "Invalid Phone Format"
+        });
+    }
+}

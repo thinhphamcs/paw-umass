@@ -3,7 +3,7 @@ import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import Home from '../layout/Home/Home';
-import Profile from '../layout/Profile/Profile';
+import Profile from '../components/Profile/Profile';
 
 // Define the routes
 const routes = [

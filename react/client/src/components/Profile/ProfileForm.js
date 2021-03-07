@@ -1,18 +1,21 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { login } from '../../context/actions/auth/Login';
+import { profile } from '../../context/actions/auth/Profile.js';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export function ProfileForm() {
     // Hook
     const [form, setForm] = useState({
+        firstName: '',
+        lastName: '',
         email: '',
-        password: '',
-        checkBox: '',
+        phone: '',
     });
     // use history from react-router-dom to redirect
     const history = useHistory();
+    // Use this for disabling the button
+    let profileFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -25,9 +28,9 @@ export default () => {
             }
         }
         else {
-            history.push('/login');
+            history.push('/profile');
         }
-    }, [data]);
+    }, [data, history]);
 
     // useEffect(() => {
     //     if (error) {
@@ -39,19 +42,24 @@ export default () => {
     const onChange = (event) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value,
-            checkBox: event.target.checked
+            [event.target.name]: event.target.value
         });
     };
 
-    // Function to check if user have typed everything
-    const loginFormValid =
-        !form.email?.length ||
-        !form.password?.length
+    // Function to check if user have typed something
+    if (form.firstName.length ||
+        form.lastName.length ||
+        form.email.length ||
+        form.phone.length) {
+        profileFormValid = false;
+    }
+    else {
+        profileFormValid = true;
+    }
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        login(form)(authDispatch);
+        profile(form)(authDispatch);
     }
 
     /**
@@ -64,5 +72,5 @@ export default () => {
      */
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, loading, loginFormValid, error, onChange, onSubmit };
+    return { form, error, loading, profileFormValid, onSubmit, onChange, };
 }
