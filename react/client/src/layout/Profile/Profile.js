@@ -14,29 +14,34 @@ function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading
                 </Link>
             </div>
             <AiIcons.AiOutlineArrowLeft className="left-arrow" />
-            <h1 className="profile-form-title">Welcome First</h1>
+            {/* {data ? data.data.firstName[0] : null} */}
+            <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
                 <div className="profile-form-group">
                     <div className="profile-data-display">
-                        First
+                        {sessionStorage ? sessionStorage.firstName : null}
+                        {localStorage.firstName ? localStorage.firstName : null}
                     </div>
                     <input className="profile-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={form.firstName} onChange={onChange} ></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
-                        Last
+                        {sessionStorage ? sessionStorage.lastName : null}
+                        {localStorage.lastName ? localStorage.lastName : null}
                     </div>
                     <input className="profile-input" type="text" id="lastName" name="lastName" placeholder="Last Name" value={form.lastName} onChange={onChange}></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
-                        Email
+                        {sessionStorage ? sessionStorage.email : null}
+                        {localStorage.email ? localStorage.email : null}
                     </div>
                     <input className="profile-input" type="email" id="email" name="email" placeholder="Email" value={form.email} onChange={onChange}></input>
                 </div>
                 <div className="profile-form-group">
                     <div className="profile-data-display">
-                        Phone
+                        {sessionStorage ? sessionStorage.phone : null}
+                        {localStorage.phone ? localStorage.phone : null}
                     </div>
                     <input className="profile-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
                 </div>

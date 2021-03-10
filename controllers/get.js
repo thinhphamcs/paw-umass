@@ -34,12 +34,6 @@ exports.profile = (req, res) => {
                 res.status(200).json({
                     auth: true,
                     message: "Authorized User",
-                    data: {
-                        "firstName": results.map(item => item.firstName),
-                        "lastName": results.map(item => item.lastName),
-                        "email": results.map(item => item.email),
-                        "phone": results.map(item => item.phone)
-                    }
                 });
             }
         });

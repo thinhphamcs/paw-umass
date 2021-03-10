@@ -39,6 +39,7 @@ export function axiosInstance(history = null) {
                     break;
                 default:
                     localStorage.removeItem("token");
+                    window.location = "/";
                     return new Promise((resolve, reject) => {
                         reject(error);
                     });

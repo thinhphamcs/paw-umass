@@ -48,9 +48,16 @@ exports.register = (req, res) => {
                 }
                 // Hashing user input password
                 let hashedPassword = await bcrypt.hash(password, 8);
-
+                // This way is better to prevent SQL injection
+                let data = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: hashedPassword,
+                    phone: phone
+                };
                 // Insert data to our database
-                db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
+                db.query('INSERT INTO users SET ?', data, (err, results) => {
                     if (err) {
                         console.log(err);
                     }
@@ -130,7 +137,13 @@ exports.login = async (req, res) => {
                     res.status(200).json({
                         auth: true,
                         token: token,
-                        checkBox: checkBox
+                        checkBox: checkBox,
+                        data: {
+                            "firstName": results.map(item => item.firstName),
+                            "lastName": results.map(item => item.lastName),
+                            "email": results.map(item => item.email),
+                            "phone": results.map(item => item.phone)
+                        }
                     }); // User logged in
                 }
             }
@@ -142,24 +155,31 @@ exports.login = async (req, res) => {
 
 // Export as module
 exports.profile = async (req, res) => {
-    const { firstName, lastName, email, password, phone } = req.body;
+    // jwt.decode(req.headers.authorization);
+    // const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+    // // console.log(id);
+    // // console.log(db.query('SELECT * FROM users WHERE email = ?', ['testing@email.com']));
+    // db.query('SELECT * FROM users WHERE id = ?', [id], async (err, results) => {
 
-    // This regular expression will look for @ sign in the email address provided by user
-    const emailRE = /\S+@\S+\.\S+/;
-    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
-    // If user provide the correct format which is anystring@anystring.anystring then we will register
-    if (emailRE.test(email) && phoneRE.test(phone)) {
-        console.log("YES!");
-    }
-    // If the email address format is incorrect
-    if (!emailRE.test(email)) {
-        return res.status(400).json({
-            message: "Invalid Email Format"
-        });
-    }
-    if (!phoneRE.test(phone)) {
-        return res.status(400).json({
-            message: "Invalid Phone Format"
-        });
-    }
+    // });
+    // const { firstName, lastName, email, password, phone } = req.body;
+
+    // // This regular expression will look for @ sign in the email address provided by user
+    // const emailRE = /\S+@\S+\.\S+/;
+    // const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+    // // If user provide the correct format which is anystring@anystring.anystring then we will register
+    // if (emailRE.test(email) && phoneRE.test(phone)) {
+    //     console.log("YES!");
+    // }
+    // // If the email address format is incorrect
+    // if (!emailRE.test(email)) {
+    //     return res.status(400).json({
+    //         message: "Invalid Email Format"
+    //     });
+    // }
+    // if (!phoneRE.test(phone)) {
+    //     return res.status(400).json({
+    //         message: "Invalid Phone Format"
+    //     });
+    // }
 }

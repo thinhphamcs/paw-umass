@@ -12,13 +12,13 @@
 /* === Logo === */
 .profile-container-header {
     position: fixed;
-    top: -5%;
+    top: -6%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .right-arrow {
-    top: -5%;
+    top: -6%;
     left: 10%;
     height: 20px;
     width: 20px;
@@ -27,7 +27,7 @@
 }
 
 .left-arrow {
-    top: -5%;
+    top: -6%;
     right: 10%;
     height: 20px;
     width: 20px;
@@ -149,8 +149,8 @@
     }
     .profile-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -55%);
-        transform: translate(-50%, -55%);
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
     }
     .profile-container-footer {
         position: fixed;
