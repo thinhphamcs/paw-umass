@@ -18,23 +18,29 @@ export const login = ({
             checkBox
         })
         .then(res => {
-            localStorage.token = res.data.token;
             if (res.data.checkBox === true) {
+                console.log(res);
+                localStorage.token = res.data.token;
                 localStorage.firstName = res.data.data.firstName[0];
                 localStorage.lastName = res.data.data.lastName[0];
                 localStorage.email = res.data.data.email[0];
                 localStorage.phone = res.data.data.phone[0];
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data,
+                });
             }
             else {
+                sessionStorage.token = res.data.token;
                 sessionStorage.firstName = res.data.data.firstName[0];
                 sessionStorage.lastName = res.data.data.lastName[0];
                 sessionStorage.email = res.data.data.email[0];
                 sessionStorage.phone = res.data.data.phone[0];
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data,
+                });
             }
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data,
-            });
         })
         .catch(err => {
             dispatch({

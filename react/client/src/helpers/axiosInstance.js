@@ -11,6 +11,9 @@ export function axiosInstance(history = null) {
     if (localStorage.getItem('token')) {
         headers.Authorization = localStorage.getItem('token'); // Format it as follow Bearer + token
     }
+    if (sessionStorage.getItem('token')) {
+        headers.Authorization = sessionStorage.getItem('token'); // Format it as follow Bearer + token
+    }
 
     // This will create the axiosInstance
     const axiosInstance = axios.create({

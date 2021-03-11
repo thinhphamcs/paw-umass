@@ -28,7 +28,6 @@ export function LoginForm() {
             history.push('/login');
         }
     }, [data, history]);
-
     // useEffect(() => {
     //     if (error) {
     //         console.log(error);

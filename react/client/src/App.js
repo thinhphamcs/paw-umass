@@ -8,11 +8,13 @@ import { GlobalProvider } from './context/Provider';
 // Function to determine authentication
 const AuthRoute = (route) => {
   const history = useHistory();
-  if (route.auth && !(!!localStorage.token)) {
+  if ((route.auth === false && localStorage.token === false) || (route.auth === false && sessionStorage.token === false)) {
     history.push('/');
     window.location = "/"; // temporary solution for now
+    console.log("yo");
   }
   else {
+    console.log("no yo");
     return (
       <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
     );

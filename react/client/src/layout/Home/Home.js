@@ -1,10 +1,9 @@
-import React from 'react';
-// import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 // import GetProfiles from '../../context/actions/profiles/GetProfiles';
 // import { GlobalContext } from '../../context/Provider';
 import './Home.css';
-import Nav from '../../../src/components/Nav/Nav';
+// import Nav from '../../../src/components/Nav/Nav';
 
 
 function HomeUI() {
@@ -12,13 +11,13 @@ function HomeUI() {
 
     // const history = useHistory();
 
-    // useEffect(() => {
-    //     GetProfiles(history);
-    // }, []);
+    useEffect(() => {
+    }, []);
 
     return (
         <>
-            <Nav />
+            {/* <Nav /> */}
+            <div>HELLO</div>
         </>
     );
 }
