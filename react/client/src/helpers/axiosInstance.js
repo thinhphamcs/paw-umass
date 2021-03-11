@@ -1,6 +1,5 @@
 // Import
 import axios from 'axios';
-
 export function axiosInstance(history = null) {
     // variables needed
     const baseURL = process.env.REACT_APP_BACKEND_URL; // For the same backend-server-database url
@@ -38,11 +37,21 @@ export function axiosInstance(history = null) {
                 case 403:
                 case 404:
                     localStorage.removeItem("token");
-                    window.location = "/";
+                    if (history) {
+                        history.push("/");
+                    }
+                    else {
+                        window.location = "/";
+                    }
                     break;
                 default:
                     localStorage.removeItem("token");
-                    window.location = "/";
+                    if (history) {
+                        history.push("/");
+                    }
+                    else {
+                        window.location = "/";
+                    }
                     return new Promise((resolve, reject) => {
                         reject(error);
                     });

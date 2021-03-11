@@ -1,20 +1,19 @@
 // Import
 import React from 'react';
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'; //useHistory
 import './App.css';
 import routes from './routes/Routes';
 import { GlobalProvider } from './context/Provider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
-  const history = useHistory();
-  if ((route.auth === false && localStorage.token === false) || (route.auth === false && sessionStorage.token === false)) {
-    history.push('/');
+  // const history = useHistory();
+  // (route.auth === false && localStorage.token === false) || (route.auth === false && sessionStorage.token === false)
+  if (route.auth && !(!!localStorage.token)) {
+    // history.push("/"); this causes error 
     window.location = "/"; // temporary solution for now
-    console.log("yo");
   }
   else {
-    console.log("no yo");
     return (
       <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
     );
