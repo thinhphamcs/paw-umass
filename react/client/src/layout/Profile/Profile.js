@@ -14,7 +14,6 @@ function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading
                 </Link>
             </div>
             <AiIcons.AiOutlineArrowLeft className="left-arrow" />
-            {/* {data ? data.data.firstName[0] : null} */}
             <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
                 <div className="profile-form-group">

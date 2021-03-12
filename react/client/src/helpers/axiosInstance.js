@@ -30,11 +30,13 @@ export function axiosInstance(history = null) {
                     reject(error);
                 })
             }
+            /**
+             * case 204:
+             * case 400:
+             * case 401:
+             * case 403:
+             */
             switch (error.response.status) {
-                case 204:
-                case 400:
-                case 401:
-                case 403:
                 case 404:
                     localStorage.removeItem("token");
                     if (history) {
@@ -45,13 +47,13 @@ export function axiosInstance(history = null) {
                     }
                     break;
                 default:
-                    localStorage.removeItem("token");
-                    if (history) {
-                        history.push("/");
-                    }
-                    else {
-                        window.location = "/";
-                    }
+                    // localStorage.removeItem("token");
+                    // if (history) {
+                    //     history.push("/");
+                    // }
+                    // else {
+                    //     window.location = "/";
+                    // }
                     return new Promise((resolve, reject) => {
                         reject(error);
                     });

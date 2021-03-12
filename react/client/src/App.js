@@ -8,8 +8,7 @@ import { GlobalProvider } from './context/Provider';
 // Function to determine authentication
 const AuthRoute = (route) => {
   // const history = useHistory();
-  // (route.auth === false && localStorage.token === false) || (route.auth === false && sessionStorage.token === false)
-  if (route.auth && !(!!localStorage.token)) {
+  if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {
     // history.push("/"); this causes error 
     window.location = "/"; // temporary solution for now
   }
