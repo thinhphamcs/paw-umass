@@ -4,6 +4,7 @@ import { register } from '../../context/actions/auth/Register';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
+// Export it as a form so we can use it as props
 export function RegisterForm() {
     // Hook
     const [form, setForm] = useState({
@@ -14,6 +15,7 @@ export function RegisterForm() {
         passwordConfirm: '',
         phone: '',
     });
+
     // use history from react-router-dom to redirect
     const history = useHistory();
 

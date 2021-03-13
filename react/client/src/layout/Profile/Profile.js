@@ -1,9 +1,11 @@
+// Import
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as AiIcons from "react-icons/ai";
 import './Profile.css';
 
+// This will be the font end with props I can use to display data
 function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading, error } }) {
     return (
         <div className="profile-container">

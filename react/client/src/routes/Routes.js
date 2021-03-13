@@ -1,11 +1,18 @@
-// Import
+// Import components
 import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
 
-// Define the routes
+/**
+ * Define the routes
+ * Each route will have:
+ * Path: Which api path?
+ * Component: Import the component to display it
+ * Title: The tab title 
+ * Auth: Determine if user is allow to see the component or not
+ */
 const routes = [
     {
         path: '//',

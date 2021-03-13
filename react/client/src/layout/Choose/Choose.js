@@ -5,7 +5,7 @@ import './Choose.css';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from 'react-icons/fa';
 
-// Function
+// This will be the font end with props I can use to display data
 const ChooseUI = () => {
     // Hooks
     const [page, setPage] = useState({

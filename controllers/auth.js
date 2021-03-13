@@ -10,7 +10,8 @@ const db = mysql.createConnection({
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
 });
-// Export as module
+
+// Export as modules
 exports.register = (req, res) => {
     /**
      * Better way to write this 
@@ -163,7 +164,6 @@ exports.profile = async (req, res) => {
     const emailRE = /\S+@\S+\.\S+/;
     const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
     // We now check if user have any data, if so then we update that specific data
-    // switch (req.body.length !== 0) {
     // If first name only case
     if (firstName && !lastName && !email && !phone) {
         console.log("first");

@@ -4,6 +4,7 @@ import { profile } from '../../context/actions/auth/Profile.js';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
+// Export it as a form so we can use it as props
 export function ProfileForm() {
     // Hook
     const [form, setForm] = useState({
@@ -12,8 +13,10 @@ export function ProfileForm() {
         email: '',
         phone: '',
     });
+
     // use history from react-router-dom to redirect
     const history = useHistory();
+
     // Use this for disabling the button
     let profileFormValid = true;
 
@@ -31,6 +34,7 @@ export function ProfileForm() {
             history.push('/profile');
         }
     }, [data, history]);
+
     // useEffect(() => {
     //     if (error) {
     //         console.log(error);
@@ -102,15 +106,6 @@ export function ProfileForm() {
     const onSubmit = () => {
         profile(form)(authDispatch);
     }
-
-    /**
-     * if (response.data.checkBox === true) {
-            localStorage.setItem('auth', response.data.auth);
-            localStorage.setItem('checkBox', response.data.checkBox);
-            localStorage.setItem('token', response.data.token);
-        }
-        localStorage.setItem('token', response.data.token);
-     */
 
     // Return this so we can use these as props on the UI (front end)
     return { form, error, loading, profileFormValid, onSubmit, onChange, };

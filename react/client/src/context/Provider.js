@@ -11,8 +11,9 @@ export const GlobalContext = createContext({}); // application state and it is e
 // Need to understand this
 export const GlobalProvider = ({ children }) => {
     const [authState, authDispatch] = useReducer(Auth, AuthInitialState);
-    const [profileState, profileDispatch] = useReducer(Profile, ProfileInitialState);
+    const [profileState, profileDispatch] = useReducer(Profile, ProfileInitialState); // May delete after
     return (
+        // may delete profile after since im not using
         <GlobalContext.Provider value={{ authState, authDispatch, profileState, profileDispatch }}>
             {children}
         </GlobalContext.Provider>

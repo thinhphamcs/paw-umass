@@ -1,3 +1,4 @@
+/* === Container === */
 .profile-container {
     position: fixed;
     top: 55%;
@@ -9,7 +10,8 @@
     background-color: #F4F6F6;
     border: 3px solid #6A150D;
 }
-/* === Logo === */
+
+/* === Logo, Arrows === */
 .profile-container-header {
     position: fixed;
     top: -6%;
@@ -35,7 +37,7 @@
     position: fixed;
 }
 
-/* === Form === */
+/* === Form: title, container, groups, data display, inputs, errors === */
 .profile-form-title {
     justify-content: center;
     display: flex;
@@ -70,11 +72,11 @@
     color: #6A150D;
 }
 
-.login-error {
+.profile-error {
     padding: 0 0 16px 0;
 }
 
-/* === Button === */
+/* === Buttons === */
 .profile-form-button {
     background-color: #6A150D !important;
     color: white !important;
@@ -91,6 +93,7 @@
     background-color: #a26254 !important;
 }
 
+/* === Footer: delete, forgot button === */
 .profile-container-footer {
     position: fixed;
     width: 100%;
@@ -126,6 +129,7 @@
     display: inline-flex;
     float: right;
 }
+
 /* === Phone and Landscape === */
 @media screen and (max-width: 375px) {
     html {

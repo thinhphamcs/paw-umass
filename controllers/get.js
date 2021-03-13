@@ -1,6 +1,7 @@
 // Import require
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
+
 // I have to import it again due to I didn't use the router like /auth/ path did
 const dotenv = require("dotenv");
 const path = require("path");
@@ -17,12 +18,12 @@ const db = mysql.createConnection({
     database: process.env.DATABASE_NAME
 });
 
-
+// Get function for profile
 exports.profile = (req, res) => {
+    // We decode the token to find out what id does this user belong to
     if (jwt.decode(req.headers.authorization)) {
         const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
-        // console.log(id);
-        // console.log(db.query('SELECT * FROM users WHERE email = ?', ['testing@email.com']));
+        // We then check if user is authenticated or not
         db.query('SELECT * FROM users WHERE id = ?', [id], async (err, results) => {
             if (results.length === 0) {
                 return res.status(401).json({

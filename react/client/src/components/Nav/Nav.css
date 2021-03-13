@@ -1,7 +1,4 @@
-/**
-* Set a container for image
-* Then resize it
-*/
+/* === Logo === */
 .logoImage {
     width: 100px;
     height: 100px;
@@ -12,7 +9,7 @@
     height: auto;
 }
 
-/* Navbar */
+/* === Navbar === */
 .navbar {
     background-color: #fff;
     height: 80px;

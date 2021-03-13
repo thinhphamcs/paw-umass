@@ -5,7 +5,6 @@ import './Register.css';
 
 // This will be the font end with props I can use to display data
 function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loading, error } }) {
-
     return (
         <div className="register-container">
             <h1 className="register-form-title">Create your account </h1>
@@ -38,7 +37,7 @@ function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loadi
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
 export default RegisterUI;
