@@ -155,31 +155,143 @@ exports.login = async (req, res) => {
 
 // Export as module
 exports.profile = async (req, res) => {
-    // jwt.decode(req.headers.authorization);
-    // const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
-    // // console.log(id);
-    // // console.log(db.query('SELECT * FROM users WHERE email = ?', ['testing@email.com']));
-    // db.query('SELECT * FROM users WHERE id = ?', [id], async (err, results) => {
+    // Get data from users with the following fields
+    const { firstName, lastName, email, phone } = req.body;
+    // Decode the token to get the user's ID
+    const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+    // This regular expression will look for @ sign in the email address provided by user
+    const emailRE = /\S+@\S+\.\S+/;
+    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+    // We now check if user have any data, if so then we update that specific data
+    // switch (req.body.length !== 0) {
+    // If first name only case
+    if (firstName && !lastName && !email && !phone) {
+        console.log("first");
+        db.query('UPDATE users SET firstName = ? WHERE id = ?', [firstName, id], async (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (results.length === 0) {
+                    res.status(404).json({
+                        message: "Data is Missing"
+                    });
+                }
+                else {
+                    res.status(200).json({
+                        message: "Data is Updated",
+                        firstName: firstName
+                    });
 
-    // });
-    // const { firstName, lastName, email, password, phone } = req.body;
+                }
+            }
+        });
+    }
+    // If last name only case
+    if (lastName && !firstName && !email && !phone) {
+        console.log("last");
+        db.query('UPDATE users SET lastName = ? WHERE id = ?', [lastName, id], async (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (results.length === 0) {
+                    res.status(404).json({
+                        message: "Data is Missing"
+                    });
+                }
+                else {
+                    res.status(200).json({
+                        message: "Data is Updated",
+                        lastName: lastName
 
-    // // This regular expression will look for @ sign in the email address provided by user
-    // const emailRE = /\S+@\S+\.\S+/;
-    // const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
-    // // If user provide the correct format which is anystring@anystring.anystring then we will register
-    // if (emailRE.test(email) && phoneRE.test(phone)) {
-    //     console.log("YES!");
-    // }
-    // // If the email address format is incorrect
-    // if (!emailRE.test(email)) {
-    //     return res.status(400).json({
-    //         message: "Invalid Email Format"
-    //     });
-    // }
-    // if (!phoneRE.test(phone)) {
-    //     return res.status(400).json({
-    //         message: "Invalid Phone Format"
-    //     });
-    // }
+                    });
+                }
+            }
+        });
+    }
+    // If email field only case
+    if (email && !firstName && !lastName && !phone) {
+        console.log("email");
+        if (emailRE.test(email)) {
+            db.query('UPDATE users SET email = ? WHERE id = ?', [email, id], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (results.length === 0) {
+                        res.status(404).json({
+                            message: "Data is Missing"
+                        });
+                    }
+                    else {
+                        res.status(200).json({
+                            message: "Data is Updated",
+                            email: email
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            return res.status(400).json({
+                message: "Invalid Email Format"
+            });
+        }
+    }
+    // If phone field only case
+    if (phone && !firstName && !lastName && !email) {
+        console.log("phone");
+        if (phoneRE.test(phone)) {
+            db.query('UPDATE users SET phone = ? WHERE id = ?', [phone, id], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (results.length === 0) {
+                        res.status(404).json({
+                            message: "Data is Missing"
+                        });
+                    }
+                    else {
+                        res.status(200).json({
+                            message: "Data is Updated",
+                            phone: phone
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            return res.status(400).json({
+                message: "Invalid Phone Format"
+            });
+        }
+    }
+    // If everything only case
+    if (firstName && lastName && email && phone) {
+        console.log("hey im here");
+        db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (results.length === 0) {
+                    res.status(404).json({
+                        message: "Data is Missing"
+                    });
+                }
+                else {
+                    res.status(200).json({
+                        message: "Data is Updated",
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone
+                    });
+
+                }
+            }
+        });
+    }
 }

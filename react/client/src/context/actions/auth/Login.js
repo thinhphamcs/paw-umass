@@ -19,7 +19,7 @@ export const login = ({
         })
         .then(res => {
             if (res.data.checkBox === true) {
-                console.log(res);
+                localStorage.checkBox = true;
                 localStorage.token = res.data.token;
                 localStorage.firstName = res.data.data.firstName[0];
                 localStorage.lastName = res.data.data.lastName[0];
@@ -31,6 +31,7 @@ export const login = ({
                 });
             }
             else {
+                sessionStorage.checkBox = false;
                 sessionStorage.token = res.data.token;
                 sessionStorage.firstName = res.data.data.firstName[0];
                 sessionStorage.lastName = res.data.data.lastName[0];

@@ -31,7 +31,6 @@ export function ProfileForm() {
             history.push('/profile');
         }
     }, [data, history]);
-
     // useEffect(() => {
     //     if (error) {
     //         console.log(error);
@@ -47,12 +46,54 @@ export function ProfileForm() {
     };
 
     // Function to check if user have typed something
-    if (form.firstName.length ||
-        form.lastName.length ||
-        form.email.length ||
-        form.phone.length) {
-        profileFormValid = false;
+    // if user input the first/last/email/phone field then we open the button
+    if (form.firstName.length || form.lastName.length || form.email.length || form.phone.length) {
+        // If user input the first name and another other we disabled the button
+        if (form.firstName.length && (form.lastName.length || form.email.length || form.phone.length)) {
+            // If user input everything then we open the button again
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+                profileFormValid = false;
+            }
+            else {
+                profileFormValid = true;
+            }
+        }
+        // If user input the last name and another other we disabled the button
+        else if (form.lastName.length && (form.firstName.length || form.email.length || form.phone.length)) {
+            // If user input everything then we open the button again
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+                profileFormValid = false;
+            }
+            else {
+                profileFormValid = true;
+            }
+        }
+        // If user input the email field and another other we disabled the button
+        else if (form.email.length && (form.firstName.length || form.lastName.length || form.phone.length)) {
+            // If user input everything then we open the button again
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+                profileFormValid = false;
+            }
+            else {
+                profileFormValid = true;
+            }
+        }
+        // If user input the phone field and another other we disabled the button
+        else if (form.phone.length && (form.firstName.length || form.lastName.length || form.email.length)) {
+            // If user input everything then we open the button again
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+                profileFormValid = false;
+            }
+            else {
+                profileFormValid = true;
+            }
+        }
+        else {
+            profileFormValid = false;
+        }
+
     }
+    // if user input nothing then we disabled the button
     else {
         profileFormValid = true;
     }
