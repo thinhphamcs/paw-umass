@@ -73,7 +73,8 @@
 }
 
 .profile-error {
-    padding: 0 0 16px 0;
+    margin-top: -25px;
+    color: #6A150D;
 }
 
 /* === Buttons === */

@@ -166,7 +166,6 @@ exports.profile = async (req, res) => {
     // We now check if user have any data, if so then we update that specific data
     // If first name only case
     if (firstName && !lastName && !email && !phone) {
-        console.log("first");
         db.query('UPDATE users SET firstName = ? WHERE id = ?', [firstName, id], async (err, results) => {
             if (err) {
                 console.log(err);
@@ -189,7 +188,6 @@ exports.profile = async (req, res) => {
     }
     // If last name only case
     if (lastName && !firstName && !email && !phone) {
-        console.log("last");
         db.query('UPDATE users SET lastName = ? WHERE id = ?', [lastName, id], async (err, results) => {
             if (err) {
                 console.log(err);
@@ -212,7 +210,6 @@ exports.profile = async (req, res) => {
     }
     // If email field only case
     if (email && !firstName && !lastName && !phone) {
-        console.log("email");
         if (emailRE.test(email)) {
             db.query('UPDATE users SET email = ? WHERE id = ?', [email, id], async (err, results) => {
                 if (err) {
@@ -241,7 +238,6 @@ exports.profile = async (req, res) => {
     }
     // If phone field only case
     if (phone && !firstName && !lastName && !email) {
-        console.log("phone");
         if (phoneRE.test(phone)) {
             db.query('UPDATE users SET phone = ? WHERE id = ?', [phone, id], async (err, results) => {
                 if (err) {
@@ -270,7 +266,6 @@ exports.profile = async (req, res) => {
     }
     // If everything only case
     if (firstName && lastName && email && phone) {
-        console.log("hey im here");
         db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
             if (err) {
                 console.log(err);
@@ -289,7 +284,6 @@ exports.profile = async (req, res) => {
                         email: email,
                         phone: phone
                     });
-
                 }
             }
         });

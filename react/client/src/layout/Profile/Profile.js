@@ -6,7 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import './Profile.css';
 
 // This will be the font end with props I can use to display data
-function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading, error } }) {
+function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading, error, deleteProfile } }) {
     return (
         <div className="profile-container">
             <AiIcons.AiOutlineArrowRight className="right-arrow" />
@@ -18,6 +18,7 @@ function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading
             <AiIcons.AiOutlineArrowLeft className="left-arrow" />
             <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
+                {error ? <div className="profile-error">{error.message}</div> : null}
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         {sessionStorage ? sessionStorage.firstName : null}
@@ -49,7 +50,7 @@ function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading
                 <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={profileFormValid || loading} loading={loading.toString()}>Update</button>
             </form>
             <div className="profile-container-footer">
-                <button className="profile-delete">
+                <button className="profile-delete" onClick={deleteProfile}>
                     Deactivate Account
                 </button>
                 <Link to="/change" className='profile-change' >
