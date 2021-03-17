@@ -4,13 +4,15 @@ import { login } from '../../context/actions/auth/Login';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+// Export it as a form so we can use it as props
+export function LoginForm() {
     // Hook
     const [form, setForm] = useState({
         email: '',
         password: '',
         checkBox: '',
     });
+
     // use history from react-router-dom to redirect
     const history = useHistory();
 
@@ -21,13 +23,13 @@ export default () => {
     useEffect(() => {
         if (data) {
             if (data.auth) {
-                history.push('/home');
+                history.push('/settings/profile');
             }
         }
         else {
             history.push('/login');
         }
-    }, [data]);
+    }, [data, history]);
 
     // useEffect(() => {
     //     if (error) {
@@ -53,15 +55,6 @@ export default () => {
     const onSubmit = () => {
         login(form)(authDispatch);
     }
-
-    /**
-     * if (response.data.checkBox === true) {
-            localStorage.setItem('auth', response.data.auth);
-            localStorage.setItem('checkBox', response.data.checkBox);
-            localStorage.setItem('token', response.data.token);
-        }
-        localStorage.setItem('token', response.data.token);
-     */
 
     // Return this so we can use these as props on the UI (front end)
     return { form, loading, loginFormValid, error, onChange, onSubmit };

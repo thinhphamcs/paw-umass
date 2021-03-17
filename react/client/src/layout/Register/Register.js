@@ -5,7 +5,6 @@ import './Register.css';
 
 // This will be the font end with props I can use to display data
 function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loading, error } }) {
-
     return (
         <div className="register-container">
             <h1 className="register-form-title">Create your account </h1>
@@ -29,7 +28,7 @@ function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loadi
                 <div className="register-form-group">
                     <input required className="register-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
                 </div>
-                <button className="register-form-button" onClick={onSubmit} disabled={registerFormValid || loading} loading={loading} type="submit">Register</button>
+                <button className="register-form-button" onClick={onSubmit} disabled={registerFormValid || loading} loading={loading.toString()} type="submit">Register</button>
             </form>
             <div className="register-container-footer">
                 Already have an account?
@@ -38,7 +37,7 @@ function RegisterUI({ form: { onChange, form, registerFormValid, onSubmit, loadi
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
 export default RegisterUI;

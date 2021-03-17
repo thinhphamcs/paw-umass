@@ -11,7 +11,7 @@ const db = mysql.createConnection({
     database: process.env.DATABASE_NAME
 });
 
-// Export as module
+// Export as modules
 exports.register = (req, res) => {
     /**
      * Better way to write this 
@@ -37,30 +37,41 @@ exports.register = (req, res) => {
             else {
                 // We check the email from database if email exists then 
                 if (results.length > 0) {
-                    return res.status(403).json({
+                    res.status(403).json({
                         message: 'That email is already in use'
                     });
                 }
-                // We check the password from user input with the confirm password from user input
-                else if (password !== passwordConfirm) {
-                    return res.status(403).json({
-                        message: 'Password do not match'
-                    });
-                }
-                // Hashing user input password
-                let hashedPassword = await bcrypt.hash(password, 8);
-
-                // Insert data to our database
-                db.query('INSERT INTO users SET ?', { firstName: firstName, lastName: lastName, email: email, password: hashedPassword, phone: phone }, (err, results) => {
-                    if (err) {
-                        console.log(err);
+                else {
+                    // We check the password from user input with the confirm password from user input
+                    if (password !== passwordConfirm) {
+                        res.status(403).json({
+                            message: 'Passwords do not match'
+                        });
                     }
                     else {
-                        return res.status(200).json({
-                            message: 'User Registered'
-                        }); // User registered
+                        // Hashing user input password
+                        let hashedPassword = await bcrypt.hash(password, 8);
+                        // This way is better to prevent SQL injection
+                        let data = {
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            password: hashedPassword,
+                            phone: phone
+                        };
+                        // Insert data to our database
+                        db.query('INSERT INTO users SET ?', data, (err, results) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.status(200).json({
+                                    message: 'User Registered'
+                                }); // User registered
+                            }
+                        });
                     }
-                });
+                }
             }
         });
     }
@@ -131,7 +142,13 @@ exports.login = async (req, res) => {
                     res.status(200).json({
                         auth: true,
                         token: token,
-                        checkBox: checkBox
+                        checkBox: checkBox,
+                        data: {
+                            "firstName": results.map(item => item.firstName),
+                            "lastName": results.map(item => item.lastName),
+                            "email": results.map(item => item.email),
+                            "phone": results.map(item => item.phone)
+                        }
                     }); // User logged in
                 }
             }

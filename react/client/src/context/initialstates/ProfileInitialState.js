@@ -1,5 +1,5 @@
 // Initial state for profile, may not even need this
-export default {
+const ProfileInitialState = {
     profile: {
         loading: false,
         error: null,
@@ -9,3 +9,5 @@ export default {
         error: null,
     },
 };
+
+export default ProfileInitialState;

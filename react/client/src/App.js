@@ -1,17 +1,19 @@
 // Import
 import React from 'react';
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'; //useHistory
 import './App.css';
 import routes from './routes/Routes';
-import TokenAuth from './components/TokenAuth/TokenAuth';
 import { GlobalProvider } from './context/Provider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
-  const history = useHistory();
-  if (route.auth && !TokenAuth()) {
-    history.push('/');
+  // const history = useHistory();
+  // Checking for both localStorage AND sessionStorage
+  if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {
+    // history.push("/"); this causes error but it is the correct way
+    window.location = "/"; // temporary solution for now
   }
+  // If user have neither then we just return the component at hand
   else {
     return (
       <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
@@ -20,7 +22,6 @@ const AuthRoute = (route) => {
 }
 
 function App() {
-
   return (
     /**
      * BrowserRouter will allow to navigate through different pages with react 

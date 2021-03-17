@@ -4,6 +4,7 @@ import Logo from '../../assets/images/logo3.png';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
+// This will be the font end with props I can use to display data
 function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, error } }) {
     return (
         <div className="login-container">
@@ -39,7 +40,7 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
                         </Link>
                     </div>
                 </div>
-                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} loading={loading} type="submit" >Login</button>
+                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} loading={loading.toString()} type="submit" >Login</button>
             </form>
             <div className="login-container-footer">
                 Already have an account?
@@ -48,7 +49,7 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
 export default LoginUI;

@@ -1,3 +1,4 @@
+/* === Container === */
 .register-container {
     position: fixed;
     top: 50%;
@@ -8,6 +9,7 @@
     background-color: white;
     padding: 0 0 55px;
 }
+
 /* === Logo === */
 .register-container-header {
     position: fixed;
@@ -15,6 +17,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 /* === Error Display === */
 .register-error {
     line-height: 30px;
@@ -23,7 +26,7 @@
     font-weight: unset;
 }
 
-/* === Form === */
+/* === Form: title, container, groups, check, inputs === */
 .register-form-title {
     justify-content: center;
     display: flex;
@@ -50,7 +53,8 @@
     line-height: 30px !important;
     padding: 10px 30px !important;
 }
-/* === Button === */
+
+/* === Buttons === */
 .register-form-button {
     background-color: #6A150D !important;
     color: white !important;
@@ -66,6 +70,7 @@
     background-color: #a26254 !important;
 }
 
+/* === Footer === */
 .register-container-footer {
     position: fixed;
     width: 100%;
@@ -73,12 +78,14 @@
     padding: 10px;
 }
 
+/* === Links === */
 .register-list-items {
     color: #6A150D;
     text-decoration: none;
     padding: 10px;
     display: inline-flex;
 }
+
 /* === Phone and Landscape === */
 @media screen and (max-width: 375px) {
     html {

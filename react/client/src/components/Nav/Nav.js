@@ -6,9 +6,12 @@ import * as AiIcons from "react-icons/ai";
 // import logo from '../logo.png';
 import { SideBarData } from '../SideBar/SideBarData';
 
+// We export it as component so we can use it somewhere else
 const Nav = () => {
+    // Hook
     const [sidebar, setSideBar] = useState(false);
 
+    // Function to display the side bar
     const showSideBar = () => setSideBar(!sidebar);
     return (
         <>

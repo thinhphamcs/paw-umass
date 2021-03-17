@@ -1,14 +1,18 @@
+/* === Font === */
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
+/* === Body === */
 body {
     background-color: #6A150D;
 }
 
+/* === Texts === */
 .texts{
     color: white;
     text-decoration: none;
 }
-/* === Containers === */
+
+/* === Containers: header, body, footer === */
 .choose-container-header {
     position: fixed;
     top: 25%;
@@ -33,6 +37,7 @@ body {
     bottom: 0;
     text-align: center;
 }
+
 /* === Buttons === */
 button {
     outline: none;
@@ -62,7 +67,7 @@ button {
 }
 
 .login-button:hover {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.5);
     color: #6A150D;
 }
 
@@ -82,12 +87,12 @@ button {
 }
 
 .register-button:hover {
-    background-color: #6A150D;
-    color: white;
+    background-color: #EAECEE;
+    color: #6A150D;
     border: 1px solid white;
 }
-/* === Lists === */
 
+/* === Lists === */
 .choose-list-items {
     color: white;
     text-decoration: none;
@@ -104,6 +109,7 @@ button {
     text-decoration: none;
     display: inline-flex;
 }
+
 /* === Phone and Landscape === */
 @media screen and (max-width: 375px) {
     html {

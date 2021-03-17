@@ -1,10 +1,20 @@
-// Import
+// Import components
 import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
-import Home from '../layout/Home/Home';
+import Home from '../components/Home/Home';
+import Profile from '../components/Profile/Profile';
+import Deactivate from '../components/Deactivate/Deactivate';
+import Change from '../components/Change/Change';
 
-// Define the routes
+/**
+ * Define the routes
+ * Each route will have:
+ * Path: Which api path?
+ * Component: Import the component to display it
+ * Title: The tab title 
+ * Auth: Determine if user is allow to see the component or not
+ */
 const routes = [
     {
         path: '//',
@@ -25,21 +35,27 @@ const routes = [
         auth: false,
     },
     {
+        path: '/settings/profile',
+        component: Profile,
+        title: 'Profile',
+        auth: true,
+    },
+    {
+        path: '/settings/change',
+        component: Change,
+        title: 'Change',
+        auth: true,
+    },
+    {
+        path: '/settings/deactivate',
+        component: Deactivate,
+        title: 'Deactivate',
+        auth: true,
+    },
+    {
         path: '/home',
         component: Home,
         title: 'PawUMass',
-        auth: true,
-    },
-    {
-        path: '/forgot',
-        component: '',
-        title: 'Forgot',
-        auth: true,
-    },
-    {
-        path: '/profile',
-        component: '',
-        title: 'Profile',
         auth: true,
     },
     {

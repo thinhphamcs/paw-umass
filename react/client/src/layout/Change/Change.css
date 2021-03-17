@@ -1,83 +1,97 @@
 /* === Container === */
-.login-container {
+.change-container {
     position: fixed;
-    top: 50%;
+    top: 55%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     border-radius: 30px;
-    background-color: white;
-    padding: 0 0 51px 0;
+    padding: 0 0 40px 0;
+    background-color: #F4F6F6;
+    border: 3px solid #6A150D;
 }
 
-/* === Logo === */
-.login-container-header {
+/* === Logo, Arrows === */
+.change-logo {
+    display: inline-block; 
+    height: 100px;
+}
+
+.change-logo img {
+    height: 120%;
+    width: 100%;
+}
+
+.change-container-header {
     position: fixed;
-    top: -10%;
+    top: -8%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* === Form: title, container, groups, check, inputs error, label === */
-.login-form-title {
+.change-right-arrow {
+    top: -8%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+.change-left-arrow {
+    top: -8%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+/* === Form: title, container, groups, data display, inputs, errors === */
+.change-form-title {
     justify-content: center;
     display: flex;
     padding: 15px 5px;
+    color: #6A150D;
 }
 
-.login-form-container {
+.change-form-container {
     background: none !important;
-    width: 320px !important;
+    width: 100%;
     display: inline-block;
     padding: 20px !important;
     text-align: center !important;
-    border: 0 !important;
     min-width: 320px !important;
+    margin-bottom: -20px;
 }
 
-.login-form-group {
-    display: table;
+.change-form-group {
+    display: grid;
 }
 
-.login-form-check {
-    display: flex;
-    float: left;
-}
-.checkBox {
-    height: 40px;
-}
-
-.login-input {
+.change-input {
     font-size: 20px !important;
-    margin-bottom: 15px !important;
-    line-height: 40px !important;
-    padding: 10px 30px !important;
+    line-height: 20px !important;
+    padding: 20px 30px !important;
+    margin-bottom: 10px;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
 }
 
-.login-error {
-    padding: 0 0 16px 0;
+.line {
+    border-bottom: 3px solid #6A150D;
+    margin: 20px;
 }
 
-.login-label {
-    padding: 10px 5px 0 5px;
-}
-
-/* === Links === */
-.login-forgot {
-    position: relative;
-    display: flex;
-    float: right;
-    padding: 0 0px 0 9px;
-}
-
-.options {
-    position: relative;
-    display: flex;
-    padding-bottom: 10px;
+.change-error {
+    color: #6A150D;
+    font-size: 20px;
+    margin-bottom: 35px;
 }
 
 /* === Buttons === */
-.login-form-button {
+.change-form-button {
     background-color: #6A150D !important;
     color: white !important;
     font-size: 20px !important;
@@ -86,23 +100,11 @@
     transition: 0.5s all ease-in-out !important;
     cursor: pointer !important;
     width: 100%;
+    margin-top: 30px;
 }
 
-.login-form-button:disabled {
+.change-form-button:disabled {
     background-color: #a26254 !important;
-}
-
-.login-container-footer {
-    position: fixed;
-    width: 100%;
-    text-align: center;
-}
-
-.login-list-items {
-    color: #6A150D;
-    text-decoration: none;
-    padding: 10px;
-    display: inline-flex;
 }
 
 /* === Phone and Landscape === */
@@ -121,19 +123,14 @@
         top: 50%;
         left: 50%;
     }
-    .login-container {
+    .change-container {
         position: fixed;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-    .login-container-header {
+    .change-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -55%);
-        transform: translate(-50%, -55%);
-    }
-    .login-container-footer {
-        position: fixed;
-        -webkit-transform: translate(0%, -5%);
-        transform: translate(0%, -5%);
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
     }
 }

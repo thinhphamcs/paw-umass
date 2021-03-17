@@ -1,6 +1,6 @@
 // Import
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_LOADING } from '../../../constants/actionTypes';
-import axiosInstance from '../../../helpers/axiosInstance';
+import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
 export const login = ({
@@ -18,11 +18,30 @@ export const login = ({
             checkBox
         })
         .then(res => {
-            localStorage.token = res.data.token;
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: res.data,
-            });
+            if (res.data.checkBox === true) {
+                localStorage.checkBox = true;
+                localStorage.token = res.data.token;
+                localStorage.firstName = res.data.data.firstName[0];
+                localStorage.lastName = res.data.data.lastName[0];
+                localStorage.email = res.data.data.email[0];
+                localStorage.phone = res.data.data.phone[0];
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data,
+                });
+            }
+            else {
+                sessionStorage.checkBox = false;
+                sessionStorage.token = res.data.token;
+                sessionStorage.firstName = res.data.data.firstName[0];
+                sessionStorage.lastName = res.data.data.lastName[0];
+                sessionStorage.email = res.data.data.email[0];
+                sessionStorage.phone = res.data.data.phone[0];
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: res.data,
+                });
+            }
         })
         .catch(err => {
             dispatch({

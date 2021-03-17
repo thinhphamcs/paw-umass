@@ -1,8 +1,9 @@
 // Initial state for authentication, may not even need this
-export default {
+const AuthInitialState = {
     auth: {
         loading: false,
         data: null,
         error: null,
     },
 };
+export default AuthInitialState;

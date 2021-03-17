@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -5,6 +6,13 @@ import * as MdIcons from "react-icons/md";
 import * as ImIcons from "react-icons/im";
 import * as FiIcons from "react-icons/fi";
 
+/**
+ * We export each icon with:
+ * Title: Which title does this icon belong to?
+ * Path: Which API path route?
+ * Icon: Which icon does it belong to form react-icons?
+ * ClassName: className so we can do some css after
+ */
 export const SideBarData = [
     {
         title: 'Home',
