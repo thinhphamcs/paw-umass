@@ -1,12 +1,11 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { profile } from '../../context/actions/settings/Profile';
-import { DeleteProfiles } from '../../context/actions/settings/DeleteProfiles';
+import { change } from '../../context/actions/settings/Change';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
-export function ForgotForm() {
+export function ChangeForm() {
     // Hook
     const [form, setForm] = useState({
         current: '',
@@ -18,7 +17,7 @@ export function ForgotForm() {
     const history = useHistory();
 
     // Use this for disabling the button
-    let forgotFormValid = true;
+    let changeFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -31,7 +30,7 @@ export function ForgotForm() {
             }
         }
         else {
-            history.push('/settings/forgot');
+            history.push('/settings/change');
         }
     }, [data, history]);
 
@@ -52,18 +51,18 @@ export function ForgotForm() {
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
     if (form.current.length && form.newPassword.length && form.confirmPassword.length) {
-        forgotFormValid = false;
+        changeFormValid = false;
     }
     // if user input nothing then we disabled the button
     else {
-        forgotFormValid = true;
+        changeFormValid = true;
     }
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        profile(form)(authDispatch); // change
+        change(form)(authDispatch); // change
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, forgotFormValid, onSubmit, onChange };
+    return { form, error, loading, changeFormValid, onSubmit, onChange };
 }

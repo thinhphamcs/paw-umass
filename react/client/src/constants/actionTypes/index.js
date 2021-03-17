@@ -17,3 +17,13 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const DEACTIVATE_LOADING = 'DEACTIVATE_LOADING';
 export const DEACTIVATE_SUCCESS = 'DEACTIVATE_SUCCESS';
 export const DEACTIVATE_ERROR = 'DEACTIVATE_ERROR';
+
+// The states for Change
+export const CHANGE_LOADING = 'CHANGE_LOADING';
+export const CHANGE_SUCCESS = 'CHANGE_SUCCESS';
+export const CHANGE_ERROR = 'CHANGE_ERROR';
+
+// The states for Forgot
+export const FORGOT_LOADING = 'FORGOT_LOADING';
+export const FORGOT_SUCCESS = 'FORGOT_SUCCESS';
+export const FORGOT_ERROR = 'FORGOT_ERROR';

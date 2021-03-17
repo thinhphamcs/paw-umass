@@ -218,3 +218,62 @@ exports.delete = async (req, res) => {
         });
     }
 }
+
+// Export as module
+exports.change = async (req, res) => {
+    const { current, newPassword, confirmPassword } = req.body;
+    // We decode the token to find out what id does this user belong to
+    if (jwt.decode(req.headers.authorization)) {
+        const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+        // We then check if user is authenticated or not
+        db.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                // We then check for password from user input and db password
+                const userPassword = results.map(item => item.password);
+                if (bcrypt.compareSync(current, userPassword[0])) {
+                    if (newPassword !== confirmPassword) {
+                        res.status(403).json({
+                            message: 'Password do not match'
+                        });
+                    }
+                    else {
+                        // Hashing user input password
+                        let hashedPassword = await bcrypt.hash(newPassword, 8);
+                        db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                if (results.length === 0) {
+                                    return res.status(404).json({
+                                        message: "Data is Missing"
+                                    });
+                                }
+                                else {
+                                    res.status(200).json({
+                                        auth: true,
+                                        message: "Password is Updated"
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+                else {
+                    res.status(401).json({
+                        message: 'Your Password is incorrect'
+                    });
+                }
+            }
+        });
+    }
+    else {
+        return res.status(404).json({
+            auth: false,
+            message: "Unauthorized User",
+        });
+    }
+}

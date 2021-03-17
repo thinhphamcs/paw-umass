@@ -1,0 +1,136 @@
+/* === Container === */
+.change-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    padding: 0 0 40px 0;
+    background-color: #F4F6F6;
+    border: 3px solid #6A150D;
+}
+
+/* === Logo, Arrows === */
+.change-logo {
+    display: inline-block; 
+    height: 100px;
+}
+
+.change-logo img {
+    height: 120%;
+    width: 100%;
+}
+
+.change-container-header {
+    position: fixed;
+    top: -8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.change-right-arrow {
+    top: -8%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+.change-left-arrow {
+    top: -8%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+/* === Form: title, container, groups, data display, inputs, errors === */
+.change-form-title {
+    justify-content: center;
+    display: flex;
+    padding: 15px 5px;
+    color: #6A150D;
+}
+
+.change-form-container {
+    background: none !important;
+    width: 100%;
+    display: inline-block;
+    padding: 20px !important;
+    text-align: center !important;
+    min-width: 320px !important;
+    margin-bottom: -20px;
+}
+
+.change-form-group {
+    display: grid;
+}
+
+.change-input {
+    font-size: 20px !important;
+    line-height: 20px !important;
+    padding: 20px 30px !important;
+    margin-bottom: 10px;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
+}
+
+.line {
+    border-bottom: 3px solid #6A150D;
+    margin: 20px;
+}
+
+.change-error {
+    color: #6A150D;
+    font-size: 20px;
+    margin-bottom: 35px;
+}
+
+/* === Buttons === */
+.change-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.change-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .change-container {
+        position: fixed;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .change-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
+    }
+}

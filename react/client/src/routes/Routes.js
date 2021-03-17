@@ -5,6 +5,7 @@ import Login from '../components/Login/Login';
 import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
 import Deactivate from '../components/Deactivate/Deactivate';
+import Change from '../components/Change/Change';
 
 /**
  * Define the routes
@@ -40,9 +41,9 @@ const routes = [
         auth: true,
     },
     {
-        path: '/settings/forgot',
-        component: '',
-        title: 'Forgot',
+        path: '/settings/change',
+        component: Change,
+        title: 'Change',
         auth: true,
     },
     {

@@ -1,17 +1,17 @@
 // Import
 import React, { useEffect } from 'react';
-import ForgotUI from '../../layout/Profile/Profile';
-import { ForgotForm } from './ProfileForm';
+import ChangeUI from '../../layout/Change/Change';
+import { ChangeForm } from '../Change/ChangeForm';
 import { GetProfiles } from '../../context/actions/settings/GetProfiles';
 
 // Export this component with UI for cleaner and more organized way
-function Forgot() {
+function Change() {
     useEffect(() => {
         document.body.style.backgroundColor = "white";
         GetProfiles();
     }, []);
     return (
-        <ForgotUI form={ForgotForm()} />
+        <ChangeUI form={ChangeForm()} />
     );
 }
-export default Forgot;
+export default Change;
