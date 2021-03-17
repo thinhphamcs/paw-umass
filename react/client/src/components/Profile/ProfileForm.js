@@ -1,7 +1,6 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { profile } from '../../context/actions/auth/Profile.js';
-import { DeleteProfiles } from '../../context/actions/profiles/DeleteProfiles';
+import { profile } from '../../context/actions/settings/Profile';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
@@ -28,11 +27,11 @@ export function ProfileForm() {
     useEffect(() => {
         if (data) {
             if (data.auth) {
-                history.push('/profile');
+                history.push('/settings/profile');
             }
         }
         else {
-            history.push('/profile');
+            history.push('/settings/profile');
         }
     }, [data, history]);
 
@@ -108,10 +107,6 @@ export function ProfileForm() {
         profile(form)(authDispatch);
     }
 
-    // Delete profile function
-    const deleteProfile = () => {
-        DeleteProfiles();
-    }
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, profileFormValid, onSubmit, onChange, deleteProfile };
+    return { form, error, loading, profileFormValid, onSubmit, onChange };
 }

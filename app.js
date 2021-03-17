@@ -6,8 +6,8 @@ const path = require("path"); // Default with nodejs so no need to install but d
 const cookieParser = require("cookie-parser"); // To enable cookie in browser
 const bodyParser = require('body-parser'); // To enable body-parser
 const cors = require("cors"); // To enable cors
-const getController = require("./controllers/get");
-const deleteController = require("./controllers/delete");
+// const getController = require("./controllers/get");
+// const deleteController = require("./controllers/delete");
 
 /**
  * Tell dotenv where are the environment setting variables
@@ -79,8 +79,7 @@ db.connect((err) => {
 app.use('/auth', require('./routes/auth'));
 
 // First time using cors for get and delete
-app.get('/profile', getController.profile);
-app.delete('/delete', deleteController.profile);
+app.use('/settings', require('./routes/settings'));
 
 // Tell express which port to listen
 app.listen(process.env.PORT || 5050, () => {

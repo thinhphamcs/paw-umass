@@ -1,20 +1,21 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { login } from '../../context/actions/auth/Login';
+import { deactivate } from '../../context/actions/settings/Deactivate';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
-export function LoginForm() {
+export function DeactivateForm() {
     // Hook
     const [form, setForm] = useState({
-        email: '',
         password: '',
-        checkBox: '',
     });
 
     // use history from react-router-dom to redirect
     const history = useHistory();
+
+    // Use this for disabling the button
+    let deactivateFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -23,11 +24,11 @@ export function LoginForm() {
     useEffect(() => {
         if (data) {
             if (data.auth) {
-                history.push('/settings/profile');
+                history.push('/');
             }
         }
         else {
-            history.push('/login');
+            history.push('/settings/deactivate');
         }
     }, [data, history]);
 
@@ -41,21 +42,25 @@ export function LoginForm() {
     const onChange = (event) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value,
-            checkBox: event.target.checked
+            [event.target.name]: event.target.value
         });
     };
 
-    // Function to check if user have typed everything
-    const loginFormValid =
-        !form.email?.length ||
-        !form.password?.length
+    // Function to check if user have typed something
+    // if user input the first/last/email/phone field then we open the button
+    if (form.password.length) {
+        deactivateFormValid = false;
+    }
+    // if user input nothing then we disabled the button
+    else {
+        deactivateFormValid = true;
+    }
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        login(form)(authDispatch);
+        deactivate(form)(authDispatch); // change
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, loading, loginFormValid, error, onChange, onSubmit };
+    return { form, error, loading, deactivateFormValid, onSubmit, onChange };
 }

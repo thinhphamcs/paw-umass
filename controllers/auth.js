@@ -37,13 +37,13 @@ exports.register = (req, res) => {
             else {
                 // We check the email from database if email exists then 
                 if (results.length > 0) {
-                    return res.status(403).json({
+                    res.status(403).json({
                         message: 'That email is already in use'
                     });
                 }
                 // We check the password from user input with the confirm password from user input
                 else if (password !== passwordConfirm) {
-                    return res.status(403).json({
+                    res.status(403).json({
                         message: 'Password do not match'
                     });
                 }
@@ -63,7 +63,7 @@ exports.register = (req, res) => {
                         console.log(err);
                     }
                     else {
-                        return res.status(200).json({
+                        res.status(200).json({
                             message: 'User Registered'
                         }); // User registered
                     }
@@ -151,141 +151,5 @@ exports.login = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-    }
-}
-
-// Export as module
-exports.profile = async (req, res) => {
-    // Get data from users with the following fields
-    const { firstName, lastName, email, phone } = req.body;
-    // Decode the token to get the user's ID
-    const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
-    // This regular expression will look for @ sign in the email address provided by user
-    const emailRE = /\S+@\S+\.\S+/;
-    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
-    // We now check if user have any data, if so then we update that specific data
-    // If first name only case
-    if (firstName && !lastName && !email && !phone) {
-        db.query('UPDATE users SET firstName = ? WHERE id = ?', [firstName, id], async (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                if (results.length === 0) {
-                    res.status(404).json({
-                        message: "Data is Missing"
-                    });
-                }
-                else {
-                    res.status(200).json({
-                        message: "Data is Updated",
-                        firstName: firstName
-                    });
-
-                }
-            }
-        });
-    }
-    // If last name only case
-    if (lastName && !firstName && !email && !phone) {
-        db.query('UPDATE users SET lastName = ? WHERE id = ?', [lastName, id], async (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                if (results.length === 0) {
-                    res.status(404).json({
-                        message: "Data is Missing"
-                    });
-                }
-                else {
-                    res.status(200).json({
-                        message: "Data is Updated",
-                        lastName: lastName
-
-                    });
-                }
-            }
-        });
-    }
-    // If email field only case
-    if (email && !firstName && !lastName && !phone) {
-        if (emailRE.test(email)) {
-            db.query('UPDATE users SET email = ? WHERE id = ?', [email, id], async (err, results) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    if (results.length === 0) {
-                        res.status(404).json({
-                            message: "Data is Missing"
-                        });
-                    }
-                    else {
-                        res.status(200).json({
-                            message: "Data is Updated",
-                            email: email
-                        });
-                    }
-                }
-            });
-        }
-        else {
-            return res.status(400).json({
-                message: "Invalid Email Format"
-            });
-        }
-    }
-    // If phone field only case
-    if (phone && !firstName && !lastName && !email) {
-        if (phoneRE.test(phone)) {
-            db.query('UPDATE users SET phone = ? WHERE id = ?', [phone, id], async (err, results) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    if (results.length === 0) {
-                        res.status(404).json({
-                            message: "Data is Missing"
-                        });
-                    }
-                    else {
-                        res.status(200).json({
-                            message: "Data is Updated",
-                            phone: phone
-                        });
-                    }
-                }
-            });
-        }
-        else {
-            return res.status(400).json({
-                message: "Invalid Phone Format"
-            });
-        }
-    }
-    // If everything only case
-    if (firstName && lastName && email && phone) {
-        db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                if (results.length === 0) {
-                    res.status(404).json({
-                        message: "Data is Missing"
-                    });
-                }
-                else {
-                    res.status(200).json({
-                        message: "Data is Updated",
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        phone: phone
-                    });
-                }
-            }
-        });
     }
 }

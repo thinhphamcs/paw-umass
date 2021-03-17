@@ -13,7 +13,7 @@ export const profile = ({
         type: PROFILE_LOADING,
     });
     axiosInstance()
-        .post("/auth/profile", {
+        .post("/settings/update", {
             firstName,
             lastName,
             email,

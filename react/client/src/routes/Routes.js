@@ -4,6 +4,7 @@ import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
 import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
+import Deactivate from '../components/Deactivate/Deactivate';
 
 /**
  * Define the routes
@@ -33,21 +34,27 @@ const routes = [
         auth: false,
     },
     {
-        path: '/home',
-        component: Home,
-        title: 'PawUMass',
+        path: '/settings/profile',
+        component: Profile,
+        title: 'Profile',
         auth: true,
     },
     {
-        path: '/forgot',
+        path: '/settings/forgot',
         component: '',
         title: 'Forgot',
         auth: true,
     },
     {
-        path: '/profile',
-        component: Profile,
-        title: 'Profile',
+        path: '/settings/deactivate',
+        component: Deactivate,
+        title: 'Deactivate',
+        auth: true,
+    },
+    {
+        path: '/home',
+        component: Home,
+        title: 'PawUMass',
         auth: true,
     },
     {

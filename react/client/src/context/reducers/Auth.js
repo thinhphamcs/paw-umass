@@ -8,7 +8,10 @@ import {
     LOGIN_ERROR,
     PROFILE_LOADING,
     PROFILE_SUCCESS,
-    PROFILE_ERROR
+    PROFILE_ERROR,
+    DEACTIVATE_LOADING,
+    DEACTIVATE_SUCCESS,
+    DEACTIVATE_ERROR
 } from "../../constants/actionTypes";
 
 // Reducer function with states and data payload
@@ -17,6 +20,7 @@ const reducerAuth = (state, { payload, type }) => {
         case REGISTER_LOADING:
         case LOGIN_LOADING:
         case PROFILE_LOADING:
+        case DEACTIVATE_LOADING:
             return {
                 ...state,
                 auth: {
@@ -28,6 +32,7 @@ const reducerAuth = (state, { payload, type }) => {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
         case PROFILE_SUCCESS:
+        case DEACTIVATE_SUCCESS:
             return {
                 ...state,
                 auth: {
@@ -39,6 +44,7 @@ const reducerAuth = (state, { payload, type }) => {
         case REGISTER_ERROR:
         case LOGIN_ERROR:
         case PROFILE_ERROR:
+        case DEACTIVATE_ERROR:
             return {
                 ...state,
                 auth: {
