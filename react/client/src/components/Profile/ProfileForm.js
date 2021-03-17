@@ -1,6 +1,6 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { profile } from '../../context/actions/settings/Profile';
+import { update } from '../../context/actions/settings/Update';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ export function ProfileForm() {
     const history = useHistory();
 
     // Use this for disabling the button
-    let profileFormValid = true;
+    let updateFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -56,57 +56,57 @@ export function ProfileForm() {
         if (form.firstName.length && (form.lastName.length || form.email.length || form.phone.length)) {
             // If user input everything then we open the button again
             if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
-                profileFormValid = false;
+                updateFormValid = false;
             }
             else {
-                profileFormValid = true;
+                updateFormValid = true;
             }
         }
         // If user input the last name and another other we disabled the button
         else if (form.lastName.length && (form.firstName.length || form.email.length || form.phone.length)) {
             // If user input everything then we open the button again
             if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
-                profileFormValid = false;
+                updateFormValid = false;
             }
             else {
-                profileFormValid = true;
+                updateFormValid = true;
             }
         }
         // If user input the email field and another other we disabled the button
         else if (form.email.length && (form.firstName.length || form.lastName.length || form.phone.length)) {
             // If user input everything then we open the button again
             if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
-                profileFormValid = false;
+                updateFormValid = false;
             }
             else {
-                profileFormValid = true;
+                updateFormValid = true;
             }
         }
         // If user input the phone field and another other we disabled the button
         else if (form.phone.length && (form.firstName.length || form.lastName.length || form.email.length)) {
             // If user input everything then we open the button again
             if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
-                profileFormValid = false;
+                updateFormValid = false;
             }
             else {
-                profileFormValid = true;
+                updateFormValid = true;
             }
         }
         else {
-            profileFormValid = false;
+            updateFormValid = false;
         }
 
     }
     // if user input nothing then we disabled the button
     else {
-        profileFormValid = true;
+        updateFormValid = true;
     }
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        profile(form)(authDispatch);
+        update(form)(authDispatch);
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, profileFormValid, onSubmit, onChange };
+    return { form, error, loading, updateFormValid, onSubmit, onChange };
 }

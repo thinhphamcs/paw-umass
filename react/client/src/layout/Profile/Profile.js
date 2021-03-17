@@ -6,7 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import './Profile.css';
 
 // This will be the font end with props I can use to display data
-function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading, error } }) {
+function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error } }) {
     return (
         <div className="profile-container">
             <AiIcons.AiOutlineArrowRight className="profile-right-arrow" />
@@ -47,7 +47,7 @@ function ProfileUI({ form: { onChange, form, profileFormValid, onSubmit, loading
                     </div>
                     <input className="profile-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
                 </div>
-                <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={profileFormValid || loading} loading={loading.toString()}>Update</button>
+                <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={updateFormValid || loading} loading={loading.toString()}>Update</button>
             </form>
         </div>
     );

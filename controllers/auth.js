@@ -41,33 +41,37 @@ exports.register = (req, res) => {
                         message: 'That email is already in use'
                     });
                 }
-                // We check the password from user input with the confirm password from user input
-                else if (password !== passwordConfirm) {
-                    res.status(403).json({
-                        message: 'Password do not match'
-                    });
-                }
-                // Hashing user input password
-                let hashedPassword = await bcrypt.hash(password, 8);
-                // This way is better to prevent SQL injection
-                let data = {
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: hashedPassword,
-                    phone: phone
-                };
-                // Insert data to our database
-                db.query('INSERT INTO users SET ?', data, (err, results) => {
-                    if (err) {
-                        console.log(err);
+                else {
+                    // We check the password from user input with the confirm password from user input
+                    if (password !== passwordConfirm) {
+                        res.status(403).json({
+                            message: 'Passwords do not match'
+                        });
                     }
                     else {
-                        res.status(200).json({
-                            message: 'User Registered'
-                        }); // User registered
+                        // Hashing user input password
+                        let hashedPassword = await bcrypt.hash(password, 8);
+                        // This way is better to prevent SQL injection
+                        let data = {
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            password: hashedPassword,
+                            phone: phone
+                        };
+                        // Insert data to our database
+                        db.query('INSERT INTO users SET ?', data, (err, results) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.status(200).json({
+                                    message: 'User Registered'
+                                }); // User registered
+                            }
+                        });
                     }
-                });
+                }
             }
         });
     }

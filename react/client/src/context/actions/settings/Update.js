@@ -1,16 +1,16 @@
 // Import
-import { PROFILE_SUCCESS, PROFILE_ERROR, PROFILE_LOADING } from '../../../constants/actionTypes';
+import { UPDATE_LOADING, UPDATE_SUCCESS, UPDATE_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
-export const profile = ({
+export const update = ({
     firstName,
     lastName,
     email,
     phone
 }) => (dispatch) => {
     dispatch({
-        type: PROFILE_LOADING,
+        type: UPDATE_LOADING,
     });
     axiosInstance()
         .post("/settings/update", {
@@ -24,28 +24,28 @@ export const profile = ({
                 if (res.data.firstName) {
                     localStorage.firstName = res.data.firstName;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.lastName) {
                     localStorage.lastName = res.data.lastName;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.email) {
                     localStorage.email = res.data.email;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.phone) {
                     localStorage.phone = res.data.phone;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
@@ -55,7 +55,7 @@ export const profile = ({
                     localStorage.email = res.data.email;
                     localStorage.phone = res.data.phone;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
@@ -64,28 +64,28 @@ export const profile = ({
                 if (res.data.firstName) {
                     sessionStorage.firstName = res.data.firstName;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.lastName) {
                     sessionStorage.lastName = res.data.lastName;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.email) {
                     sessionStorage.email = res.data.email;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
                 if (res.data.phone) {
                     sessionStorage.phone = res.data.phone;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
@@ -95,7 +95,7 @@ export const profile = ({
                     sessionStorage.email = res.data.email;
                     sessionStorage.phone = res.data.phone;
                     dispatch({
-                        type: PROFILE_SUCCESS,
+                        type: UPDATE_SUCCESS,
                         payload: res.data,
                     });
                 }
@@ -103,7 +103,7 @@ export const profile = ({
         })
         .catch(err => {
             dispatch({
-                type: PROFILE_ERROR,
+                type: UPDATE_ERROR,
                 payload: err.response ? err.response.data : "COULD NOT CONNECT",
             });
         });

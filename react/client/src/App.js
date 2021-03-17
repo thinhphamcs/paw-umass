@@ -8,9 +8,9 @@ import { GlobalProvider } from './context/Provider';
 // Function to determine authentication
 const AuthRoute = (route) => {
   // const history = useHistory();
-  // Checking for both localstorage AND sessionStorage
+  // Checking for both localStorage AND sessionStorage
   if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {
-    // history.push("/"); this causes error 
+    // history.push("/"); this causes error but it is the correct way
     window.location = "/"; // temporary solution for now
   }
   // If user have neither then we just return the component at hand

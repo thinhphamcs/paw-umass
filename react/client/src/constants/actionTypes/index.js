@@ -9,9 +9,9 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 
 // The states for Profile
-export const PROFILE_LOADING = 'PROFILE_LOADING';
-export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
-export const PROFILE_ERROR = 'PROFILE_ERROR';
+export const UPDATE_LOADING = 'UPDATE_LOADING';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
 
 // The states for Deactivate
 export const DEACTIVATE_LOADING = 'DEACTIVATE_LOADING';

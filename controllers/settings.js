@@ -236,7 +236,7 @@ exports.change = async (req, res) => {
                 if (bcrypt.compareSync(current, userPassword[0])) {
                     if (newPassword !== confirmPassword) {
                         res.status(403).json({
-                            message: 'Password do not match'
+                            message: 'Passwords do not match'
                         });
                     }
                     else {
