@@ -1,14 +1,13 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { change } from '../../context/actions/settings/Change';
+import { forgotChange } from '../../context/actions/auth/ForgotChange';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
-export function ChangeForm() {
+export function ForgotChangeForm() {
     // Hook
     const [form, setForm] = useState({
-        current: '',
         newPassword: '',
         confirmPassword: '',
     });
@@ -17,7 +16,7 @@ export function ChangeForm() {
     const history = useHistory();
 
     // Use this for disabling the button
-    let changeFormValid = true;
+    let forgotChangeFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -25,11 +24,12 @@ export function ChangeForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            history.push('/settings/profile');
-
+            if (data.auth === false) {
+                history.push('/login');
+            }
         }
         else {
-            history.push('/settings/change');
+            history.push('/change');
         }
     }, [data, history]);
 
@@ -49,19 +49,19 @@ export function ChangeForm() {
 
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.current.length && form.newPassword.length && form.confirmPassword.length) {
-        changeFormValid = false;
+    if (form.newPassword.length && form.confirmPassword.length) {
+        forgotChangeFormValid = false;
     }
     // if user input nothing then we disabled the button
     else {
-        changeFormValid = true;
+        forgotChangeFormValid = true;
     }
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        change(form)(authDispatch); // change
+        forgotChange(form)(authDispatch); // change
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, changeFormValid, onSubmit, onChange };
+    return { form, error, loading, forgotChangeFormValid, onSubmit, onChange };
 }

@@ -1,0 +1,106 @@
+/* === Container === */
+.forgot-change-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    padding: 0 0 40px 0;
+    background-color: #F4F6F6;
+}
+
+/* === Logo, Arrows === */
+.forgot-change-container-header {
+    position: fixed;
+    top: -8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.reason {
+    padding: 25px;
+    font-size: 19px;
+    margin-bottom: -15px;
+    margin-top: -20px;
+}
+
+/* === Form: title, container, groups, data display, inputs, errors === */
+.forgot-change-form-title {
+    justify-content: center;
+    display: flex;
+    padding: 15px 5px;
+}
+
+.forgot-change-form-container {
+    background: none !important;
+    width: 100%;
+    display: inline-block;
+    padding: 20px !important;
+    text-align: center !important;
+    min-width: 320px !important;
+    margin-bottom: -20px;
+}
+
+.forgot-change-form-group {
+    display: grid;
+}
+
+.forgot-change-input {
+    font-size: 20px !important;
+    line-height: 20px !important;
+    padding: 20px 30px !important;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.forgot-change-error {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+/* === Buttons === */
+.forgot-change-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.forgot-change-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .forgot-change-container {
+        position: fixed;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .forgot-change-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
+    }
+}

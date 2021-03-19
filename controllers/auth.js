@@ -3,6 +3,7 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
 // Connect to database again
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -148,11 +149,145 @@ exports.login = async (req, res) => {
                             "lastName": results.map(item => item.lastName),
                             "email": results.map(item => item.email),
                             "phone": results.map(item => item.phone)
-                        }
+                        },
+                        profile: true
                     }); // User logged in
                 }
             }
         });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Export as module
+exports.forgot = async (req, res) => {
+    try {
+        const input = req.body.input;
+        // This regular expression will look for @ sign in the email address provided by user
+        const emailRE = /\S+@\S+\.\S+/;
+        const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+        // If user input is email format
+        if (emailRE.test(input)) {
+            // Look through our database
+            db.query('SELECT id FROM users WHERE email = ?', [input], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (results.length === 0) {
+                        return res.status(401).json({
+                            message: 'Please provide valid email'
+                        });
+                    }
+                    else {
+                        const id = results.map(item => item.id);
+                        const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+                        // Send it back to the front end
+                        res.status(200).json({
+                            auth: true,
+                            token: token,
+                            message: 'Authorized Email',
+                            forgot: true
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            if (phoneRE.test(input)) {
+                // Look through our database
+                db.query('SELECT id FROM users WHERE phone = ?', [input], async (err, results) => {
+                    /**
+                     * If user input nothing or wrong password
+                     * bcrypt compare user input password and the hashed password in our database
+                     * since it takes sometimes we have to use await and async
+                     */
+                    if (results.length === 0) {
+                        return res.status(401).json({
+                            message: 'Please provide valid phone'
+                        });
+                    }
+                    else {
+                        const id = results.map(item => item.id);
+                        const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+                        // Send it back to the front end
+                        res.status(200).json({
+                            auth: true,
+                            token: token,
+                            message: 'Authorized Phone',
+                            forgot: true
+                        });
+                    }
+                });
+            }
+            else {
+                return res.status(401).json({
+                    message: 'Please provide valid input'
+                });
+            }
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Export as module
+exports.change = async (req, res) => {
+    try {
+        const { newPassword, confirmPassword } = req.body;
+        // We decode the token to find out what id does this user belong to
+        if (jwt.decode(req.headers.authorization)) {
+            const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+            // We then check if user is authenticated or not
+            db.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (newPassword !== confirmPassword) {
+                        res.status(403).json({
+                            message: 'Passwords do not match'
+                        });
+                    }
+                    else {
+                        const userOldPassword = results.map(item => item.password);
+                        if (bcrypt.compareSync(newPassword, userOldPassword[0])) {
+                            res.status(403).json({
+                                message: 'New password must be different from old password'
+                            });
+                        }
+                        else {
+                            // Hashing user input password
+                            let hashedPassword = await bcrypt.hash(newPassword, 8);
+                            db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    if (results.length === 0) {
+                                        return res.status(404).json({
+                                            message: "Data is Missing"
+                                        });
+                                    }
+                                    else {
+                                        res.status(200).json({
+                                            auth: false,
+                                            message: "Password is Updated"
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        else {
+            return res.status(404).json({
+                message: "Unauthorized User",
+            });
+        }
     } catch (err) {
         console.log(err);
     }

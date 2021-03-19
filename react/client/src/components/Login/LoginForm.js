@@ -22,7 +22,7 @@ export function LoginForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            if (data.auth) {
+            if (data.profile) {
                 history.push('/settings/profile');
             }
         }

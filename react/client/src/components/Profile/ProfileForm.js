@@ -26,9 +26,7 @@ export function ProfileForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            if (data.auth) {
-                history.push('/settings/profile');
-            }
+            history.push('/settings/profile');
         }
         else {
             history.push('/settings/profile');
