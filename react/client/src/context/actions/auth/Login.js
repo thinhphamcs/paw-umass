@@ -18,6 +18,7 @@ export const login = ({
             checkBox
         })
         .then(res => {
+            // Determine if user want to store data in localStorage or sessionStorage
             if (res.data.checkBox === true) {
                 localStorage.checkBox = true;
                 localStorage.token = res.data.token;

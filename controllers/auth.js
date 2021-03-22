@@ -3,7 +3,6 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-
 // Connect to database again
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -13,79 +12,91 @@ const db = mysql.createConnection({
 });
 
 // Export as modules
-exports.register = (req, res) => {
-    /**
-     * Better way to write this 
-     * const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const email = req.body.email;
-        const password = req.body.password;
-        const passwordConfirm = req.body.passwordConfirm;
-        const phone = req.body.phone;
-     */
-    const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
+exports.register = async (req, res) => {
+    try {
+        /**
+             * Better way to write this 
+             * const firstName = req.body.firstName;
+                const lastName = req.body.lastName;
+                const email = req.body.email;
+                const password = req.body.password;
+                const passwordConfirm = req.body.passwordConfirm;
+                const phone = req.body.phone;
+             */
+        const { firstName, lastName, email, password, passwordConfirm, phone } = req.body;
 
-    // This regular expression will look for @ sign in the email address provided by user
-    const emailRE = /\S+@\S+\.\S+/;
-    const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
-    // If user provide the correct format which is anystring@anystring.anystring then we will register
-    if (emailRE.test(email) && phoneRE.test(phone)) {
-        // Look through our database
-        db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                // We check the email from database if email exists then 
-                if (results.length > 0) {
-                    res.status(403).json({
-                        message: 'That email is already in use'
-                    });
+        // This regular expression will look for @ sign in the email address provided by user
+        const emailRE = /\S+@\S+\.\S+/;
+        const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+        // If user provide the correct format which is anystring@anystring.anystring then we will register
+        if (emailRE.test(email) && phoneRE.test(phone)) {
+            // Look through our database
+            db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
+                if (err) {
+                    console.log(err);
                 }
                 else {
-                    // We check the password from user input with the confirm password from user input
-                    if (password !== passwordConfirm) {
+                    // We check the email from database if email exists then 
+                    if (results.length > 0) {
                         res.status(403).json({
-                            message: 'Passwords do not match'
+                            message: 'That email is already in use'
                         });
                     }
                     else {
-                        // Hashing user input password
-                        let hashedPassword = await bcrypt.hash(password, 8);
-                        // This way is better to prevent SQL injection
-                        let data = {
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            password: hashedPassword,
-                            phone: phone
-                        };
-                        // Insert data to our database
-                        db.query('INSERT INTO users SET ?', data, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                                res.status(200).json({
-                                    message: 'User Registered'
-                                }); // User registered
-                            }
-                        });
+                        // We check the password from user input with the confirm password from user input
+                        if (password !== passwordConfirm) {
+                            res.status(403).json({
+                                message: 'Passwords do not match'
+                            });
+                        }
+                        else {
+                            // Hashing user input password
+                            let hashedPassword = await bcrypt.hash(password, 8);
+                            // This way is better to prevent SQL injection
+                            let data = {
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                password: hashedPassword,
+                                phone: phone
+                            };
+                            // Insert data to our database
+                            db.query('INSERT INTO users SET ?', data, (err, results) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    if (results.length === 0) {
+                                        res.status(404).json({
+                                            message: 'Nothing got inserted'
+                                        });
+                                    }
+                                    else {
+                                        res.status(200).json({
+                                            message: 'User Registered'
+                                        }); // User registered
+                                    }
+                                }
+                            });
+                        }
                     }
                 }
-            }
-        });
-    }
-    // If the email address format is incorrect
-    if (!emailRE.test(email)) {
-        return res.status(400).json({
-            message: "Invalid Email Format"
-        });
-    }
-    if (!phoneRE.test(phone)) {
-        return res.status(400).json({
-            message: "Invalid Phone Format"
-        });
+            });
+        }
+        // If the email address format is incorrect
+        if (!emailRE.test(email)) {
+            res.status(400).json({
+                message: "Invalid Email Format"
+            });
+        }
+        if (!phoneRE.test(phone) || phone.length > 11) {
+            res.status(400).json({
+                message: "Invalid Phone Format"
+            });
+            res.writeContinue();
+        }
+    } catch (err) {
+        console.log(err);
     }
 }
 
@@ -93,65 +104,65 @@ exports.register = (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { email, password, checkBox } = req.body;
-        // If email or password is empty
-        if (!email || !password) {
-            return res.status(204).json({
-                message: 'Please provide valid email or password'
-            });
-        }
+
         // Look through our database
         db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
-            /**
-             * If user input nothing or wrong password
-             * bcrypt compare user input password and the hashed password in our database
-             * since it takes sometimes we have to use await and async
-             */
-            if (results.length === 0) {
-                return res.status(401).json({
-                    message: 'Please provide valid email or password'
-                });
+            if (err) {
+                console.log(err);
             }
             else {
-                if (!results || !(await bcrypt.compare(password, results[0].password))) {
+                /**
+                * If user input nothing or wrong password
+                * bcrypt compare user input password and the hashed password in our database
+                * since it takes sometimes we have to use await and async
+                */
+                if (results.length === 0) {
                     res.status(401).json({
                         message: 'Please provide valid email or password'
                     });
                 }
                 else {
-                    // Getting our id from database since each user will have a unique id
-                    const id = results[0].id;
-                    /**
-                     * Create token through jsonwebtoken by sign function with id as param
-                     * We need a secret password and when it should be expire
-                     */
-                    const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
-                        expiresIn: process.env.JWT_EXPIRES_IN
-                    });
-                    /**
-                     * Create cookie to enable it through html
-                     * the way it expires we need to convert it to miliseconds
-                     * so Today + How many days it expires (3 days) * 24 hours a day * 60 minutes per hour * 60 seconds per minute and 1000 miliseconds per second
-                     */
-                    const cookieOptions = {
-                        expires: new Date(
-                            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-                        ),
-                        httpOnly: true,
+                    if (!results || !(await bcrypt.compare(password, results[0].password))) {
+                        res.status(401).json({
+                            message: 'Please provide valid email or password'
+                        });
                     }
-                    res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
-                    // Send it back to the front end
-                    res.status(200).json({
-                        auth: true,
-                        token: token,
-                        checkBox: checkBox,
-                        data: {
-                            "firstName": results.map(item => item.firstName),
-                            "lastName": results.map(item => item.lastName),
-                            "email": results.map(item => item.email),
-                            "phone": results.map(item => item.phone)
-                        },
-                        profile: true
-                    }); // User logged in
+                    else {
+                        // Getting our id from database since each user will have a unique id
+                        const id = results[0].id;
+                        /**
+                         * Create token through jsonwebtoken by sign function with id as param
+                         * We need a secret password and when it should be expire
+                         */
+                        const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+                            expiresIn: process.env.JWT_EXPIRES_IN
+                        });
+                        /**
+                         * Create cookie to enable it through html
+                         * the way it expires we need to convert it to miliseconds
+                         * so Today + How many days it expires (3 days) * 24 hours a day * 60 minutes per hour * 60 seconds per minute and 1000 miliseconds per second
+                         */
+                        const cookieOptions = {
+                            expires: new Date(
+                                Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+                            ),
+                            httpOnly: true,
+                        }
+                        res.cookie('jwt', token, cookieOptions); // Here is where we create the cookie
+                        // Send it back to the front end
+                        res.status(200).json({
+                            auth: true,
+                            token: token,
+                            checkBox: checkBox,
+                            data: {
+                                "firstName": results.map(item => item.firstName),
+                                "lastName": results.map(item => item.lastName),
+                                "email": results.map(item => item.email),
+                                "phone": results.map(item => item.phone)
+                            },
+                            profile: true
+                        }); // User logged in
+                    }
                 }
             }
         });
@@ -176,8 +187,8 @@ exports.forgot = async (req, res) => {
                 }
                 else {
                     if (results.length === 0) {
-                        return res.status(401).json({
-                            message: 'Please provide valid email'
+                        res.status(401).json({
+                            message: 'Email address does not exist '
                         });
                     }
                     else {
@@ -198,31 +209,36 @@ exports.forgot = async (req, res) => {
             if (phoneRE.test(input)) {
                 // Look through our database
                 db.query('SELECT id FROM users WHERE phone = ?', [input], async (err, results) => {
-                    /**
-                     * If user input nothing or wrong password
-                     * bcrypt compare user input password and the hashed password in our database
-                     * since it takes sometimes we have to use await and async
-                     */
-                    if (results.length === 0) {
-                        return res.status(401).json({
-                            message: 'Please provide valid phone'
-                        });
+                    if (err) {
+                        console.log(err);
                     }
                     else {
-                        const id = results.map(item => item.id);
-                        const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
-                        // Send it back to the front end
-                        res.status(200).json({
-                            auth: true,
-                            token: token,
-                            message: 'Authorized Phone',
-                            forgot: true
-                        });
+                        /**
+                         * If user input nothing or wrong password
+                        * bcrypt compare user input password and the hashed password in our database
+                        * since it takes sometimes we have to use await and async
+                        */
+                        if (results.length === 0) {
+                            res.status(401).json({
+                                message: 'Phone number does not exist '
+                            });
+                        }
+                        else {
+                            const id = results.map(item => item.id);
+                            const token = jwt.sign({ id: id }, process.env.JWT_SECRET);
+                            // Send it back to the front end
+                            res.status(200).json({
+                                auth: true,
+                                token: token,
+                                message: 'Authorized Phone',
+                                forgot: true
+                            });
+                        }
                     }
                 });
             }
             else {
-                return res.status(401).json({
+                res.status(401).json({
                     message: 'Please provide valid input'
                 });
             }
@@ -266,7 +282,7 @@ exports.change = async (req, res) => {
                                 }
                                 else {
                                     if (results.length === 0) {
-                                        return res.status(404).json({
+                                        res.status(404).json({
                                             message: "Data is Missing"
                                         });
                                     }
@@ -284,7 +300,7 @@ exports.change = async (req, res) => {
             });
         }
         else {
-            return res.status(404).json({
+            res.status(404).json({
                 message: "Unauthorized User",
             });
         }

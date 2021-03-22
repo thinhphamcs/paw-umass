@@ -14,7 +14,7 @@ export const forgot = ({
             input
         })
         .then(res => {
-            sessionStorage.token = res.data.token;
+            sessionStorage.token = res.data.token; // Temporary token
             dispatch({
                 type: FORGOT_SUCCESS,
                 payload: res.data,

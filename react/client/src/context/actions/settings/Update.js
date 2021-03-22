@@ -20,6 +20,8 @@ export const update = ({
             phone
         })
         .then(res => {
+            // Determine if user is store data in localStorage or sessionStorage
+            // Then change data accordingly
             if (localStorage.checkBox) {
                 if (res.data.firstName) {
                     localStorage.firstName = res.data.firstName;

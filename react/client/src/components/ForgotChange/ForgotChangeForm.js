@@ -26,6 +26,7 @@ export function ForgotChangeForm() {
         if (data) {
             if (data.auth === false) {
                 history.push('/login');
+                sessionStorage.clear(); // clear the token for better security
             }
         }
         else {

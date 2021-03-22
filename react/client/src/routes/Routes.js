@@ -16,7 +16,7 @@ import ForgotChange from '../components/ForgotChange/ForgotChange';
  * Component: Import the component to display it
  * Title: The tab title 
  * Auth: Determine if user is allow to see the component or not
- * One more variable to prevent pages to random go different pages
+ * One more variable to prevent pages to random go different pages only pages with the auth: true
  */
 const routes = [
     {
@@ -84,12 +84,14 @@ const routes = [
         component: '',
         title: 'Submit',
         auth: true,
+        submit: true
     },
     {
         path: '/donate',
         component: '',
         title: 'Donate',
         auth: true,
+        donate: true
     }
 ];
 
