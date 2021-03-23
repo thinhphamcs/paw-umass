@@ -8,6 +8,7 @@ import Deactivate from '../components/Deactivate/Deactivate';
 import Change from '../components/Change/Change';
 import Forgot from '../components/Forgot/Forgot';
 import ForgotChange from '../components/ForgotChange/ForgotChange';
+import Submit from '../components/Submit/Submit';
 
 /**
  * Define the routes
@@ -80,8 +81,8 @@ const routes = [
         home: true
     },
     {
-        path: '/submit',
-        component: '',
+        path: '/user/submit',
+        component: Submit,
         title: 'Submit',
         auth: true,
         submit: true

@@ -27,3 +27,8 @@ export const CHANGE_ERROR = 'CHANGE_ERROR';
 export const FORGOT_LOADING = 'FORGOT_LOADING';
 export const FORGOT_SUCCESS = 'FORGOT_SUCCESS';
 export const FORGOT_ERROR = 'FORGOT_ERROR';
+
+// The states for Submit
+export const SUBMIT_LOADING = 'SUBMIT_LOADING';
+export const SUBMIT_SUCCESS = 'SUBMIT_SUCCESS';
+export const SUBMIT_ERROR = 'SUBMIT_ERROR';
