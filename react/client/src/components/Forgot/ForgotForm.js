@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 export function ForgotForm() {
     // Hook
     const [form, setForm] = useState({
-        input: '',
+        email: '',
+        phone: ''
     });
 
     // use history from react-router-dom to redirect
@@ -46,9 +47,20 @@ export function ForgotForm() {
         });
     };
 
+    // onChange function for child component Phone
+    const phoneChange = (value) => {
+        setForm({
+            ...form,
+            phone: value
+        });
+    }
+
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.input.length) {
+    if (form.email.length && !form.phone) {
+        forgotFormValid = false;
+    }
+    else if (!form.email.length && form.phone) {
         forgotFormValid = false;
     }
     // if user input nothing then we disabled the button
@@ -62,5 +74,5 @@ export function ForgotForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, forgotFormValid, onSubmit, onChange };
+    return { form, error, loading, forgotFormValid, onSubmit, onChange, phoneChange };
 }

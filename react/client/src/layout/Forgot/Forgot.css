@@ -50,6 +50,12 @@
     margin-bottom: 34px;
 }
 
+/* === Line === */
+.forgot-line {
+    border-bottom: 3px solid #6A150D;
+    margin: 20px;
+}
+
 /* === Buttons === */
 .forgot-form-button {
     background-color: #6A150D !important;

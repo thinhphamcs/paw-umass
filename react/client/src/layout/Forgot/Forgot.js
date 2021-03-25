@@ -1,10 +1,11 @@
 // Import
 import React from 'react';
 import Logo from '../../assets/images/logo3.png';
+import PhoneInput from 'react-phone-number-input/input';
 import './Forgot.css';
 
 // This will be the font end with props I can use to display data
-function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, error } }) {
+function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, error, phoneChange } }) {
     return (
         <div className="forgot-container">
             <div className="forgot-container-header">
@@ -16,11 +17,22 @@ function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, 
                 <div className="forgot-form-group">
                     <input className="forgot-input"
                         type="text"
-                        id="input"
-                        name="input"
-                        placeholder="Enter Email or Phone"
-                        value={form.input}
+                        id="email"
+                        name="email"
+                        placeholder="Email address"
+                        value={form.email}
                         onChange={onChange}></input>
+                </div>
+                <div className="forgot-line"></div>
+                <div className="forgot-form-group">
+                    <PhoneInput
+                        className="forgot-input"
+                        id="phone"
+                        name="phone"
+                        country="US"
+                        placeholder="123 456 7890"
+                        value={form.phone}
+                        onChange={phoneChange} />
                 </div>
                 <button className="forgot-form-button" type="submit" onClick={onSubmit} disabled={forgotFormValid || loading} loading={loading.toString()}>Search</button>
             </form>

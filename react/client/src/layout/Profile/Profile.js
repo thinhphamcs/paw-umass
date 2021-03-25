@@ -2,11 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
+import PhoneInput from 'react-phone-number-input/input';
 import * as AiIcons from "react-icons/ai";
 import './Profile.css';
 
 // This will be the font end with props I can use to display data
-function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error } }) {
+function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error, phoneChange } }) {
     return (
         <div className="profile-container">
             <AiIcons.AiOutlineArrowRight className="profile-right-arrow" />
@@ -45,7 +46,14 @@ function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading,
                         {sessionStorage ? sessionStorage.phone : null}
                         {localStorage.phone ? localStorage.phone : null}
                     </div>
-                    <input className="profile-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
+                    <PhoneInput
+                        className="profile-input"
+                        id="phone"
+                        name="phone"
+                        country="US"
+                        placeholder="123 456 7890"
+                        value={form.phone}
+                        onChange={phoneChange} />
                 </div>
                 <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={updateFormValid || loading} loading={loading.toString()}>Update</button>
             </form>

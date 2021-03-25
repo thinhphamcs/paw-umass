@@ -50,6 +50,14 @@ export function RegisterForm() {
         });
     };
 
+    // onChange function for child component Phone
+    const phoneChange = (value) => {
+        setForm({
+            ...form,
+            phone: value
+        });
+    }
+
     // Function to check if user have typed everything
     const registerFormValid =
         !form.firstName?.length ||
@@ -65,5 +73,5 @@ export function RegisterForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, registerFormValid, onSubmit, onChange, };
+    return { form, error, loading, registerFormValid, onSubmit, onChange, phoneChange };
 }

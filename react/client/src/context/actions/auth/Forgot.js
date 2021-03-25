@@ -4,14 +4,16 @@ import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
 export const forgot = ({
-    input
+    email,
+    phone
 }) => (dispatch) => {
     dispatch({
         type: FORGOT_LOADING,
     });
     axiosInstance()
         .post("/auth/forgot", {
-            input
+            email,
+            phone
         })
         .then(res => {
             sessionStorage.token = res.data.token; // Temporary token

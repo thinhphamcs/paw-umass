@@ -30,7 +30,7 @@ function ChangeUI({ form: { onChange, form, changeFormValid, onSubmit, loading, 
                         value={form.current}
                         onChange={onChange}></input>
                 </div>
-                <div className="line"></div>
+                <div className="change-line"></div>
                 <div className="change-form-group">
                     <input className="change-input"
                         type="password"

@@ -64,7 +64,7 @@ exports.update = async (req, res) => {
         const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
         // This regular expression will look for @ sign in the email address provided by user
         const emailRE = /\S+@\S+\.\S+/;
-        const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+        const phoneRE = /^\s*((\+\d{1}))[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})\s*$/;
         // We now check if user have any data, if so then we update that specific data
         // If first name only case
         if (firstName && !lastName && !email && !phone) {
@@ -163,38 +163,44 @@ exports.update = async (req, res) => {
                 });
             }
             else {
-                if (!phoneRE.test(phone) || phone.length > 11) {
+                if (!phoneRE.test(phone)) {
                     res.status(400).json({
                         message: "Invalid Phone Format"
                     });
-                    res.writeContinue();
                 }
             }
         }
         // If everything only case
         if (firstName && lastName && email && phone) {
-            db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    if (results.length === 0) {
-                        res.status(404).json({
-                            message: "Data is Missing"
-                        });
+            if (emailRE.test(email) && phoneRE.test(phone)) {
+                db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
+                    if (err) {
+                        console.log(err);
                     }
                     else {
-                        res.status(200).json({
-                            message: "Data is Updated",
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                            phone: phone,
-                            profile: true
-                        });
+                        if (results.length === 0) {
+                            res.status(404).json({
+                                message: "Data is Missing"
+                            });
+                        }
+                        else {
+                            res.status(200).json({
+                                message: "Data is Updated",
+                                firstName: firstName,
+                                lastName: lastName,
+                                email: email,
+                                phone: phone,
+                                profile: true
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
+            else {
+                res.status(401).json({
+                    message: 'Please provide valid input'
+                });
+            }
         }
     } catch (err) {
         console.log(err);
@@ -270,27 +276,35 @@ exports.change = async (req, res) => {
                             });
                         }
                         else {
-                            // Hashing user input password
-                            let hashedPassword = await bcrypt.hash(newPassword, 8);
-                            db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
-                                if (err) {
-                                    console.log(err);
-                                }
-                                else {
-                                    if (results.length === 0) {
-                                        res.status(404).json({
-                                            message: "Password does not exist"
-                                        });
+                            const userOldPassword = results.map(item => item.password);
+                            if (bcrypt.compareSync(newPassword, userOldPassword[0])) {
+                                res.status(403).json({
+                                    message: 'New password must be different from old password'
+                                });
+                            }
+                            else {
+                                // Hashing user input password
+                                let hashedPassword = await bcrypt.hash(newPassword, 8);
+                                db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
+                                    if (err) {
+                                        console.log(err);
                                     }
                                     else {
-                                        res.status(200).json({
-                                            auth: true,
-                                            message: "Password is Updated",
-                                            profile: true
-                                        });
+                                        if (results.length === 0) {
+                                            res.status(404).json({
+                                                message: "Password does not update"
+                                            });
+                                        }
+                                        else {
+                                            res.status(200).json({
+                                                auth: true,
+                                                message: "Password is Updated",
+                                                profile: true
+                                            });
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     }
                     else {

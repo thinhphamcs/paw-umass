@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
 
         // This regular expression will look for @ sign in the email address provided by user
         const emailRE = /\S+@\S+\.\S+/;
-        const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+        const phoneRE = /^\s*((\+\d{1}))[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})\s*$/;
         // If user provide the correct format which is anystring@anystring.anystring then we will register
         if (emailRE.test(email) && phoneRE.test(phone)) {
             // Look through our database
@@ -89,11 +89,10 @@ exports.register = async (req, res) => {
                 message: "Invalid Email Format"
             });
         }
-        if (!phoneRE.test(phone) || phone.length > 11) {
+        if (!phoneRE.test(phone)) {
             res.status(400).json({
                 message: "Invalid Phone Format"
             });
-            res.writeContinue();
         }
     } catch (err) {
         console.log(err);
@@ -168,14 +167,14 @@ exports.login = async (req, res) => {
 // Export as module
 exports.forgot = async (req, res) => {
     try {
-        const input = req.body.input;
+        const { email, phone } = req.body;
         // This regular expression will look for @ sign in the email address provided by user
         const emailRE = /\S+@\S+\.\S+/;
-        const phoneRE = /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/;
+        const phoneRE = /^\s*((\+\d{1}))[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})\s*$/;
         // If user input is email format
-        if (emailRE.test(input)) {
+        if (emailRE.test(email)) {
             // Look through our database
-            db.query('SELECT id FROM users WHERE email = ?', [input], async (err, results) => {
+            db.query('SELECT id FROM users WHERE email = ?', [email], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -200,9 +199,9 @@ exports.forgot = async (req, res) => {
             });
         }
         else {
-            if (phoneRE.test(input)) {
+            if (phoneRE.test(phone)) {
                 // Look through our database
-                db.query('SELECT id FROM users WHERE phone = ?', [input], async (err, results) => {
+                db.query('SELECT id FROM users WHERE phone = ?', [phone], async (err, results) => {
                     if (err) {
                         console.log(err);
                     }
