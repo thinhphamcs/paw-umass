@@ -1,9 +1,36 @@
 // Import
+import { CONNECTION_ERROR, PROFILE_ERROR, PROFILE_LOADING, PROFILE_SUCCESS } from "../../../constants/actionTypes";
 import { axiosInstance } from "../../../helpers/axiosInstance";
 
 // Using interceptor (response interceptor)
-export function GetProfiles(history) {
+export const GetProfiles = (history) => (dispatch) => {
+    dispatch({
+        type: PROFILE_LOADING
+    });
     axiosInstance(history)
         .get('/settings/profile')
-        .catch((err) => console.log("err", err));
+        .then((res) => {
+            if (localStorage.checkBox) {
+                localStorage.firstName = res.data.data.firstName[0];
+                localStorage.lastName = res.data.data.lastName[0];
+                localStorage.email = res.data.data.email[0];
+                localStorage.phone = res.data.data.phone[0];
+            }
+            if (sessionStorage.checkBox) {
+                sessionStorage.firstName = res.data.data.firstName[0];
+                sessionStorage.lastName = res.data.data.lastName[0];
+                sessionStorage.email = res.data.data.email[0];
+                sessionStorage.phone = res.data.data.phone[0];
+            }
+            dispatch({
+                type: PROFILE_SUCCESS,
+                payload: res.data
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: err.response ? err.response.data : CONNECTION_ERROR
+            });
+        });
 }

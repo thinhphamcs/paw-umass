@@ -1,22 +1,14 @@
 /* === Container === */
 .submit-container {
     position: fixed;
-    top: 50%;
+    top: 55%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     border-radius: 30px;
     background-color: #F4F6F6;
     border: 3px solid #6A150D;
-    padding: 0 0 55px;
-}
-
-/* === Logo === */
-.register-container-header {
-    position: fixed;
-    top: -10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding: 0 0 20px;
 }
 
 /* === Error Display === */
@@ -25,6 +17,42 @@
     padding: 10px;
     font-size: 20px;
     font-weight: unset;
+}
+
+/* === Logo, Arrows === */
+.submit-logo {
+    display: inline-block; 
+    height: 100px;
+}
+
+.submit-logo img {
+    height: 120%;
+    width: 100%;
+}
+
+.submit-container-header {
+    position: fixed;
+    top: -8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.submit-right-arrow {
+    top: -8%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
+}
+
+.submit-left-arrow {
+    top: -8%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: #6A150D;
+    position: fixed;
 }
 
 /* === Form: title, container, groups, check, inputs === */
@@ -61,6 +89,16 @@
     color: #6A150D;
 }
 
+.submit-file {
+    font-size: 15px !important;
+    margin-bottom: 15px !important;
+    padding: 10px 30px !important;
+    width: 100%;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
+}
+
 /* === Textarea Limit === */
 .submit-countdown {
     text-align: center;
@@ -82,7 +120,7 @@
 
 .submit-inner{
     display: inline-block;
-    padding: 0 5px 0 5px;
+    padding: 0 3px 0 3px;
 }
   
 .submit-outer input[type="radio"] {
@@ -146,10 +184,10 @@
     }
     .submit-container {
         position: fixed;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
     }
-    .register-container-header {
+    .submit-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -55%);
         transform: translate(-50%, -55%);

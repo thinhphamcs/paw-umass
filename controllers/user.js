@@ -15,6 +15,10 @@ const db = mysql.createConnection({
 exports.submit = async (req, res) => {
     try {
         console.log("hello");
+        console.log(req.files);
+        const { petName, age, photo, description, radio } = req.body;
+        // const sampleFile;
+        // const uploadPath;
     } catch (err) {
         console.log(err);
     }

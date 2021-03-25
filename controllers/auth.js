@@ -154,12 +154,6 @@ exports.login = async (req, res) => {
                             auth: true,
                             token: token,
                             checkBox: checkBox,
-                            data: {
-                                "firstName": results.map(item => item.firstName),
-                                "lastName": results.map(item => item.lastName),
-                                "email": results.map(item => item.email),
-                                "phone": results.map(item => item.phone)
-                            },
                             profile: true
                         }); // User logged in
                     }

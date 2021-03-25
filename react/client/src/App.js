@@ -7,6 +7,7 @@ import { GlobalProvider } from './context/Provider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
+  document.title = route.title;
   // const history = useHistory();
   // Checking for both localStorage AND sessionStorage
   if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {

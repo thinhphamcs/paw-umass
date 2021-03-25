@@ -3,6 +3,7 @@ const ProfileInitialState = {
     profile: {
         loading: false,
         error: null,
+        data: [],
     },
     updateProfile: {
         loading: false,

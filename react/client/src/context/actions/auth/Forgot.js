@@ -1,5 +1,5 @@
 // Import
-import { FORGOT_LOADING, FORGOT_SUCCESS, FORGOT_ERROR } from '../../../constants/actionTypes';
+import { FORGOT_LOADING, FORGOT_SUCCESS, FORGOT_ERROR, CONNECTION_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
@@ -23,7 +23,7 @@ export const forgot = ({
         .catch(err => {
             dispatch({
                 type: FORGOT_ERROR,
-                payload: err.response ? err.response.data : "COULD NOT CONNECT",
+                payload: err.response ? err.response.data : CONNECTION_ERROR
             });
         });
 }

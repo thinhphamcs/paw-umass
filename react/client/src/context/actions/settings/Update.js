@@ -1,5 +1,5 @@
 // Import
-import { UPDATE_LOADING, UPDATE_SUCCESS, UPDATE_ERROR } from '../../../constants/actionTypes';
+import { UPDATE_LOADING, UPDATE_SUCCESS, UPDATE_ERROR, CONNECTION_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
@@ -106,7 +106,7 @@ export const update = ({
         .catch(err => {
             dispatch({
                 type: UPDATE_ERROR,
-                payload: err.response ? err.response.data : "COULD NOT CONNECT",
+                payload: err.response ? err.response.data : CONNECTION_ERROR
             });
         });
 }

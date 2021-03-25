@@ -13,9 +13,7 @@ export function SubmitForm() {
         photo: '',
         description: '',
         countdown: '',
-        day: '',
-        week: '',
-        forever: '',
+        radio: ''
     });
 
     // use history from react-router-dom to redirect
@@ -50,18 +48,13 @@ export function SubmitForm() {
     const onChange = (event) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value,
-            day: event.target.checked,
-            week: event.target.checked,
-            forever: event.target.checked
+            [event.target.name]: event.target.value
         });
     };
 
     // Function to check if user have typed everything
-    // if user input the first/last/email/phone field then we open the button
-    // && form.photo.length
-    if (form.petName.length && form.age.length && form.description.length &&
-        (form.day === true || form.week === true || form.forever === true)) {
+    if (form.petName.length && form.age.length && form.description.length && form.photo.length &&
+        (form.radio === "day" || form.radio === "week" || form.radio === "forever")) {
         submitFormValid = false;
     }
     // if user input nothing then we disabled the button

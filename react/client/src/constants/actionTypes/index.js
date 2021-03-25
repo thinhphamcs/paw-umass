@@ -32,3 +32,12 @@ export const FORGOT_ERROR = 'FORGOT_ERROR';
 export const SUBMIT_LOADING = 'SUBMIT_LOADING';
 export const SUBMIT_SUCCESS = 'SUBMIT_SUCCESS';
 export const SUBMIT_ERROR = 'SUBMIT_ERROR';
+
+// The states for profile
+export const PROFILE_LOADING = 'PROFILE_LOADING';
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_ERROR = 'PROFILE_ERROR';
+
+// This is for the error message
+export const CONNECTION_ERROR = 'Could not connect try again';
+

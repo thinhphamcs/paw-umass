@@ -1,5 +1,5 @@
 // Import
-import { SUBMIT_SUCCESS, SUBMIT_ERROR, SUBMIT_LOADING } from '../../../constants/actionTypes';
+import { SUBMIT_LOADING, SUBMIT_SUCCESS, SUBMIT_ERROR, CONNECTION_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Register function that will send data to backend with dispatch and axios
@@ -8,9 +8,7 @@ export const submit = ({
     age,
     photo,
     description,
-    day,
-    week,
-    forever
+    radio
 }) => (dispatch) => {
     dispatch({
         type: SUBMIT_LOADING,
@@ -21,9 +19,7 @@ export const submit = ({
             age,
             photo,
             description,
-            day,
-            week,
-            forever
+            radio
         })
         .then(res => {
             dispatch({
@@ -34,7 +30,7 @@ export const submit = ({
         .catch(err => {
             dispatch({
                 type: SUBMIT_ERROR,
-                payload: err.response ? err.response.data : "COULD NOT CONNECT",
+                payload: err.response ? err.response.data : CONNECTION_ERROR
             });
         });
 }

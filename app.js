@@ -6,6 +6,7 @@ const path = require("path"); // Default with nodejs so no need to install but d
 const cookieParser = require("cookie-parser"); // To enable cookie in browser
 const bodyParser = require('body-parser'); // To enable body-parser
 const cors = require("cors"); // To enable cors
+const fileUpload = require('express-fileupload');
 
 /**
  * Tell dotenv where are the environment setting variables
@@ -47,6 +48,16 @@ app.use(cookieParser());
 // Using body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+/*// Using fileUpload
+*/
+// const fileUploadOptions = {
+//     Read Documentation
+// }
+// app.use(fileUpload({
+
+// }));
+app.use(fileUpload());
+
 /*// Using cors
 /*
 origin: 'http://localhost:3000/',
@@ -79,6 +90,6 @@ app.use('/settings', require('./routes/settings'));
 app.use('/user', require('./routes/user'));
 
 // Tell express which port to listen
-app.listen(process.env.PORT || 5050, () => {
-    console.log("Server started on port " + process.env.PORT || 5050);
+app.listen(process.env.PORT, () => {
+    console.log("Server started on port " + process.env.PORT);
 });

@@ -18,7 +18,7 @@ exports.profile = async (req, res) => {
         if (jwt.decode(req.headers.authorization)) {
             const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            db.query('SELECT firstName FROM users WHERE id = ?', [id], async (err, results) => {
+            db.query('SELECT firstName, lastName, email, phone FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -33,6 +33,12 @@ exports.profile = async (req, res) => {
                         res.status(200).json({
                             auth: true,
                             message: "Authorized User",
+                            data: {
+                                "firstName": results.map(item => item.firstName),
+                                "lastName": results.map(item => item.lastName),
+                                "email": results.map(item => item.email),
+                                "phone": results.map(item => item.phone)
+                            },
                         });
                     }
                 }
