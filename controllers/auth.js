@@ -3,15 +3,30 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// Connect to database again
-const db = mysql.createConnection({
+/**
+ * Create the database
+ * Host can be change with the ip address of server instead of 'localhost'
+ * XAMPP by default using 'root' as 'user' and 'empty' as 'password'
+ * MAMPP/WAMPP by default using 'root' as 'user' and 'root' as 'password'
+ */
+const userDB = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
 });
 
-// Export as modules
+// Connect to database
+userDB.connect((err) => {
+    if (err) {
+        console.log(err); // Should print the error message
+    }
+    else {
+        console.log("MySQL Connected For Users..."); // Should print this message in console to prove it is connected
+    }
+});
+
+// Export as module
 exports.register = async (req, res) => {
     try {
         /**
@@ -31,7 +46,7 @@ exports.register = async (req, res) => {
         // If user provide the correct format which is anystring@anystring.anystring then we will register
         if (emailRE.test(email) && phoneRE.test(phone)) {
             // Look through our database
-            db.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
+            userDB.query('SELECT email FROM users WHERE email = ?', [email], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -61,7 +76,7 @@ exports.register = async (req, res) => {
                                 phone: phone
                             };
                             // Insert data to our database
-                            db.query('INSERT INTO users SET ?', data, (err, results) => {
+                            userDB.query('INSERT INTO users SET ?', data, (err, results) => {
                                 if (err) {
                                     console.log(err);
                                 }
@@ -105,7 +120,7 @@ exports.login = async (req, res) => {
         const { email, password, checkBox } = req.body;
 
         // Look through our database
-        db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+        userDB.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
             if (err) {
                 console.log(err);
             }
@@ -174,7 +189,7 @@ exports.forgot = async (req, res) => {
         // If user input is email format
         if (emailRE.test(email)) {
             // Look through our database
-            db.query('SELECT id FROM users WHERE email = ?', [email], async (err, results) => {
+            userDB.query('SELECT id FROM users WHERE email = ?', [email], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -201,7 +216,7 @@ exports.forgot = async (req, res) => {
         else {
             if (phoneRE.test(phone)) {
                 // Look through our database
-                db.query('SELECT id FROM users WHERE phone = ?', [phone], async (err, results) => {
+                userDB.query('SELECT id FROM users WHERE phone = ?', [phone], async (err, results) => {
                     if (err) {
                         console.log(err);
                     }
@@ -249,7 +264,7 @@ exports.change = async (req, res) => {
         if (jwt.decode(req.headers.authorization)) {
             const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            db.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -269,7 +284,7 @@ exports.change = async (req, res) => {
                         else {
                             // Hashing user input password
                             let hashedPassword = await bcrypt.hash(newPassword, 8);
-                            db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
+                            userDB.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
                                 if (err) {
                                     console.log(err);
                                 }

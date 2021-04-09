@@ -64,7 +64,6 @@ const routes = [
         title: 'Change',
         auth: true,
         change: true
-
     },
     {
         path: '/settings/deactivate',

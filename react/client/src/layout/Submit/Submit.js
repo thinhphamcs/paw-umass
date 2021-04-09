@@ -19,7 +19,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             </div>
             <AiIcons.AiOutlineArrowLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
-            <form className="submit-form-container" encType="multipart/form-data">
+            <form className="submit-form-container" >
                 {error ? error.message : null}
                 <div className="submit-form-group">
                     <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" value={form.petName} onChange={onChange}></input>
@@ -28,8 +28,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                     <input required className="submit-input" type="number" id="age" name="age" placeholder="Age" value={form.age} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
-                    {/* Learn about accept attribute and multipart/form-data for form in encType */}
-                    <input required className="submit-file" type="file" id="photo" name="photo" accept="image/*" value={form.photo} onChange={onChange}></input>
+                    <input required className="submit-file" type="file" id="photo" name="photo" accept="image/*" onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
                     <div className="submit-maximum">
@@ -52,25 +51,25 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                 </div>
                 <div className="submit-outer">
                     <div className="submit-inner">
-                        <input className="submit-day" type="radio" id="day" name="radio" value="day" onChange={onChange}></input>
+                        <input className="submit-day" type="radio" id="day" name="radio" value="for a day" onChange={onChange}></input>
                         <label className="submit-day-label" htmlFor="day">
                             1 Day
                         </label>
                     </div>
                     <div className="submit-inner">
-                        <input className="submit-week" type="radio" id="week" name="radio" value="week" onChange={onChange}></input>
+                        <input className="submit-week" type="radio" id="week" name="radio" value="for a week" onChange={onChange}></input>
                         <label className="submit-week-label" htmlFor="week">
                             1 Week
                         </label>
                     </div>
                     <div className="submit-inner">
-                        <input className="submit-forever" type="radio" id="forever" name="radio" value="forever" onChange={onChange}></input>
+                        <input className="submit-forever" type="radio" id="forever" name="radio" value="up for adoption" onChange={onChange}></input>
                         <label className="submit-forever-label" htmlFor="forever">
                             Give Away
                         </label>
                     </div>
                 </div>
-                <button className="submit-form-button" onClick={onSubmit} disabled={submitFormValid || loading} loading={loading.toString()} type="submit">Submit</button>
+                <button className="submit-form-button" type="submit" onClick={onSubmit} disabled={submitFormValid || loading} loading={loading.toString()}>Submit</button>
             </form>
         </div>
     );

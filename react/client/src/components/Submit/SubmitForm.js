@@ -28,9 +28,9 @@ export function SubmitForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            // if (data.message) {
-            history.push('/home');
-            // }
+            if (data.home) {
+                history.push('/home');
+            }
         }
         else {
             history.push('/user/submit');
@@ -46,15 +46,17 @@ export function SubmitForm() {
 
     // onChange function
     const onChange = (event) => {
+        const target = event.target;
+        const value = target.type === 'file' ? target.files[0] : target.value;
         setForm({
             ...form,
-            [event.target.name]: event.target.value
+            [event.target.name]: value
         });
     };
 
     // Function to check if user have typed everything
-    if (form.petName.length && form.age.length && form.description.length && form.photo.length &&
-        (form.radio === "day" || form.radio === "week" || form.radio === "forever")) {
+    if (form.petName.length && form.age.length && form.description.length && form.photo &&
+        (form.radio === "for a day" || form.radio === "for a week" || form.radio === "up for adoption")) {
         submitFormValid = false;
     }
     // if user input nothing then we disabled the button

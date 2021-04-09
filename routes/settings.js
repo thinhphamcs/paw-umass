@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Define routes
 router.get('/profile', settingsController.profile);
+router.get('/asset', settingsController.asset);
 router.post('/update', settingsController.update);
 router.post('/deactivate', settingsController.delete);
 router.post('/change', settingsController.change);

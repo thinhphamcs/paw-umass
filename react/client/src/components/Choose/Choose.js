@@ -1,6 +1,5 @@
 // Import
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import ChooseUI from '../../layout/Choose/Choose';
 

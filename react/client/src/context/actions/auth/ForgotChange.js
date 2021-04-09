@@ -16,6 +16,8 @@ export const forgotChange = ({
             confirmPassword
         })
         .then(res => {
+            localStorage.clear();
+            sessionStorage.clear();
             dispatch({
                 type: CHANGE_SUCCESS,
                 payload: res.data,

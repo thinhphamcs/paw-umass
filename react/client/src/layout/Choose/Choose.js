@@ -26,9 +26,9 @@ const ChooseUI = () => {
             </div>
             <div className="choose-container-body">
                 <div className="intro">
-                    <h2 className="texts">See what's going on</h2>
+                    <h1 className="texts">See what's going on</h1>
                     <br />
-                    <h4 className="texts">Join PawUMass today</h4>
+                    <h3 className="texts">Join PawUMass today</h3>
                     <br />
                 </div>
                 <div className="buttons">

@@ -3,22 +3,61 @@ const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// Connect to database again
-const db = mysql.createConnection({
+/**
+ * Create the database
+ * Host can be change with the ip address of server instead of 'localhost'
+ * XAMPP by default using 'root' as 'user' and 'empty' as 'password'
+ * MAMPP/WAMPP by default using 'root' as 'user' and 'root' as 'password'
+ */
+const userDB = mysql.createConnection({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME
 });
 
+/**
+ * Create the database
+ * Host can be change with the ip address of server instead of 'localhost'
+ * XAMPP by default using 'root' as 'user' and 'empty' as 'password'
+ * MAMPP/WAMPP by default using 'root' as 'user' and 'root' as 'password'
+ */
+const assetDB = mysql.createConnection({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_ASSET
+});
+
+// Connect to database
+userDB.connect((err) => {
+    if (err) {
+        console.log(err); // Should print the error message
+    }
+    else {
+        console.log("MySQL Connected For Users..."); // Should print this message in console to prove it is connected
+    }
+});
+
+// Connect to database
+assetDB.connect((err) => {
+    if (err) {
+        console.log(err); // Should print the error message
+    }
+    else {
+        console.log("MySQL Connected For Assets..."); // Should print this message in console to prove it is connected
+    }
+});
+
 // Export as module
 exports.profile = async (req, res) => {
     try {
         // We decode the token to find out what id does this user belong to
-        if (jwt.decode(req.headers.authorization)) {
-            const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+        const token = req.headers.authorization;
+        if (jwt.decode(token)) {
+            const id = jwt.decode(token, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            db.query('SELECT firstName, lastName, email, phone FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT firstName, lastName, email, phone FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -56,6 +95,46 @@ exports.profile = async (req, res) => {
 }
 
 // Export as module
+exports.asset = async (req, res) => {
+    try {
+        let asset = [];
+        if (jwt.decode(req.headers.authorization)) {
+            assetDB.query('SELECT petName, age, photo, description, howLong, date FROM assets', async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (results.length === 0) {
+                        res.status(404).json({
+                            auth: false,
+                            message: 'Assets no longer exist'
+                        });
+                    }
+                    else {
+                        results.forEach(items => {
+                            asset.push(items);
+                        })
+                        res.status(200).json({
+                            auth: true,
+                            message: "Authorized Asset",
+                            asset
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            res.status(404).json({
+                auth: false,
+                message: "Unauthorized User",
+            });
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Export as module
 exports.update = async (req, res) => {
     try {
         // Get data from users with the following fields
@@ -68,7 +147,7 @@ exports.update = async (req, res) => {
         // We now check if user have any data, if so then we update that specific data
         // If first name only case
         if (firstName && !lastName && !email && !phone) {
-            db.query('UPDATE users SET firstName = ? WHERE id = ?', [firstName, id], async (err, results) => {
+            userDB.query('UPDATE users SET firstName = ? WHERE id = ?', [firstName, id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -90,7 +169,7 @@ exports.update = async (req, res) => {
         }
         // If last name only case
         if (lastName && !firstName && !email && !phone) {
-            db.query('UPDATE users SET lastName = ? WHERE id = ?', [lastName, id], async (err, results) => {
+            userDB.query('UPDATE users SET lastName = ? WHERE id = ?', [lastName, id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -113,7 +192,7 @@ exports.update = async (req, res) => {
         // If email field only case
         if (email && !firstName && !lastName && !phone) {
             if (emailRE.test(email)) {
-                db.query('UPDATE users SET email = ? WHERE id = ?', [email, id], async (err, results) => {
+                userDB.query('UPDATE users SET email = ? WHERE id = ?', [email, id], async (err, results) => {
                     if (err) {
                         console.log(err);
                     }
@@ -142,7 +221,7 @@ exports.update = async (req, res) => {
         // If phone field only case
         if (phone && !firstName && !lastName && !email) {
             if (phoneRE.test(phone)) {
-                db.query('UPDATE users SET phone = ? WHERE id = ?', [phone, id], async (err, results) => {
+                userDB.query('UPDATE users SET phone = ? WHERE id = ?', [phone, id], async (err, results) => {
                     if (err) {
                         console.log(err);
                     }
@@ -173,7 +252,7 @@ exports.update = async (req, res) => {
         // If everything only case
         if (firstName && lastName && email && phone) {
             if (emailRE.test(email) && phoneRE.test(phone)) {
-                db.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
+                userDB.query('UPDATE users SET firstName = ?, lastName = ?, email = ?, phone = ?  WHERE id = ?', [firstName, lastName, email, phone, id], async (err, results) => {
                     if (err) {
                         console.log(err);
                     }
@@ -214,7 +293,7 @@ exports.delete = async (req, res) => {
         if (jwt.decode(req.headers.authorization)) {
             const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            db.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -223,7 +302,7 @@ exports.delete = async (req, res) => {
                     const userPassword = results.map(item => item.password);
                     const userInputPassword = req.body.password;
                     if (bcrypt.compareSync(userInputPassword, userPassword[0])) {
-                        db.query('DELETE FROM users WHERE id = ?', [id], async (err, results) => {
+                        userDB.query('DELETE FROM users WHERE id = ?', [id], async (err, results) => {
                             if (err) {
                                 console.log(err);
                             }
@@ -262,7 +341,7 @@ exports.change = async (req, res) => {
         if (jwt.decode(req.headers.authorization)) {
             const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            db.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT password FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -285,7 +364,7 @@ exports.change = async (req, res) => {
                             else {
                                 // Hashing user input password
                                 let hashedPassword = await bcrypt.hash(newPassword, 8);
-                                db.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
+                                userDB.query('UPDATE users SET password = ? WHERE id = ?', [hashedPassword, id], async (err, results) => {
                                     if (err) {
                                         console.log(err);
                                     }

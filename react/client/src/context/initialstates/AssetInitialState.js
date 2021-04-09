@@ -1,10 +1,10 @@
 // Initial state for profile, may not even need this
-const ProfileInitialState = {
-    profile: {
+const AssetInitialState = {
+    assets: {
         loading: false,
         error: null,
         data: [],
     }
 };
 
-export default ProfileInitialState;
+export default AssetInitialState;

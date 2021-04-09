@@ -38,6 +38,11 @@ export const PROFILE_LOADING = 'PROFILE_LOADING';
 export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 
+// The states for asset
+export const ASSET_LOADING = 'ASSET_LOADING';
+export const ASSET_SUCCESS = 'ASSET_SUCCESS';
+export const ASSET_ERROR = 'ASSET_ERROR';
+
 // This is for the error message
 export const CONNECTION_ERROR = 'Could not connect try again';
 

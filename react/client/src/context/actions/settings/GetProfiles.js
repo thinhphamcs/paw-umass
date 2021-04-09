@@ -14,13 +14,19 @@ export const GetProfiles = (history) => (dispatch) => {
                 localStorage.firstName = res.data.data.firstName[0];
                 localStorage.lastName = res.data.data.lastName[0];
                 localStorage.email = res.data.data.email[0];
-                localStorage.phone = res.data.data.phone[0];
+                localStorage.phone = res.data.data.phone[0].substring(0, 2)
+                    .concat(" (" + res.data.data.phone[0].substring(2, 5) + ")")
+                    .concat(" " + res.data.data.phone[0].substring(5, 8))
+                    .concat(" - " + res.data.data.phone[0].substring(8, 15));
             }
             if (sessionStorage.checkBox) {
                 sessionStorage.firstName = res.data.data.firstName[0];
                 sessionStorage.lastName = res.data.data.lastName[0];
                 sessionStorage.email = res.data.data.email[0];
-                sessionStorage.phone = res.data.data.phone[0];
+                sessionStorage.phone = res.data.data.phone[0].substring(0, 2)
+                    .concat(" (" + res.data.data.phone[0].substring(2, 5) + ")")
+                    .concat(" " + res.data.data.phone[0].substring(5, 8))
+                    .concat(" - " + res.data.data.phone[0].substring(8, 15));
             }
             dispatch({
                 type: PROFILE_SUCCESS,

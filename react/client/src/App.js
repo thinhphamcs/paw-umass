@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'; //useHistory
 import './App.css';
 import routes from './routes/Routes';
 import { GlobalProvider } from './context/Provider';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
@@ -11,7 +12,12 @@ const AuthRoute = (route) => {
   // const history = useHistory();
   // Checking for both localStorage AND sessionStorage
   if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {
-    // history.push("/"); this causes error but it is the correct way
+    // if (history) {
+    //   history.push("/"); // this causes error but it is the correct way
+    // }
+    // else {
+    //   window.location = "/"; // temporary solution for now
+    // }
     window.location = "/"; // temporary solution for now
   }
   // If user have neither then we just return the component at hand

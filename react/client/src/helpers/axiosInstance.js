@@ -42,7 +42,6 @@ export function axiosInstance(history = null) {
                     sessionStorage.clear();
                     if (history) {
                         history.push("/");
-                        // window.location = "/";
                     }
                     else {
                         window.location = "/";

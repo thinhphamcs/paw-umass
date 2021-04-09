@@ -10,16 +10,20 @@ export const submit = ({
     description,
     radio
 }) => (dispatch) => {
+    let formData = new FormData();
+    formData.append("petName", petName);
+    formData.append("age", age);
+    formData.append("photo", photo);
+    formData.append("description", description);
+    formData.append("radio", radio);
     dispatch({
         type: SUBMIT_LOADING,
     });
     axiosInstance()
-        .post("/user/submit", {
-            petName,
-            age,
-            photo,
-            description,
-            radio
+        .post("/user/submit", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         })
         .then(res => {
             dispatch({

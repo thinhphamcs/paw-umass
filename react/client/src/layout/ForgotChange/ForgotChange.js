@@ -11,9 +11,9 @@ function ForgotChangeUI({ form: { onChange, form, forgotChangeFormValid, onSubmi
                 <img src={Logo} alt="Logo" />
             </div>
             <h1 className="forgot-change-form-title">Your New Password</h1>
-            <p className="reason">
+            <h3 className="reason">
                 Due to security reasons, we will not send the password to you.<br /><br />Instead, we will ask you to renew your password.
-            </p>
+            </h3>
             <form className="forgot-change-form-container">
                 <div className="forgot-change-form-group">
                     <input className="forgot-change-input"

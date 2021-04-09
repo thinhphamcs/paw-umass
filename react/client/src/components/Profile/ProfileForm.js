@@ -21,7 +21,7 @@ export function ProfileForm() {
     let updateFormValid = true;
 
     // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
+    const { profileDispatch, profileState: { profile: { loading, error, data }, }, } = useContext(GlobalContext);
 
     // useEffect so we can use history to redirect
     useEffect(() => {
@@ -112,7 +112,7 @@ export function ProfileForm() {
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        update(form)(authDispatch);
+        update(form)(profileDispatch);
     }
 
     // Return this so we can use these as props on the UI (front end)
