@@ -7,3 +7,14 @@
    display: flex;
  }
  
+ .card-img-top {
+     height: 40% !important;
+ }
+
+ .card {
+     margin-bottom: 30px !important;
+ }
+
+ .card-text {
+     color: #6A150D;
+ }

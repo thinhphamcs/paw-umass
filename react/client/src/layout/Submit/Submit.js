@@ -22,7 +22,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             <form className="submit-form-container" >
                 {error ? error.message : null}
                 <div className="submit-form-group">
-                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" value={form.petName} onChange={onChange}></input>
+                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="40" value={form.petName} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
                     <input required className="submit-input" type="number" id="age" name="age" placeholder="Age" value={form.age} onChange={onChange}></input>
