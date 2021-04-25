@@ -2,14 +2,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
-import * as AiIcons from "react-icons/ai";
+import * as FaIcons from "react-icons/fa";
+import * as RiIcons from "react-icons/ri";
 import './Submit.css';
 
 // This will be the font end with props I can use to display data
 function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, error, limitText } }) {
     return (
         <div className="submit-container">
-            <AiIcons.AiOutlineArrowRight className="submit-right-arrow" />
+            <FaIcons.FaAngleDoubleRight className="submit-right-arrow" />
             <div className="submit-container-header">
                 <Link to="/home" >
                     <div className="submit-logo">
@@ -17,7 +18,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                     </div>
                 </Link>
             </div>
-            <AiIcons.AiOutlineArrowLeft className="submit-left-arrow" />
+            <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
                 {error ? error.message : null}
@@ -46,7 +47,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                         onKeyDown={limitText(form.description, 100)}
                         onKeyUp={limitText(form.description, 100)}></textarea>
                     <div className="submit-limit">
-                        <font>You have<input readOnly type="text" className="submit-countdown" name="countdown" size="3" value={form.countdown}></input>characters left.</font>
+                        <font>You have&nbsp;<input readOnly type="text" className="submit-countdown" name="countdown" size="3" value={form.countdown}></input>&nbsp;characters left.</font>
                     </div>
                 </div>
                 <div className="submit-outer">
@@ -69,7 +70,9 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                         </label>
                     </div>
                 </div>
-                <button className="submit-form-button" type="submit" onClick={onSubmit} disabled={submitFormValid || loading} loading={loading.toString()}>Submit</button>
+                <button className="submit-form-button" type="submit" onClick={onSubmit} disabled={submitFormValid || loading} loading={loading.toString()}>
+                    <RiIcons.RiHandHeartFill />
+                </button>
             </form>
         </div>
     );

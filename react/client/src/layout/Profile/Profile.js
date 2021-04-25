@@ -3,20 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import PhoneInput from 'react-phone-number-input/input';
-import * as AiIcons from "react-icons/ai";
+import * as FaIcons from "react-icons/fa";
 import './Profile.css';
 
 // This will be the font end with props I can use to display data
 function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error, phoneChange } }) {
     return (
         <div className="profile-container">
-            <AiIcons.AiOutlineArrowRight className="profile-right-arrow" />
+            <FaIcons.FaAngleDoubleRight className="profile-right-arrow" />
             <div className="profile-container-header">
                 <Link to="/home" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <AiIcons.AiOutlineArrowLeft className="profile-left-arrow" />
+            <FaIcons.FaAngleDoubleLeft className="profile-left-arrow" />
             <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
                 {error ? <div className="profile-error">{error.message}</div> : null}

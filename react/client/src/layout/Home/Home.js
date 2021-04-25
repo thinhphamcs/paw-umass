@@ -1,25 +1,49 @@
 // Import
 import React from 'react';
 import './Home.css';
-import Nav from '../../../src/components/Nav/Nav';
+import { Link } from 'react-router-dom';
+import { SideBarData } from '../../components/SideBar/SideBarData';
+import * as FaIcons from "react-icons/fa";
 import { Card, Button } from 'react-bootstrap';
 
 // This will be the font end with props I can use to display data
 function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, onChange } }) {
-    const handleUserLogout = () => {
-        localStorage.clear();
-        sessionStorage.clear();
-    }
+    // const handleUserLogout = () => {
+    //     localStorage.clear();
+    //     sessionStorage.clear();
+    // }
     return (
         <>
-            <Nav />
-            <button onClick={handleUserLogout}> Log Out</button>
+            {/* <Nav /> */}
+            {/* <button onClick={handleUserLogout}> Log Out</button> */}
 
-            <div className="container">
+            <nav className="nav-bar">
+                <ul className="nav-bar-nav">
+                    <li className="logo">
+                        <Link to="/home" className="nav-link">
+                            <span className="link-text">Paw&nbsp;<span className="red">UMass</span>&nbsp;</span>
+                            <FaIcons.FaAngleDoubleRight />
+                        </Link>
+                    </li>
+                    {SideBarData.map((page, index) => {
+                        return (
+                            <li key={index} className="nav-item">
+                                <Link to={page.path} className="nav-link">
+                                    {page.icon}
+                                    <span className="link-text">{page.title}</span>
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </nav>
+            <main>
+                {/* <div className="card-container"> */}
+                {/* col-sm-4 */}
                 <div className="row">
                     {data.asset ? data.asset.map((value, index) => (
-                        <div className="col-sm-4">
-                            <Card key={index}>
+                        <div className="column" key={index}>
+                            <Card>
                                 <Card.Img variant="top" src={imgPath + value.photo} />
                                 <Card.Body>
                                     <Card.Text>
@@ -42,13 +66,16 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                                                 [(finalDate.substr(0, 4) - value.date.substr(0, 4)) === 0 ? "less than a year" : finalDate.substr(0, 4) - value.date.substr(0, 4) + " year(s) ago"] :
                                                 [(finalDate.substr(5, 2) - value.date.substr(5, 2)) === 0 ? "less than a month" : finalDate.substr(5, 2) - value.date.substr(5, 2) + " month(s) ago"]] :
                                             [(finalDate.substr(8, 2) - value.date.substr(8, 2)) === 0 ? "less than a day" : finalDate.substr(8, 2) - value.date.substr(8, 2) + " day(s) ago"]}</small>
-                                </Card.Footer >
-                                <Button variant="primary">Take</Button>
-                            </Card >
+                                </Card.Footer>
+                                <Button variant="primary">
+                                    <FaIcons.FaPaw />
+                                </Button>
+                            </Card>
                         </div>
                     )) : null}
                 </div>
-            </div>
+                {/* </div> */}
+            </main >
         </>
     );
 }

@@ -2,7 +2,6 @@
 import React from 'react';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import * as MdIcons from "react-icons/md";
 import * as ImIcons from "react-icons/im";
 import * as FiIcons from "react-icons/fi";
 
@@ -16,7 +15,7 @@ import * as FiIcons from "react-icons/fi";
 export const SideBarData = [
     {
         title: 'Home',
-        path: '/',
+        path: '/home',
         icon: <AiIcons.AiFillHome />,
         className: 'nav-text'
     },
@@ -28,14 +27,14 @@ export const SideBarData = [
     },
     {
         title: 'Profile',
-        path: '/profile',
+        path: '/settings/profile',
         icon: <ImIcons.ImProfile />,
         className: 'nav-text'
     },
     {
         title: 'Submit',
-        path: '/submit',
-        icon: <MdIcons.MdPets />,
+        path: '/user/submit',
+        icon: <ImIcons.ImFileText />,
         className: 'nav-text'
     },
     {
