@@ -67,9 +67,11 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                                                 [(finalDate.substr(5, 2) - value.date.substr(5, 2)) === 0 ? "less than a month" : finalDate.substr(5, 2) - value.date.substr(5, 2) + " month(s) ago"]] :
                                             [(finalDate.substr(8, 2) - value.date.substr(8, 2)) === 0 ? "less than a day" : finalDate.substr(8, 2) - value.date.substr(8, 2) + " day(s) ago"]}</small>
                                 </Card.Footer>
-                                <Button variant="primary">
+                                {/* <Button variant="primary">
                                     <FaIcons.FaPaw />
-                                </Button>
+                                </Button> */}
+                                {/* onClick={onSubmit} disabled={loginFormValid || loading} loading={loading.toString()} */}
+                                <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
                             </Card>
                         </div>
                     )) : null}

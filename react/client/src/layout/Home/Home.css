@@ -49,6 +49,8 @@ body {
 /* Main */
 main {
     margin-left: 5rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
     padding: 1rem;
 }
 
@@ -123,13 +125,27 @@ main {
 .card {
     height: 100% !important;
     width: 100% !important;
+    border: 1px solid #6A150D !important;
 }
 
 .card-text {
      color: #6A150D;
      font-size: 20px !important;
      margin-bottom: 1rem !important;
- }
+}
+
+.home-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+}
+
+ 
 
 /* @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2){
 
@@ -152,17 +168,36 @@ main {
         flex-direction: row;
     }
 
+    .column:last-child {
+        margin-bottom: 10rem !important; /* 66vh seems to do the trick, but auto does not */
+    }
+
     .nav-link {
         justify-content: center;
     }
 
     main {
         margin: 0;
+        margin-top: 25rem;
+        margin-bottom: 5rem;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        width: 375px;
+        height: 667px;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);    
+    }
+    .row {
+        margin: 0 -15px !important;
     }
     .column {
-        width: 60%;
+        width: 100%;
         display: block;
-        margin-bottom: 30px;
+        margin-bottom: 5rem !important;    
+    }
+    .card-body {
+        padding: 0.9rem !important;
     }
     .card-img-top {
         height: 40% !important;

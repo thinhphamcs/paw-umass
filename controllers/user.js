@@ -53,6 +53,7 @@ exports.submit = async (req, res) => {
     try {
         let sampleFiles, uploadPath;
         const { petName, age, description, radio } = req.body;
+        console.log(radio);
         if (!req.files || Object.keys(req.files).length === 0) {
             res.status(400).json({
                 message: "No files were uploaded."
@@ -103,11 +104,11 @@ exports.submit = async (req, res) => {
                                     let data = {
                                         email: results.map(item => item.email),
                                         phone: results.map(item => item.phone),
-                                        petName: petName,
+                                        petName: petName.trim(),
                                         age: age,
                                         photo: sampleFiles.name,
-                                        description: description,
-                                        howLong: radio,
+                                        description: description.trim(),
+                                        howLong: radio.trim(),
                                         date: finalDate,
                                         token: token
                                     };
