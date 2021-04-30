@@ -5,14 +5,14 @@ import { axiosInstance } from '../../../helpers/axiosInstance';
 // Register function that will send data to backend with dispatch and axios
 export const submit = ({
     petName,
-    age,
+    breed,
     photo,
     description,
     radio
 }) => (dispatch) => {
     let formData = new FormData();
     formData.append("petName", petName);
-    formData.append("age", age);
+    formData.append("breed", breed);
     formData.append("photo", photo);
     formData.append("description", description);
     formData.append("radio", radio);

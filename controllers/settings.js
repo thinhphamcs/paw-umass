@@ -99,7 +99,7 @@ exports.asset = async (req, res) => {
     try {
         let asset = [];
         if (jwt.decode(req.headers.authorization)) {
-            assetDB.query('SELECT petName, age, photo, description, howLong, date FROM assets', async (err, results) => {
+            assetDB.query('SELECT petName, breed, photo, description, howLong, date FROM assets', async (err, results) => {
                 if (err) {
                     console.log(err);
                 }

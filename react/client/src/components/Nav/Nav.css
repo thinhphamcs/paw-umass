@@ -72,7 +72,7 @@ a {
 
 .drop-down {
     position: absolute;
-    top: 58px;
+    top: 60px;
     width: 300px;
     transform: translateX(-45%);
     background-color: var(--bg-secondary);
@@ -94,10 +94,20 @@ a {
 
 .top-menu-item:hover {
     background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    text-decoration: none;   
 }
 
-.top-right-icon {
-    margin-left: auto;
+.top-left-icon svg {
+    color: var(--text-primary);
+    width: 20px;
+    height: 20px;
+}
+
+.top-item-text {
+    text-decoration: none;
+    padding: 0 0 0 10px;
+    color: var(--text-primary);
 }
 
 .menu {
@@ -124,7 +134,7 @@ a {
     position: absolute;
     transform: translateX(110%);
 }
-.menu-secondary-enter-done {
+.menu-secondary-enter-active {
     transform: translateX(0%);
     transition: all var(--speed) ease;
 }

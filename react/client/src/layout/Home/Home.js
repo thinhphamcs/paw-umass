@@ -1,40 +1,24 @@
 // Import
 import React from 'react';
-
-import './Home.css';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
-
-
+import { Card } from 'react-bootstrap';
 import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
-// import * as GoIcons from "react-icons/go";
-
-import { Card } from 'react-bootstrap';
-import TopNav from '../../components/Navs/TopNav';
-import NavItems from '../../components/Navs/NavItems/NavItems';
-import DropdownMenus from '../../components/Navs/DropdownMenus/DropdownMenus';
-// import { ReactComponent as ProfileIcon } from '../../assets/images/setting-line.svg';
-// import { ReactComponent as SubmitIcon } from '../../assets/images/plus-round-line.svg';
-// import { ReactComponent as DonateIcon } from '../../assets/images/donation.svg';
+import TopNav from '../../components/Nav/TopNav';
+import NavItems from '../../components/Nav/NavItems';
+import DropdownMenus from '../../components/Nav/DropdownMenus';
+import './Home.css';
 
 // This will be the font end with props I can use to display data
 function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, onChange } }) {
-    // const handleUserLogout = () => {
-    //     localStorage.clear();
-    //     sessionStorage.clear();
-    // }
     return (
         <>
             <TopNav>
-                {/* <NavItems icon={<GoIcons.GoPlus />} /> */}
-                {/* <NavItems icon={<DonateIcon />} /> */}
                 <NavItems icon={<BsIcons.BsFillGearFill />} >
                     <DropdownMenus />
                 </NavItems>
             </TopNav>
-            {/* <button onClick={handleUserLogout}> Log Out</button> */}
-
             <nav className="nav-bar">
                 <ul className="nav-bar-nav">
                     <li className="logo">
@@ -56,8 +40,6 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                 </ul>
             </nav>
             <main>
-                {/* <div className="card-container"> */}
-                {/* col-sm-4 */}
                 <div className="row">
                     {data.asset ? data.asset.map((value, index) => (
                         <div className="column" key={index}>
@@ -68,7 +50,7 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                                         <b>Name: {value.petName}</b>
                                     </Card.Text>
                                     <Card.Text>
-                                        <b>Age: {value.age}</b>
+                                        <b>Breed: {value.breed}</b>
                                     </Card.Text>
                                     <Card.Text>
                                         <b>Description: {value.description}</b>
@@ -85,16 +67,11 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                                                 [(finalDate.substr(5, 2) - value.date.substr(5, 2)) === 0 ? "less than a month" : finalDate.substr(5, 2) - value.date.substr(5, 2) + " month(s) ago"]] :
                                             [(finalDate.substr(8, 2) - value.date.substr(8, 2)) === 0 ? "less than a day" : finalDate.substr(8, 2) - value.date.substr(8, 2) + " day(s) ago"]}</small>
                                 </Card.Footer>
-                                {/* <Button variant="primary">
-                                    <FaIcons.FaPaw />
-                                </Button> */}
-                                {/* onClick={onSubmit} disabled={loginFormValid || loading} loading={loading.toString()} */}
                                 <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
                             </Card>
                         </div>
                     )) : null}
                 </div>
-                {/* </div> */}
             </main >
         </>
     );

@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-import * as CgIcons from "react-icons/cg";
+import * as AiIcons from "react-icons/ai";
+import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
-import '../Nav.css';
+import * as FaIcons from "react-icons/fa";
+import * as ImIcons from "react-icons/im";
+import './Nav.css';
 
 function DropdownMenus(props) {
     const [activateMenu, setActivateMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
     function calcHeight(el) {
         const height = el.offsetHeight;
-        setMenuHeight(height);
+        setMenuHeight(height + 30);
     }
     function DropdownItems(props) {
         return (
-            <Link to="#" className="top-menu-item" onClick={() => props.goToMenu && setActivateMenu(props.goToMenu)}>
+            <Link to={props.link ? props.link : "#"} className="top-menu-item" onClick={() => props.goToMenu && setActivateMenu(props.goToMenu)}>
                 <span className="top-left-icon">{props.leftIcon}</span>
-                {props.children}
-                <span className="top-right-icon">{props.rightIcon}</span>
+                <span className="top-item-text">{props.children}</span>
             </Link>
         )
     }
@@ -30,7 +32,7 @@ function DropdownMenus(props) {
                 classNames="menu-primary"
                 onEnter={calcHeight}>
                 <div className="menu">
-                    <DropdownItems leftIcon={<CgIcons.CgProfile />} goToMenu="settings">My Profile</DropdownItems>
+                    <DropdownItems leftIcon={<ImIcons.ImProfile />} goToMenu="settings">My Profile</DropdownItems>
                     <DropdownItems leftIcon={<FiIcons.FiLogOut />}>Log Out</DropdownItems>
                 </div>
             </CSSTransition>
@@ -38,12 +40,13 @@ function DropdownMenus(props) {
                 in={activateMenu === 'settings'}
                 unmountOnExit
                 timeout={500}
-                classNames="menu-secondary">
+                classNames="menu-secondary"
+                onEnter={calcHeight}>
                 <div className="menu">
-                    <DropdownItems rightIcon={<CgIcons.CgProfile />}>View Profile</DropdownItems>
-                    <DropdownItems rightIcon={<CgIcons.CgProfile />}>Change Profile</DropdownItems>
-                    <DropdownItems rightIcon={<CgIcons.CgProfile />}>Change Password</DropdownItems>
-                    <DropdownItems rightIcon={<CgIcons.CgProfile />}>Deactivate Profile</DropdownItems>
+                    <DropdownItems leftIcon={<FaIcons.FaPen />} link="/settings/profile">Update Profile</DropdownItems>
+                    <DropdownItems leftIcon={<BsIcons.BsFillUnlockFill />} link="/settings/change">Change Password</DropdownItems>
+                    <DropdownItems leftIcon={<FaIcons.FaTrash />} link="/settings/deactivate">Deactivate Profile</DropdownItems>
+                    <DropdownItems leftIcon={<AiIcons.AiOutlineRollback />} goToMenu="main">Back</DropdownItems>
                 </div>
             </CSSTransition>
         </div>

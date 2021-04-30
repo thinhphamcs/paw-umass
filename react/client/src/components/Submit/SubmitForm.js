@@ -9,7 +9,7 @@ export function SubmitForm() {
     // Hook
     const [form, setForm] = useState({
         petName: '',
-        age: '',
+        breed: '',
         photo: '',
         description: '',
         countdown: '',
@@ -55,7 +55,7 @@ export function SubmitForm() {
     };
 
     // Function to check if user have typed everything
-    if (form.petName.length && form.age.length && form.description.length && form.photo &&
+    if (form.petName.length && form.breed.length && form.description.length && form.photo &&
         (form.radio === "for a day" || form.radio === "for a week" || form.radio === "up for adoption")) {
         submitFormValid = false;
     }

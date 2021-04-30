@@ -52,8 +52,7 @@ assetDB.connect((err) => {
 exports.submit = async (req, res) => {
     try {
         let sampleFiles, uploadPath;
-        const { petName, age, description, radio } = req.body;
-        console.log(radio);
+        const { petName, breed, description, radio } = req.body;
         if (!req.files || Object.keys(req.files).length === 0) {
             res.status(400).json({
                 message: "No files were uploaded."
@@ -105,7 +104,7 @@ exports.submit = async (req, res) => {
                                         email: results.map(item => item.email),
                                         phone: results.map(item => item.phone),
                                         petName: petName.trim(),
-                                        age: age,
+                                        breed: breed.trim(),
                                         photo: sampleFiles.name,
                                         description: description.trim(),
                                         howLong: radio.trim(),
