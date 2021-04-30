@@ -1,15 +1,22 @@
 // Import
 import React from 'react';
+
 import './Home.css';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
+
+
+import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
+// import * as GoIcons from "react-icons/go";
+
 import { Card } from 'react-bootstrap';
 import TopNav from '../../components/Navs/TopNav';
 import NavItems from '../../components/Navs/NavItems/NavItems';
-import { ReactComponent as ProfileIcon } from '../../assets/images/profile.svg';
-import { ReactComponent as SubmitIcon } from '../../assets/images/paw.svg';
-import { ReactComponent as DonateIcon } from '../../assets/images/donate.svg';
+import DropdownMenus from '../../components/Navs/DropdownMenus/DropdownMenus';
+// import { ReactComponent as ProfileIcon } from '../../assets/images/setting-line.svg';
+// import { ReactComponent as SubmitIcon } from '../../assets/images/plus-round-line.svg';
+// import { ReactComponent as DonateIcon } from '../../assets/images/donation.svg';
 
 // This will be the font end with props I can use to display data
 function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, onChange } }) {
@@ -20,9 +27,11 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
     return (
         <>
             <TopNav>
-                <NavItems icon={<ProfileIcon />} />
-                <NavItems icon={<SubmitIcon />} />
-                <NavItems icon={<DonateIcon />} />
+                {/* <NavItems icon={<GoIcons.GoPlus />} /> */}
+                {/* <NavItems icon={<DonateIcon />} /> */}
+                <NavItems icon={<BsIcons.BsFillGearFill />} >
+                    <DropdownMenus />
+                </NavItems>
             </TopNav>
             {/* <button onClick={handleUserLogout}> Log Out</button> */}
 

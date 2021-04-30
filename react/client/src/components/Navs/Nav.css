@@ -25,6 +25,11 @@ a {
     background-color: var(--bg-secondary);
     padding: 0 1rem;
     border-bottom: var(--border);
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    
 }
 
 .top-nav-bar-nav {
@@ -34,9 +39,10 @@ a {
     justify-content: flex-end; /* All the children will start on the right instead of left*/
 }
 
-.top-nav-item {
+.top-nav-items {
     width: calc(var(--nav-size) * 0.8);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -56,4 +62,76 @@ a {
 
 .top-icon-button:hover {
     filter: brightness(1.2);
+}
+
+.top-icon-button svg {
+    fill: var(--text-primary);
+    width: 25px;
+    height: 25px;
+}
+
+.drop-down {
+    position: absolute;
+    top: 58px;
+    width: 300px;
+    transform: translateX(-45%);
+    background-color: var(--bg-secondary);
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    overflow: hidden;
+    transition: height var(--speed) ease;
+}
+
+.top-menu-item {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-radius: var(--border-radius);
+    transition: background var(--speed);
+    padding: 0.5rem;
+}
+
+.top-menu-item:hover {
+    background-color: var(--bg-primary);
+}
+
+.top-right-icon {
+    margin-left: auto;
+}
+
+.menu {
+    width: 100%;
+}
+
+.menu-primary-enter {
+    position: absolute;
+    transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+}
+.menu-primary-exit {
+    position: absolute;
+}
+.menu-primary-exit-active {
+    transform: translateX(-110%);
+    transition: all var(--speed) ease;
+}
+
+.menu-secondary-enter {
+    position: absolute;
+    transform: translateX(110%);
+}
+.menu-secondary-enter-done {
+    transform: translateX(0%);
+    transition: all var(--speed) ease;
+}
+.menu-secondary-exit {
+    position: absolute;
+}
+.menu-secondary-exit-active {
+    transform: translateX(110%);
+    transition: all var(--speed) ease;
 }

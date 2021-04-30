@@ -90,7 +90,7 @@ main {
     float: left;
     width: 33%;
     padding: 0 5%;
-    margin-bottom: 10% !important;
+    margin: 5% 0;
 }
 
 .card {
@@ -137,8 +137,12 @@ main {
         flex-direction: row;
     }
 
+    .column:first-child {
+        margin-top: 3rem !important;
+    }
+
     .column:last-child {
-        margin-bottom: 10rem !important;
+        margin-bottom: 8rem !important;
     }
 
     .nav-link {
