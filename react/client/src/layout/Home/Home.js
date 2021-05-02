@@ -8,6 +8,7 @@ import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
+import SearchBar from '../../components/Nav/SearchBar';
 import './Home.css';
 
 // This will be the font end with props I can use to display data
@@ -15,6 +16,7 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
     return (
         <>
             <TopNav>
+                <SearchBar />
                 <NavItems icon={<BsIcons.BsFillGearFill />} >
                     <DropdownMenus />
                 </NavItems>
