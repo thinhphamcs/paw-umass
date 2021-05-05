@@ -26,7 +26,7 @@ export const SideBarData = [
     },
     {
         title: 'Donate',
-        path: '/donate',
+        path: '/user/donate',
         icon: <FaIcons.FaDonate />,
         className: 'nav-text'
     }

@@ -1,6 +1,7 @@
 // Import require
 const mysql = require("mysql");
 const jwt = require('jsonwebtoken');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 /**
  * Create the database
@@ -147,5 +148,30 @@ exports.submit = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+    }
+}
+
+// Export as module
+exports.donate = async (req, res) => {
+    try {
+        const { amount, id } = req.body;
+        const donation = await stripe.paymentIntents.create({
+            amount,
+            currency: "USD",
+            description: "PawUMass Donation",
+            payment_method: id,
+            confirm: true
+        });
+        console.log("Donation", donation);
+        res.status(200).json({
+            message: "Donation Successful",
+            success: true
+        })
+    } catch (err) {
+        console.log("Error", err);
+        res.status(400).json({
+            message: "Donation failed.",
+            success: false
+        });
     }
 }

@@ -9,6 +9,7 @@ import Change from '../components/Change/Change';
 import Forgot from '../components/Forgot/Forgot';
 import ForgotChange from '../components/ForgotChange/ForgotChange';
 import Submit from '../components/Submit/Submit';
+import Donate from '../components/Donate/Donate';
 
 /**
  * Define the routes
@@ -87,8 +88,8 @@ const routes = [
         submit: true
     },
     {
-        path: '/donate',
-        component: '',
+        path: '/user/donate',
+        component: Donate,
         title: 'Donate',
         auth: true,
         donate: true

@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser"); // To enable cookie in browser
 const bodyParser = require("body-parser"); // To enable body-parser
 const cors = require("cors"); // To enable cors
 const fileUpload = require('express-fileupload');
+// First time working with stripe
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 /**
  * Tell dotenv where are the environment setting variables

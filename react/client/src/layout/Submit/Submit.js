@@ -23,10 +23,10 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             <form className="submit-form-container" >
                 {error ? error.message : null}
                 <div className="submit-form-group">
-                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="40" value={form.petName} onChange={onChange}></input>
+                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={form.petName} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
-                    <input required className="submit-input" type="text" id="breed" name="breed" placeholder="Pet Breed" maxLength="40" value={form.breed} onChange={onChange}></input>
+                    <input required className="submit-input" type="text" id="breed" name="breed" placeholder="Pet Breed" maxLength="30" value={form.breed} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
                     <input required className="submit-file" type="file" id="photo" name="photo" accept="image/*" onChange={onChange}></input>

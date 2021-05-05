@@ -43,6 +43,11 @@ export const ASSET_LOADING = 'ASSET_LOADING';
 export const ASSET_SUCCESS = 'ASSET_SUCCESS';
 export const ASSET_ERROR = 'ASSET_ERROR';
 
+export const DONATE_LOADING = 'DONATE_LOADING';
+export const DONATE_SUCCESS = 'DONATE_SUCCESS';
+export const DONATE_ERROR = 'DONATE_ERROR';
+
+
 // This is for the error message
 export const CONNECTION_ERROR = 'Could not connect try again';
 

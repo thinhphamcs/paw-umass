@@ -1,21 +1,27 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { deactivate } from '../../context/actions/settings/Deactivate';
+// import { donate } from '../../context/actions/user/Donate';
 import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
+
+
 // Export it as a form so we can use it as props
-export function DeactivateForm() {
+export function DonateForm() {
     // Hook
-    const [form, setForm] = useState({
-        password: '',
-    });
+
+    // const [form, setForm] = useState({
+    //     // email: '',
+    //     // phone: ''
+    // });
+
+
 
     // use history from react-router-dom to redirect
     const history = useHistory();
 
     // Use this for disabling the button
-    let deactivateFormValid = true;
+    // let donateFormValid = true;
 
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
@@ -23,12 +29,12 @@ export function DeactivateForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            // if (data.auth) {
-            //     history.push('/');
+            // if (data.forgot) {
+            //     history.push('/change');
             // }
         }
         else {
-            history.push('/settings/deactivate');
+            history.push('/user/donate');
         }
     }, [data, history]);
 
@@ -39,28 +45,30 @@ export function DeactivateForm() {
     // }, [error]);
 
     // onChange function
-    const onChange = (event) => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        });
-    };
+    // const onChange = (event) => {
+    //     setForm({
+    //         ...form,
+    //         [event.target.name]: event.target.value
+    //     });
+    // };
 
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.password.length) {
-        deactivateFormValid = false;
-    }
-    // if user input nothing then we disabled the button
-    else {
-        deactivateFormValid = true;
-    }
+    // if (form.email.length && !form.phone) {
+    //     forgotFormValid = false;
+    // }
+    // else if (!form.email.length && form.phone) {
+    //     forgotFormValid = false;
+    // }
+    // // if user input nothing then we disabled the button
+    // else {
+    //     forgotFormValid = true;
+    // }
 
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        deactivate(form)(authDispatch); // change
-    }
+
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, deactivateFormValid, onSubmit, onChange };
+    // form, onChange, donateFormValid, error, loading, 
+    return {};
 }

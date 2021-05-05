@@ -11,6 +11,10 @@ export function HomeForm() {
         accept: '',
     });
 
+    const [searchTerm, setSearchTerm] = useState({
+        search: '',
+    });
+
     // The variables for date function
     const date = new Date();
     let year = date.getFullYear();
@@ -49,6 +53,11 @@ export function HomeForm() {
             ...form,
             accept: true
         });
+
+        setSearchTerm({
+            ...searchTerm,
+            search: event.target.value
+        });
     };
 
     // the Date function    
@@ -67,5 +76,5 @@ export function HomeForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, loading, error, data, finalDate, imgPath, onSubmit, onChange };
+    return { form, loading, error, data, finalDate, imgPath, searchTerm, onSubmit, onChange };
 }

@@ -1,13 +1,20 @@
 // Import
 import React, { useContext, useEffect } from 'react';
-import SubmitUI from '../../layout/Submit/Submit';
-import { SubmitForm } from './SubmitForm';
+import DonateUI from '../../layout/Donate/Donate';
+import { DonateForm } from './DonateForm';
 import { GetProfiles } from '../../context/actions/settings/GetProfiles';
 import { useHistory } from 'react-router';
 import { GlobalContext } from '../../context/Provider';
+// Working with stripe for the first time
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const PUBLIC_KEY = "pk_test_51InV80FfDd5uE1gz2xsi7IQnd86nAef3wG4wwNrM3fXY9nVTr3QVSM1rE0nJJ8aeUKJGCpbPmFpUVlPzO3wm6LD300F5eVcmZl";
+
+const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
 // Export this component with UI for cleaner and more organized way
-const Submit = () => {
+function Donate() {
     const history = useHistory();
     const { profileDispatch } = useContext(GlobalContext);
     useEffect(() => {
@@ -15,8 +22,9 @@ const Submit = () => {
         GetProfiles(history)(profileDispatch);
     }, [history, profileDispatch]);
     return (
-        <SubmitUI form={SubmitForm()} />
+        <Elements stripe={stripeTestPromise}>
+            <DonateUI form={DonateForm()} />
+        </Elements>
     );
 }
-
-export default Submit;
+export default Donate;

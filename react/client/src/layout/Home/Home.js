@@ -8,15 +8,24 @@ import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
-import SearchBar from '../../components/Nav/SearchBar';
+import TimeAgo from 'react-timeago';
 import './Home.css';
 
 // This will be the font end with props I can use to display data
-function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, onChange } }) {
+function HomeUI({ form: { loading, error, data, finalDate, imgPath, searchTerm, onSubmit, onChange } }) {
     return (
         <>
             <TopNav>
-                <SearchBar />
+                <div className="search-container">
+                    <div className="search-wrap">
+                        <div className="search-box">
+                            <input type="text" className="search-input" id="search" name="search" placeholder="Search..." onChange={onChange}></input>
+                            <button className="search-button">
+                                <BsIcons.BsSearch />
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <NavItems icon={<BsIcons.BsFillGearFill />} >
                     <DropdownMenus />
                 </NavItems>
@@ -43,7 +52,63 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
             </nav>
             <main>
                 <div className="row">
-                    {data.asset ? data.asset.map((value, index) => (
+                    {data.asset ? data.asset.filter((value) => {
+                        if (searchTerm.search === "") {
+                            return (
+                                <div className="column">
+                                    <Card>
+                                        <Card.Img variant="top" src={imgPath + value.photo} />
+                                        <Card.Body>
+                                            <Card.Text>
+                                                <b>Name: {value.petName}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Breed: {value.breed}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Description: {value.description}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Willing to give {value.howLong}</b>
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                        </Card.Footer>
+                                        <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
+                                    </Card>
+                                </div>
+                            );
+                        }
+                        else if (value.breed.toString().toLowerCase().includes(searchTerm.search.toString().toLowerCase())) {
+                            return (
+                                <div className="column">
+                                    <Card>
+                                        <Card.Img variant="top" src={imgPath + value.photo} />
+                                        <Card.Body>
+                                            <Card.Text>
+                                                <b>Name: {value.petName}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Breed: {value.breed}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Description: {value.description}</b>
+                                            </Card.Text>
+                                            <Card.Text>
+                                                <b>Willing to give {value.howLong}</b>
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                        </Card.Footer>
+                                        <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
+                                    </Card>
+                                </div>
+                            );
+                        }
+                        // Return something here
+                    }).map((value, index) => (
                         <div className="column" key={index}>
                             <Card>
                                 <Card.Img variant="top" src={imgPath + value.photo} />
@@ -62,14 +127,10 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, onSubmit, on
                                     </Card.Text>
                                 </Card.Body>
                                 <Card.Footer>
-                                    <small className="text-muted">Posted&nbsp;
-                                            {finalDate.substr(8, 2) < value.date.substr(8, 2) ?
-                                            [finalDate.substr(5, 2) < value.date.substr(5, 2) ?
-                                                [(finalDate.substr(0, 4) - value.date.substr(0, 4)) === 0 ? "less than a year" : finalDate.substr(0, 4) - value.date.substr(0, 4) + " year(s) ago"] :
-                                                [(finalDate.substr(5, 2) - value.date.substr(5, 2)) === 0 ? "less than a month" : finalDate.substr(5, 2) - value.date.substr(5, 2) + " month(s) ago"]] :
-                                            [(finalDate.substr(8, 2) - value.date.substr(8, 2)) === 0 ? "less than a day" : finalDate.substr(8, 2) - value.date.substr(8, 2) + " day(s) ago"]}</small>
+                                    <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                    <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
                                 </Card.Footer>
-                                <button className="home-form-button" type="submit" ><FaIcons.FaPaw /></button>
+
                             </Card>
                         </div>
                     )) : null}
