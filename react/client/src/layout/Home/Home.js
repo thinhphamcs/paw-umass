@@ -14,7 +14,7 @@ import './Home.css';
 // This will be the font end with props I can use to display data
 function HomeUI({ form: { loading, error, data, finalDate, imgPath, searchTerm, onSubmit, onChange } }) {
     return (
-        <>
+        <div className="home-container">
             <TopNav>
                 <div className="search-container">
                     <div className="search-wrap">
@@ -136,7 +136,7 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, searchTerm, 
                     )) : null}
                 </div>
             </main >
-        </>
+        </div>
     );
 }
 

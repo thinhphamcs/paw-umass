@@ -19,7 +19,10 @@ function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading,
             <FaIcons.FaAngleDoubleLeft className="profile-left-arrow" />
             <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
-                {error ? <div className="profile-error">{error.message}</div> : null}
+                {error ?
+                    [(error.message === "Invalid Email Format" || error.message === "Invalid Phone Format" || error.message === "Please provide valid input") ?
+                        <div className="profile-error">{error.message}</div> : null]
+                    : null}
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         {sessionStorage ? sessionStorage.firstName : null}

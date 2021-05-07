@@ -116,6 +116,10 @@ main {
     cursor: pointer !important;
     width: 100%;
     border-radius: .50rem;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .text-muted {
@@ -124,10 +128,6 @@ main {
     align-content: center !important;
     margin-bottom: 10px !important;
 }
-
-/* @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2){
-
-} */
 
 /* Small Screens */
 @media only screen and (max-width: 1000px) {

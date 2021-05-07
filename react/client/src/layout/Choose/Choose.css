@@ -64,6 +64,7 @@ button {
     margin: 4px 2px;
     border-radius: 30px;
     width: 95%;
+    height: 100%;
 }
 
 .login-button:hover {
@@ -84,6 +85,7 @@ button {
     margin: 4px 2px;
     border-radius: 30px;
     width: 95%;
+    height: 100%;
 }
 
 .register-button:hover {
@@ -116,7 +118,9 @@ button {
         overflow-x: hidden;
         position: absolute;
     }
-    
+    .choose-container-header {
+        top: 15%;
+    }
   }
 @media screen and (max-width: 667px) and (orientation: landscape) {
     html {
@@ -129,8 +133,8 @@ button {
     }
     .choose-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -125%);
-        transform: translate(-50%, -125%);
+        -webkit-transform: translate(-50%, -165%);
+        transform: translate(-50%, -165%);
     }
     .choose-container-footer {
         position: fixed;

@@ -21,7 +21,10 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
-                {error ? error.message : null}
+                {error ?
+                    [error.message === "No files were uploaded" ?
+                        <div className="submit-error">{error.message}</div> : null]
+                    : null}
                 <div className="submit-form-group">
                     <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={form.petName} onChange={onChange}></input>
                 </div>

@@ -15,8 +15,6 @@ export function DonateForm() {
     //     // phone: ''
     // });
 
-
-
     // use history from react-router-dom to redirect
     const history = useHistory();
 

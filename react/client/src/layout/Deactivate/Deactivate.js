@@ -20,7 +20,10 @@ function DeactivateUI({ form: { onChange, form, deactivateFormValid, onSubmit, l
             <FaIcons.FaAngleDoubleLeft className="deactivate-left-arrow" />
             <h2 className="deactivate-form-title">Deactivate Your Account</h2>
             <form className="deactivate-form-container">
-                {error ? <div className="deactivate-error">{error.message}</div> : null}
+                {error ?
+                    [error.message === "Your Password is incorrect" ?
+                        <div className="deactivate-error">{error.message}</div> : null]
+                    : null}
                 <div className="deactivate-form-group">
                     <input className="deactivate-input"
                         type="password"

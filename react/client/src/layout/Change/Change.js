@@ -20,7 +20,10 @@ function ChangeUI({ form: { onChange, form, changeFormValid, onSubmit, loading, 
             <FaIcons.FaAngleDoubleLeft className="change-left-arrow" />
             <h2 className="change-form-title">Change Your Password</h2>
             <form className="change-form-container">
-                {error ? <div className="change-error">{error.message}</div> : null}
+                {error ?
+                    [(error.message === "Passwords do not match" || error.message === "New password must be different from old password" || error.message === "'Your Password is incorrect") ?
+                        <div className="change-error">{error.message}</div> : null]
+                    : null}
                 <div className="change-form-group">
                     <input className="change-input"
                         type="password"

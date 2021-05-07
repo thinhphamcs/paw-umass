@@ -101,6 +101,10 @@
     cursor: pointer !important;
     width: 100%;
     margin-top: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .change-form-button:disabled {

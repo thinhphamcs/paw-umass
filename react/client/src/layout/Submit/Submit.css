@@ -75,6 +75,7 @@
 
 .submit-form-group {
     display: table;
+    margin-bottom: -5px !important;
 }
 
 .submit-input {
@@ -104,7 +105,7 @@
     text-align: center;
 }
 .submit-maximum {
-    padding: 0 0 5px 0;
+    margin: -5px 0 5px 0 !important;
 }
 .submit-limit {
     margin: -10px 0 10px 0;
@@ -115,7 +116,7 @@
 .submit-outer {
     width: 100%;
     text-align: center;
-    padding: 10px 0 20px 0;
+    padding: 10px 0;
   }
 
 .submit-inner{
@@ -150,6 +151,12 @@
       border-color: #6A150D;
 }
 
+.submit-error {
+    color: #6A150D;
+    font-size: 20px !important;
+    margin: -30px 0 5px 0 !important;
+}
+
 /* === Buttons === */
 .submit-form-button {
     background-color: #6A150D !important;
@@ -160,6 +167,10 @@
     transition: 0.5s all ease-in-out !important;
     cursor: pointer !important;
     width: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .submit-form-button:disabled {

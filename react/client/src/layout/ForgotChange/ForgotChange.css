@@ -3,8 +3,8 @@
     position: fixed;
     top: 55%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -55%);
+    transform: translate(-50%, -55%);
     border-radius: 30px;
     padding: 0 0 40px 0;
     background-color: #F4F6F6;
@@ -72,6 +72,10 @@
     cursor: pointer !important;
     width: 100%;
     margin-top: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .forgot-change-form-button:disabled {
@@ -96,8 +100,8 @@
     }
     .forgot-change-container {
         position: fixed;
-        -webkit-transform: translate(-50%, -45%);
-        transform: translate(-50%, -45%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
     .forgot-change-container-header {
         position: fixed;

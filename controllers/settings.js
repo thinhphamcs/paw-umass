@@ -241,12 +241,10 @@ exports.update = async (req, res) => {
                     }
                 });
             }
-            else {
-                if (!phoneRE.test(phone)) {
-                    res.status(400).json({
-                        message: "Invalid Phone Format"
-                    });
-                }
+            else if (!phoneRE.test(phone)) {
+                res.status(400).json({
+                    message: "Invalid Phone Format"
+                });
             }
         }
         // If everything only case
