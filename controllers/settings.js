@@ -57,7 +57,7 @@ exports.profile = async (req, res) => {
         if (jwt.decode(token)) {
             const id = jwt.decode(token, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            userDB.query('SELECT firstName, lastName, email, phone FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT firstName, lastName, email, phone, donation FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -76,7 +76,8 @@ exports.profile = async (req, res) => {
                                 "firstName": results.map(item => item.firstName),
                                 "lastName": results.map(item => item.lastName),
                                 "email": results.map(item => item.email),
-                                "phone": results.map(item => item.phone)
+                                "phone": results.map(item => item.phone),
+                                "donation": results.map(item => item.donation),
                             },
                         });
                     }

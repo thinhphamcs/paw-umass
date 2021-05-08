@@ -155,18 +155,67 @@ exports.submit = async (req, res) => {
 exports.donate = async (req, res) => {
     try {
         const { amount, id } = req.body;
-        const donation = await stripe.paymentIntents.create({
-            amount,
-            currency: "USD",
-            description: "PawUMass Donation",
-            payment_method: id,
-            confirm: true
-        });
-        console.log("Donation", donation);
-        res.status(200).json({
-            message: "Donation Successful",
-            success: true
-        })
+        // We decode the token to find out what id does this user belong to
+        if (jwt.decode(req.headers.authorization)) {
+            const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+            // We then check if user is authenticated or not
+            userDB.query('SELECT donation FROM users WHERE id = ?', [id], async (err, results) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (results.length === 0) {
+                        res.status(404).json({
+                            auth: false,
+                            message: 'User no longer exists'
+                        });
+                    }
+                    else {
+                        // Logic for donation
+                        if (results.map(item => item.donation) === 0) {
+                            const donation = await stripe.paymentIntents.create({
+                                amount,
+                                currency: "USD",
+                                description: "PawUMass Donation",
+                                payment_method: id,
+                                confirm: true
+                            });
+                            assetDB.query('UPDATE users SET donation = ? WHERE id = ?', [1, id], (err, results) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    if (results.length === 0) {
+                                        res.status(404).json({
+                                            message: 'Nothing got updated'
+                                        });
+                                    }
+                                    else {
+                                        res.status(200).json({
+                                            message: 'User Updated'
+                                        });
+                                    }
+                                }
+                            });
+                            res.status(200).json({
+                                message: "Donation Successful",
+                            })
+                        }
+                        else {
+                            res.status(400).json({
+                                message: "Already Donated"
+                            })
+                        }
+                    }
+                }
+            });
+        }
+        else {
+            res.status(404).json({
+                auth: false,
+                message: "Unauthorized User",
+            });
+        }
     } catch (err) {
         console.log("Error", err);
         res.status(400).json({

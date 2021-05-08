@@ -31,6 +31,7 @@ const CARD_OPTIONS = {
 }
 function DonateUI() {
     // Hook
+    const [consent, setConsent] = useState(false);
     const [success, setSuccess] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -64,7 +65,17 @@ function DonateUI() {
 
     return (
         <>
-            {!success ?
+            {!consent ? <div className="consent-container">
+                <p>
+                    <b>Please read carefully: </b>The page is created to show the employer I can work on the payment system.<br />
+                    Therefore, this page does work.<br /><br />
+                    <b>PLEASE DO NOT GIVE YOUR INFORMATION.</b><br /><br />
+                    (If you want to see how it works, test it with 4242 4242 4242 4242 Any Date / Zip)
+                </p>
+                <button className="consent-button" onClick={() => { setConsent(true) }}>
+                    I acknowledge
+                </button>
+            </div> : [!success ?
                 <div className="donate-container">
                     <FaIcons.FaAngleDoubleRight className="donate-right-arrow" />
                     <div className="donate-container-header">
@@ -78,9 +89,7 @@ function DonateUI() {
                     <FaIcons.FaAngleDoubleLeft className="donate-left-arrow" />
                     <form className="donate-form">
                         <label className="donate-label-top">
-                            <span className="donate-label-text">
-                                Donation amount (USD)
-                                </span>
+                            <span className="donate-label-text">Donation amount (USD)</span>
                         </label>
                         <div className="donate-outer">
                             <div className="donate-inner">
@@ -110,16 +119,12 @@ function DonateUI() {
                         </div>
                         <div className="donate-label-outer">
                             <label className="donate-label">
-                                <span className="donate-label-text">
-                                    Name on card
-                                </span>
+                                <span className="donate-label-text">Name on card</span>
                             </label>
                             {/*   value={form.petName} onChange={onChange} */}
                             <input required className="donate-input" type="text" id="nameOnCard" name="nameOnCard" maxLength="30"></input>
                             <label className="donate-label">
-                                <span className="donate-label-text">
-                                    Card information
-                                </span>
+                                <span className="donate-label-text">Card information</span>
                             </label>
                             <fieldset className="donate-form-group">
                                 <div className="donate-form-row">
@@ -143,7 +148,7 @@ function DonateUI() {
                 :
                 <div className="donate-success">
                     <h2>
-                        THANK YOU {sessionStorage.firstName} FOR YOUR GENEROUS DONATION AND SUPPORT.
+                        THANK YOU {sessionStorage.firstName.toUpperCase()} FOR YOUR GENEROUS DONATION AND SUPPORT.
                         THIS WEBSITE WILL NOW BE ABLE TO CONTINUE TO OPERATE ADS FREE ALL THANKS TO YOUR DONATION.
                         SINCERELY,
                         THANK YOU FOR YOUR GENEROSITY.
@@ -154,7 +159,7 @@ function DonateUI() {
                         </button>
                     </h2>
                 </div>
-            }
+            ]}
         </>
     );
 }
