@@ -157,9 +157,9 @@ exports.donate = async (req, res) => {
         const { amount, id } = req.body;
         // We decode the token to find out what id does this user belong to
         if (jwt.decode(req.headers.authorization)) {
-            const id = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
+            const userId = jwt.decode(req.headers.authorization, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            userDB.query('SELECT donation FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT donation FROM users WHERE id = ?', [userId], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -172,15 +172,16 @@ exports.donate = async (req, res) => {
                     }
                     else {
                         // Logic for donation
-                        if (results.map(item => item.donation) === 0) {
-                            const donation = await stripe.paymentIntents.create({
-                                amount,
-                                currency: "USD",
-                                description: "PawUMass Donation",
-                                payment_method: id,
-                                confirm: true
-                            });
-                            assetDB.query('UPDATE users SET donation = ? WHERE id = ?', [1, id], (err, results) => {
+                        const donationStripe = await stripe.paymentIntents.create({
+                            amount,
+                            currency: "USD",
+                            description: "PawUMass Donation",
+                            payment_method: id,
+                            confirm: true
+                        });
+                        const donation = results.map(item => item.donation);
+                        if (donation[0] === 0) {
+                            userDB.query('UPDATE users SET donation = ? WHERE id = ?', [1, userId], (err, results) => {
                                 if (err) {
                                     console.log(err);
                                 }
@@ -192,18 +193,17 @@ exports.donate = async (req, res) => {
                                     }
                                     else {
                                         res.status(200).json({
-                                            message: 'User Updated'
+                                            message: 'User Updated And Donation Successful',
+                                            success: true
                                         });
                                     }
                                 }
                             });
-                            res.status(200).json({
-                                message: "Donation Successful",
-                            })
                         }
                         else {
                             res.status(400).json({
-                                message: "Already Donated"
+                                message: "Already Donated",
+                                success: false
                             })
                         }
                     }
