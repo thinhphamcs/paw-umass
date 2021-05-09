@@ -103,6 +103,7 @@ button {
 }
 
 .choose-list-items:hover {
+    color: white;
     text-decoration: underline;
 }
 

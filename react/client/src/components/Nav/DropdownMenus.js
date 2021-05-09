@@ -23,6 +23,19 @@ function DropdownMenus(props) {
             </Link>
         )
     }
+
+    function DropDownLogOut(props) {
+        return (
+            <Link to="/home" className="top-menu-item" onClick={logout}>
+                <span className="top-left-icon">{props.leftIcon}</span>
+                <span className="top-item-text">{props.children}</span>
+            </Link>
+        )
+    }
+    const logout = () => {
+        sessionStorage.clear();
+        localStorage.clear();
+    }
     return (
         <div className="drop-down" style={{ height: menuHeight }}>
             <CSSTransition
@@ -33,7 +46,7 @@ function DropdownMenus(props) {
                 onEnter={calcHeight}>
                 <div className="menu">
                     <DropdownItems leftIcon={<ImIcons.ImProfile />} goToMenu="settings">My Profile</DropdownItems>
-                    <DropdownItems leftIcon={<FiIcons.FiLogOut />}>Log Out</DropdownItems>
+                    <DropDownLogOut leftIcon={<FiIcons.FiLogOut />}>Log Out</DropDownLogOut>
                 </div>
             </CSSTransition>
             <CSSTransition

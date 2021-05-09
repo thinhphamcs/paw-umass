@@ -136,7 +136,7 @@ function HomeUI({ form: { loading, error, data, finalDate, imgPath, searchTerm, 
                     )) : null}
                 </div>
             </main >
-        </div>
+        </div >
     );
 }
 

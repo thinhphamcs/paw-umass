@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import { axiosInstance } from '../../helpers/axiosInstance';
 import * as FaIcons from "react-icons/fa";
+// import { useHistory } from 'react-router-dom';
+import './Donate.css';
 // Working with stripe for the first time
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { useHistory } from 'react-router-dom';
-import './Donate.css';
 
 // This will be the font end with props I can use to display data
-// error, loading, donateFormValid, onChange
 const CARD_OPTIONS = {
     iconStyle: "solid",
     style: {
@@ -35,7 +34,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
     const [consent, setConsent] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
-    const history = useHistory();
+    // const history = useHistory();
 
     // onSubmit function
     const onSubmit = async (event) => {
@@ -54,8 +53,9 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                 console.log(response.data.success);
                 if (response.data.success) {
                     console.log("Successfully donated");
-                    history.push('/user/donate');
-                    window.location.reload();
+                    // history.push('/user/donate');
+                    // window.location.reload();
+                    window.location = "/user/donate";
                 }
             } catch (error) {
                 console.log("Error", error);
@@ -68,7 +68,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
 
     return (
         <>
-            {!consent ? <div className="consent-container">
+            {((localStorage.getItem("donation") === "0" || sessionStorage.getItem("donation") === "0") && !consent) ? <div className="consent-container" key='14'>
                 <p>
                     <b>Please read carefully: </b>The page is created to show the employer I can work on the payment system.<br />
                     Therefore, this page does work.<br /><br />
@@ -79,9 +79,9 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                     I acknowledge
                 </button>
             </div> : [(localStorage.getItem("donation") === "0" || sessionStorage.getItem("donation") === "0") ?
-                <div className="donate-container">
+                <div className="donate-container" key='15'>
                     <FaIcons.FaAngleDoubleRight className="donate-right-arrow" />
-                    <div className="donate-container-header">
+                    <div className="donate-container-header" key='16'>
                         <Link to="/home" >
                             <div className="donate-logo">
                                 <img src={Logo} alt="Logo" />
@@ -152,7 +152,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                 :
                 <div className="footer-container" key='13'>
                     <p className="footer-text">
-                        THANK YOU {sessionStorage.firstName.toUpperCase()} FOR YOUR GENEROUS DONATION AND SUPPORT.<br /><br />
+                        THANK YOU {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]} FOR YOUR GENEROUS DONATION AND SUPPORT.<br /><br />
                         THIS WEBSITE WILL NOW BE ABLE TO CONTINUE TO OPERATE ADS FREE ALL THANKS TO YOUR DONATION.<br /><br />
                         SINCERELY,<br /><br />
                         THANK YOU FOR YOUR GENEROSITY.<br /><br />

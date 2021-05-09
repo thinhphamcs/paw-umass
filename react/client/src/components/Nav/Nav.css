@@ -194,6 +194,13 @@ a {
     margin: 0 -50px;
 }
 
+.logout-button {
+    background: none;
+    color: #b6b6b6;
+    border: none;
+    font-size: 15px !important;
+}
+
 /* Small Screens */
 @media only screen and (max-width: 1000px) {
     .search-box {
