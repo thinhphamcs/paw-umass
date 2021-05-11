@@ -2,23 +2,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
-import * as AiIcons from "react-icons/ai";
+import PhoneInput from 'react-phone-number-input/input';
+import * as FaIcons from "react-icons/fa";
 import './Profile.css';
 
 // This will be the font end with props I can use to display data
-function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error } }) {
+function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading, error, phoneChange } }) {
     return (
         <div className="profile-container">
-            <AiIcons.AiOutlineArrowRight className="profile-right-arrow" />
+            <FaIcons.FaAngleDoubleRight className="profile-right-arrow" />
             <div className="profile-container-header">
                 <Link to="/home" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <AiIcons.AiOutlineArrowLeft className="profile-left-arrow" />
+            <FaIcons.FaAngleDoubleLeft className="profile-left-arrow" />
             <h1 className="profile-form-title">Welcome {sessionStorage ? sessionStorage.firstName : null}{localStorage.firstName ? localStorage.firstName : null}</h1>
             <form className="profile-form-container">
-                {error ? <div className="profile-error">{error.message}</div> : null}
+                {error ?
+                    [(error.message === "Invalid Email Format" || error.message === "Invalid Phone Format" || error.message === "Please provide valid input") ?
+                        <div className="profile-error">{error.message}</div> : null]
+                    : null}
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         {sessionStorage ? sessionStorage.firstName : null}
@@ -45,7 +49,14 @@ function ProfileUI({ form: { onChange, form, updateFormValid, onSubmit, loading,
                         {sessionStorage ? sessionStorage.phone : null}
                         {localStorage.phone ? localStorage.phone : null}
                     </div>
-                    <input className="profile-input" type="text" id="phone" name="phone" placeholder="Phone" value={form.phone} onChange={onChange}></input>
+                    <PhoneInput
+                        className="profile-input"
+                        id="phone"
+                        name="phone"
+                        country="US"
+                        placeholder="123 456 7890"
+                        value={form.phone}
+                        onChange={phoneChange} />
                 </div>
                 <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={updateFormValid || loading} loading={loading.toString()}>Update</button>
             </form>

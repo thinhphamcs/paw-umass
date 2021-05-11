@@ -74,10 +74,9 @@
 }
 
 .profile-error {
-    margin-top: -10px;
     color: #6A150D;
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 20px !important;
+    margin-top: -25px;
 }
 
 /* === Buttons === */
@@ -91,6 +90,10 @@
     cursor: pointer !important;
     width: 100%;
     margin-top: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-form-button:disabled {

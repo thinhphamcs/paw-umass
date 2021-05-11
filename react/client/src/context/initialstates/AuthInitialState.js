@@ -2,8 +2,8 @@
 const AuthInitialState = {
     auth: {
         loading: false,
-        data: null,
         error: null,
+        data: [],
     },
 };
 export default AuthInitialState;

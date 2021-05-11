@@ -23,9 +23,9 @@ export function DeactivateForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            if (data.auth) {
-                history.push('/');
-            }
+            // if (data.auth) {
+            //     history.push('/');
+            // }
         }
         else {
             history.push('/settings/deactivate');

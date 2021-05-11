@@ -1,0 +1,108 @@
+/* === Container === */
+.tos-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    width: 650px;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background-color: #F4F6F6;
+    border: 1px solid #6A150D;
+}
+
+/* === Logo, Arrows === */
+.tos-container-header {
+    position: fixed;
+    top: -6%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tos-right-arrow {
+    top: -5%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
+}
+
+.tos-left-arrow {
+    top: -5%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
+}
+
+/* === Body === */
+.tos-body {
+    display: flex;
+    overflow: hidden;
+    height: 667px;
+    margin-top: -100px;
+    padding: 115px 15px 15px 15px;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.tos-content {
+    color: var(--bg-primary);
+    overflow-x: hidden;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    font-size: 20px !important;
+}
+
+.tos-content::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+    .tos-container {
+        width: 360px;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .tos-container {
+        position: fixed;
+        width: 360px;
+        height: 570px;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .tos-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
+    }
+    .tos-body {
+        padding: 0px 15px;
+        position: fixed;
+        height: 530px;
+        -webkit-transform: translate(0%, 22%);
+        transform: translate(0%, 22%);
+    }
+    .tos-content {
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+    }
+}

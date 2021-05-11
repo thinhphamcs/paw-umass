@@ -1,0 +1,106 @@
+/* === Container === */
+.forgot-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    padding: 0 0 41px 0;
+    background-color: #F4F6F6;
+}
+
+/* === Logo === */
+.forgot-container-header {
+    position: fixed;
+    top: -12%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* === Form: title, container, groups, data display, inputs, errors === */
+.forgot-form-title {
+    justify-content: center;
+    display: flex;
+    padding: 15px 5px;
+}
+
+.forgot-form-container {
+    background: none !important;
+    width: 100%;
+    display: inline-block;
+    padding: 20px !important;
+    text-align: center !important;
+    min-width: 320px !important;
+    margin-bottom: -20px;
+}
+
+.forgot-form-group {
+    display: grid;
+}
+
+.forgot-input {
+    font-size: 20px !important;
+    line-height: 21px !important;
+    padding: 10px 30px !important;
+}
+
+.forgot-error {
+    font-size: 20px;
+    margin-bottom: 34px;
+}
+
+/* === Line === */
+.forgot-line {
+    border-bottom: 3px solid #6A150D;
+    margin: 20px;
+}
+
+/* === Buttons === */
+.forgot-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .forgot-container {
+        position: fixed;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .forgot-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
+    }
+}

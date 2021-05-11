@@ -22,7 +22,7 @@ export function LoginForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            if (data.auth) {
+            if (data.profile) {
                 history.push('/settings/profile');
             }
         }
@@ -39,10 +39,11 @@ export function LoginForm() {
 
     // onChange function
     const onChange = (event) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         setForm({
             ...form,
-            [event.target.name]: event.target.value,
-            checkBox: event.target.checked
+            [event.target.name]: value
         });
     };
 

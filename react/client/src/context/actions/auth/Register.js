@@ -1,5 +1,5 @@
 // Import
-import { REGISTER_SUCCESS, REGISTER_ERROR, REGISTER_LOADING } from '../../../constants/actionTypes';
+import { REGISTER_LOADING, REGISTER_SUCCESS, REGISTER_ERROR, CONNECTION_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Register function that will send data to backend with dispatch and axios
@@ -32,7 +32,7 @@ export const register = ({
         .catch(err => {
             dispatch({
                 type: REGISTER_ERROR,
-                payload: err.response ? err.response.data : "COULD NOT CONNECT",
+                payload: err.response ? err.response.data : CONNECTION_ERROR
             });
         });
 }

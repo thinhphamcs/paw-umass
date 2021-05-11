@@ -3,11 +3,11 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -45%);
+    transform: translate(-50%, -45%);
     border-radius: 30px;
     background-color: white;
-    padding: 0 0 51px 0;
+    padding: 0 0 50px 0;
 }
 
 /* === Logo === */
@@ -86,6 +86,10 @@
     transition: 0.5s all ease-in-out !important;
     cursor: pointer !important;
     width: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-form-button:disabled {
@@ -98,7 +102,7 @@
     text-align: center;
 }
 
-.login-list-items {
+.login-list-items, .login-list-items:hover {
     color: #6A150D;
     text-decoration: none;
     padding: 10px;

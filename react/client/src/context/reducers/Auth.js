@@ -5,7 +5,9 @@ import {
     UPDATE_LOADING, UPDATE_SUCCESS, UPDATE_ERROR,
     DEACTIVATE_LOADING, DEACTIVATE_SUCCESS, DEACTIVATE_ERROR,
     CHANGE_LOADING, CHANGE_SUCCESS, CHANGE_ERROR,
-    FORGOT_LOADING, FORGOT_SUCCESS, FORGOT_ERROR
+    FORGOT_LOADING, FORGOT_SUCCESS, FORGOT_ERROR,
+    SUBMIT_LOADING, SUBMIT_SUCCESS, SUBMIT_ERROR,
+    PROFILE_LOADING, PROFILE_SUCCESS, PROFILE_ERROR,
 } from "../../constants/actionTypes";
 
 // Reducer function with states and data payload
@@ -17,6 +19,8 @@ const reducerAuth = (state, { payload, type }) => {
         case DEACTIVATE_LOADING:
         case CHANGE_LOADING:
         case FORGOT_LOADING:
+        case SUBMIT_LOADING:
+        case PROFILE_LOADING:
             return {
                 ...state,
                 auth: {
@@ -31,6 +35,8 @@ const reducerAuth = (state, { payload, type }) => {
         case DEACTIVATE_SUCCESS:
         case CHANGE_SUCCESS:
         case FORGOT_SUCCESS:
+        case SUBMIT_SUCCESS:
+        case PROFILE_SUCCESS:
             return {
                 ...state,
                 auth: {
@@ -45,6 +51,8 @@ const reducerAuth = (state, { payload, type }) => {
         case DEACTIVATE_ERROR:
         case CHANGE_ERROR:
         case FORGOT_ERROR:
+        case SUBMIT_ERROR:
+        case PROFILE_ERROR:
             return {
                 ...state,
                 auth: {

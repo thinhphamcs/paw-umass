@@ -27,3 +27,27 @@ export const CHANGE_ERROR = 'CHANGE_ERROR';
 export const FORGOT_LOADING = 'FORGOT_LOADING';
 export const FORGOT_SUCCESS = 'FORGOT_SUCCESS';
 export const FORGOT_ERROR = 'FORGOT_ERROR';
+
+// The states for Submit
+export const SUBMIT_LOADING = 'SUBMIT_LOADING';
+export const SUBMIT_SUCCESS = 'SUBMIT_SUCCESS';
+export const SUBMIT_ERROR = 'SUBMIT_ERROR';
+
+// The states for profile
+export const PROFILE_LOADING = 'PROFILE_LOADING';
+export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
+export const PROFILE_ERROR = 'PROFILE_ERROR';
+
+// The states for asset
+export const ASSET_LOADING = 'ASSET_LOADING';
+export const ASSET_SUCCESS = 'ASSET_SUCCESS';
+export const ASSET_ERROR = 'ASSET_ERROR';
+
+export const DONATE_LOADING = 'DONATE_LOADING';
+export const DONATE_SUCCESS = 'DONATE_SUCCESS';
+export const DONATE_ERROR = 'DONATE_ERROR';
+
+
+// This is for the error message
+export const CONNECTION_ERROR = 'Could not connect try again';
+

@@ -23,10 +23,11 @@ export function ProfileForm() {
     // Dispatch, need to understand this
     const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
 
+
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            if (data.auth) {
+            if (data.profile) {
                 history.push('/settings/profile');
             }
         }
@@ -49,13 +50,21 @@ export function ProfileForm() {
         });
     };
 
+    // onChange function for child component Phone
+    const phoneChange = (value) => {
+        setForm({
+            ...form,
+            phone: value
+        });
+    }
+
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.firstName.length || form.lastName.length || form.email.length || form.phone.length) {
+    if (form.firstName.length || form.lastName.length || form.email.length || form.phone) {
         // If user input the first name and another other we disabled the button
-        if (form.firstName.length && (form.lastName.length || form.email.length || form.phone.length)) {
+        if (form.firstName.length && (form.lastName.length || form.email.length || form.phone)) {
             // If user input everything then we open the button again
-            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone) {
                 updateFormValid = false;
             }
             else {
@@ -63,9 +72,9 @@ export function ProfileForm() {
             }
         }
         // If user input the last name and another other we disabled the button
-        else if (form.lastName.length && (form.firstName.length || form.email.length || form.phone.length)) {
+        else if (form.lastName.length && (form.firstName.length || form.email.length || form.phone)) {
             // If user input everything then we open the button again
-            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone) {
                 updateFormValid = false;
             }
             else {
@@ -73,9 +82,9 @@ export function ProfileForm() {
             }
         }
         // If user input the email field and another other we disabled the button
-        else if (form.email.length && (form.firstName.length || form.lastName.length || form.phone.length)) {
+        else if (form.email.length && (form.firstName.length || form.lastName.length || form.phone)) {
             // If user input everything then we open the button again
-            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone) {
                 updateFormValid = false;
             }
             else {
@@ -83,9 +92,9 @@ export function ProfileForm() {
             }
         }
         // If user input the phone field and another other we disabled the button
-        else if (form.phone.length && (form.firstName.length || form.lastName.length || form.email.length)) {
+        else if (form.phone && (form.firstName.length || form.lastName.length || form.email.length)) {
             // If user input everything then we open the button again
-            if (form.firstName.length && form.lastName.length && form.email.length && form.phone.length) {
+            if (form.firstName.length && form.lastName.length && form.email.length && form.phone) {
                 updateFormValid = false;
             }
             else {
@@ -108,5 +117,5 @@ export function ProfileForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, updateFormValid, onSubmit, onChange };
+    return { form, error, loading, updateFormValid, onSubmit, onChange, phoneChange };
 }

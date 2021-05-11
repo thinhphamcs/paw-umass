@@ -1,5 +1,5 @@
 // Import
-import { DEACTIVATE_LOADING, DEACTIVATE_SUCCESS, DEACTIVATE_ERROR } from '../../../constants/actionTypes';
+import { DEACTIVATE_LOADING, DEACTIVATE_SUCCESS, DEACTIVATE_ERROR, CONNECTION_ERROR } from '../../../constants/actionTypes';
 import { axiosInstance } from '../../../helpers/axiosInstance';
 
 // Login function that will send data to backend with dispatch and axios
@@ -22,7 +22,7 @@ export const deactivate = ({
         .catch(err => {
             dispatch({
                 type: DEACTIVATE_ERROR,
-                payload: err.response ? err.response.data : "COULD NOT CONNECT",
+                payload: err.response ? err.response.data : CONNECTION_ERROR
             });
         });
 }
