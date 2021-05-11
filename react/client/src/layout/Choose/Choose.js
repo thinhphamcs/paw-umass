@@ -44,13 +44,13 @@ const ChooseUI = () => {
                 <Link to="/about" className='choose-list-items'>
                     About
                 </Link>
-                <Link to="/terms" className='choose-list-items'>
+                <Link to="/tos" className='choose-list-items'>
                     Terms of Service
                 </Link>
                 <Link to="/privacy" className='choose-list-items'>
                     Privacy Policy
                 </Link>
-                <Link to="/cookie" className='choose-list-items'>
+                <Link to="/cookies" className='choose-list-items'>
                     Cookie Policy
                 </Link>
                 <p className="copyright">

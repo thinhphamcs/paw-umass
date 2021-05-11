@@ -10,6 +10,10 @@ import Forgot from '../components/Forgot/Forgot';
 import ForgotChange from '../components/ForgotChange/ForgotChange';
 import Submit from '../components/Submit/Submit';
 import Donate from '../components/Donate/Donate';
+import About from '../components/About/About';
+import ToS from '../components/ToS/ToS';
+import Privacy from '../components/Privacy/Privacy';
+import Cookies from '../components/Cookies/Cookies';
 
 /**
  * Define the routes
@@ -51,6 +55,30 @@ const routes = [
         title: 'Change',
         auth: true,
         forgot: true
+    },
+    {
+        path: '/about',
+        component: About,
+        title: 'About',
+        auth: false
+    },
+    {
+        path: '/tos',
+        component: ToS,
+        title: 'Terms Of Service',
+        auth: false
+    },
+    {
+        path: '/privacy',
+        component: Privacy,
+        title: 'Privacy Policy',
+        auth: false
+    },
+    {
+        path: '/cookies',
+        component: Cookies,
+        title: 'Cookie Policy',
+        auth: false
     },
     {
         path: '/settings/profile',

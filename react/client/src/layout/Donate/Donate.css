@@ -287,7 +287,11 @@
     }
     .donate-container {
         position: fixed;
+        width: 375px !important;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
+    }
+    .donate-outer {
+        padding: 10px 70px;
     }
 }

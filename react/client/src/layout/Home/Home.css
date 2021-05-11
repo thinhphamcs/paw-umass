@@ -129,8 +129,28 @@ main {
     margin-bottom: 10px !important;
 }
 
-.red:hover {
-    color: var(--bg-primary);
+/* Testing */
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    .all-container {
+        transform: translate(-50%, -50%);
+        position: fixed;
+        width: 400px !important;
+        height: 670px !important;
+        overflow: auto;
+    }
+    .asset-container {
+        transform: translate(0%, -7%);
+    }
+    
+    /* .home-container {
+        
+    }
+    .top-nav-bar {
+
+    }
+    .nav-bar {
+
+    } */
 }
 
 /* Small Screens */
