@@ -1,15 +1,21 @@
 // Import
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
+import * as FaIcons from "react-icons/fa";
 import './ForgotChange.css';
 
 // This will be the font end with props I can use to display data
 function ForgotChangeUI({ form: { onChange, form, forgotChangeFormValid, onSubmit, loading, error } }) {
     return (
         <div className="forgot-change-container">
-            <div className="change-container-header">
-                <img src={Logo} alt="Logo" />
+            <FaIcons.FaAngleDoubleRight className="forgot-change-right-arrow" />
+            <div className="forgot-change-container-header">
+                <Link to="/login" >
+                    <img src={Logo} alt="Logo" />
+                </Link>
             </div>
+            <FaIcons.FaAngleDoubleLeft className="forgot-change-left-arrow" />
             <h1 className="forgot-change-form-title">Your New Password</h1>
             <h3 className="reason">
                 Due to security reasons, we will not send the password to you.<br /><br />Instead, we will ask you to renew your password.

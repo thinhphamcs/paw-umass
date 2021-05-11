@@ -26,7 +26,7 @@
     position: fixed;
     top: -8%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 }
 
 .change-right-arrow {
@@ -134,7 +134,7 @@
     }
     .change-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -51%);
-        transform: translate(-50%, -51%);
+        -webkit-transform: translate(-50%, -60%);
+        transform: translate(-50%, -60%);
     }
 }

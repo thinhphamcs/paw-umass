@@ -26,7 +26,7 @@
     position: fixed;
     top: -12%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 }
 
 .deactivate-right-arrow {
@@ -128,7 +128,7 @@
     }
     .deactivate-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -51%);
-        transform: translate(-50%, -51%);
+        -webkit-transform: translate(-50%, -60%);
+        transform: translate(-50%, -60%);
     }
 }

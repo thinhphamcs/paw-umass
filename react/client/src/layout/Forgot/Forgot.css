@@ -10,12 +10,30 @@
     background-color: #F4F6F6;
 }
 
-/* === Logo === */
+/* === Logo, Arrows === */
 .forgot-container-header {
     position: fixed;
-    top: -12%;
+    top: -6%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
+}
+
+.forgot-right-arrow {
+    top: -10%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
+}
+
+.forgot-left-arrow {
+    top: -10%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
 }
 
 /* === Form: title, container, groups, data display, inputs, errors === */
@@ -100,7 +118,7 @@
     }
     .forgot-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -51%);
-        transform: translate(-50%, -51%);
+        -webkit-transform: translate(-50%, -60%);
+        transform: translate(-50%, -60%);
     }
 }

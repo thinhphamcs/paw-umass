@@ -70,6 +70,10 @@ main {
     margin-left: 1rem;
 }
 
+.search-button {
+    cursor: auto !important;
+}
+
 /* Cards include row + column + card */
 /* Remove extra left and right margins, due to padding */
 .row {

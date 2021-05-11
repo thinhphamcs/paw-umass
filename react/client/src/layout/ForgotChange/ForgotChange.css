@@ -3,8 +3,8 @@
     position: fixed;
     top: 55%;
     left: 50%;
-    -webkit-transform: translate(-50%, -55%);
-    transform: translate(-50%, -55%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     border-radius: 30px;
     padding: 0 0 40px 0;
     background-color: #F4F6F6;
@@ -14,9 +14,27 @@
 /* === Logo, Arrows === */
 .forgot-change-container-header {
     position: fixed;
-    top: -8%;
+    top: -6%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -55%);
+}
+
+.forgot-change-right-arrow {
+    top: -7%;
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
+}
+
+.forgot-change-left-arrow {
+    top: -7%;
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    color: white;
+    position: fixed;
 }
 
 .reason {
@@ -24,6 +42,7 @@
     font-size: 19px;
     margin-bottom: -15px;
     margin-top: -20px;
+    color: #6A150D;
 }
 
 /* === Form: title, container, groups, data display, inputs, errors === */
@@ -31,6 +50,7 @@
     justify-content: center;
     display: flex;
     padding: 15px 5px;
+    color: #6A150D;
 }
 
 .forgot-change-form-container {
@@ -105,7 +125,7 @@
     }
     .forgot-change-container-header {
         position: fixed;
-        -webkit-transform: translate(-50%, -51%);
-        transform: translate(-50%, -51%);
+        -webkit-transform: translate(-50%, -55%);
+        transform: translate(-50%, -55%);
     }
 }

@@ -11,7 +11,7 @@ function ForgotChange() {
     const history = useHistory();
     const { profileDispatch } = useContext(GlobalContext);
     useEffect(() => {
-        document.body.style.backgroundColor = "white";
+        document.body.style.backgroundColor = "#6A150D";
         GetProfiles(history)(profileDispatch);
     }, [history, profileDispatch]);
     return (
