@@ -15,6 +15,8 @@ export function HomeForm() {
         search: '',
     });
 
+    const [free, setFree] = useState(false);
+
     // The variables for date function
     const date = new Date();
     let year = date.getFullYear();
@@ -34,10 +36,12 @@ export function HomeForm() {
     // useEffect so we can use history to redirect
     useEffect(() => {
         if (data) {
-            // console.log(data);
+            if (data.auth) {
+                history.push('/home');
+            }
         }
         else {
-            history.push('/home');
+            history.push('/user/submit');
         }
     }, [data, history]);
 
@@ -71,8 +75,16 @@ export function HomeForm() {
 
 
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        forgotChange(form)(assetDispatch); // change
+    function onSubmit(props) {
+        console.log(props);
+        if (props.availability === 0) {
+            if (sessionStorage.availability) {
+                sessionStorage.availability = "1";
+            }
+            if (localStorage.availability) {
+                localStorage.availability = "1";
+            }
+        }
     }
 
     // Return this so we can use these as props on the UI (front end)

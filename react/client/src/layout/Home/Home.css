@@ -74,6 +74,35 @@ main {
     cursor: auto !important;
 }
 
+.home-error {
+    text-align: center;
+    font-size: 30px !important;
+    color: var(--bg-primary);
+}
+
+.home-next {
+    color: var(--bg-primary);
+    text-align: center;
+    margin: 15%;
+}
+
+.home-next-button {
+        background-color: #6A150D !important;
+        color: white !important;
+        font-size: 20px !important;
+        padding: 10px 20px !important;
+        border: 0 !important;
+        transition: 0.5s all ease-in-out !important;
+        cursor: pointer !important;
+        width: 100%;
+        border-radius: .50rem;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    
+}
+
 /* Cards include row + column + card */
 /* Remove extra left and right margins, due to padding */
 .row {
@@ -212,6 +241,9 @@ main {
     .card-img-top {
         height: 40% !important;
     }
+    .home-next {
+        margin: 5%;
+    }
 }
 
 /* Large Screens */
@@ -269,4 +301,7 @@ main {
        display: flex;
        margin-bottom: 30px !important;
      }
+     .home-next {
+        margin: 15%;
+    }
 }

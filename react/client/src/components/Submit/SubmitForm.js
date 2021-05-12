@@ -30,6 +30,7 @@ export function SubmitForm() {
         if (data) {
             if (data.home) {
                 history.push('/home');
+                data.home = false;
             }
         }
         else {

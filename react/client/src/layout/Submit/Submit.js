@@ -22,7 +22,7 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
                 {error ?
-                    [error.message === "No files were uploaded" ?
+                    [(error.message === "No files were uploaded" || error.message === "The image is too large") ?
                         <div className="submit-error">{error.message}</div> : null]
                     : null}
                 <div className="submit-form-group">
