@@ -1,16 +1,22 @@
 // Import
 import React from 'react';
-import Logo from '../../assets/images/logo3.png';
+import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input/input';
+import Logo from '../../assets/images/logo3.png';
+import * as FaIcons from "react-icons/fa";
 import './Forgot.css';
 
 // This will be the font end with props I can use to display data
 function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, error, phoneChange } }) {
     return (
         <div className="forgot-container">
+            <FaIcons.FaAngleDoubleRight className="forgot-right-arrow" />
             <div className="forgot-container-header">
-                <img src={Logo} alt="Logo" />
+                <Link to="/login" >
+                    <img src={Logo} alt="Logo" />
+                </Link>
             </div>
+            <FaIcons.FaAngleDoubleLeft className="forgot-left-arrow" />
             <h1 className="forgot-form-title">Find Your Account</h1>
             <form className="forgot-form-container">
                 {error ? <div className="forgot-error">{error.message}</div> : null}

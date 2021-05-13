@@ -19,6 +19,7 @@ export const GetProfiles = (history) => (dispatch) => {
                     .concat(" " + res.data.data.phone[0].substring(5, 8))
                     .concat(" - " + res.data.data.phone[0].substring(8, 15));
                 localStorage.donation = res.data.data.donation[0];
+                localStorage.availability = res.data.data.availability[0];
             }
             if (sessionStorage.checkBox) {
                 sessionStorage.firstName = res.data.data.firstName[0];
@@ -29,6 +30,7 @@ export const GetProfiles = (history) => (dispatch) => {
                     .concat(" " + res.data.data.phone[0].substring(5, 8))
                     .concat(" - " + res.data.data.phone[0].substring(8, 15));
                 sessionStorage.donation = res.data.data.donation[0];
+                sessionStorage.availability = res.data.data.availability[0];
             }
             dispatch({
                 type: PROFILE_SUCCESS,

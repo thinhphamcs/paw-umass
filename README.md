@@ -35,18 +35,38 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 4. Build and run both server and client with `npm run dev`
 
-5. APIs: \
+5. ### APIs: \
+    About:
+    ```
+     http://localhost:#/about
+    ```
+    Change:
+    ```
+     http://localhost:#/settings/change
+    ```
     Choose:
     ```
      http://localhost:#/
     ```
-    Sign up:
+    Cookies:
     ```
-     http://localhost:#/signup/
+     http://localhost:#/cookies
     ```
-    Login:
+    Deactivate:
     ```
-     http://localhost:#/login/
+     http://localhost:#/settings/deactivate
+    ```
+    Donate:
+    ```
+     http://localhost:#/user/donate
+    ```
+    Forgot:
+    ```
+     http://localhost:#/forgot
+    ```
+    Forgot Change:
+    ```
+     http://localhost:#/change
     ```
     Forgot:
     ```
@@ -54,21 +74,111 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
     ```
     Home:
     ```
-     http://localhost:#/home/
+     http://localhost:#/home
     ```
-    reset:
+    Login:
     ```
-     http://localhost:#/reset/
+     http://localhost:#/login
     ```
-    profile:
+    Privacy:
     ```
-     http://localhost:#/profile/
+     http://localhost:#/privacy
     ```
-    submit:
+    Profile:
     ```
-     http://localhost:#/submit/
+     http://localhost:#/settings/profile
     ```
-    donate:
+    Register:
     ```
-     http://localhost:#/donate/
+     http://localhost:#/register
     ```
+    Submit:
+    ```
+     http://localhost:#/user/submit
+    ```
+    ToS:
+    ```
+     http://localhost:#/tos
+    ```
+
+6. ### Response Codes
+```
+200: Success
+204: No Content
+400: Invalid request
+401: Unauthorized
+403: Forbidden
+404: Cannot be found
+```
+
+7. ### Responses
+
+`status` will be one of `"PASSED"`, `"FAILED"`, or `"ERRORED"`.
+
+### Successful Response
+```
+200 OK
+Content-Type: application/json
+
+{
+    "status": "PASSED",
+    "message": <parameter> was passed
+}
+```
+  
+### Failed Responses
+
+#### No Content
+```
+204 Bad Request
+Content-Type: application/json
+
+{
+    "status": "ERROR",
+    "message": "<parameter> does not exist."
+}
+```
+#### Invalid request
+```
+400 Bad Request
+Content-Type: application/json
+
+{
+    "status": "ERROR",
+    "message": Invalid "<parameter> format."
+}
+```
+#### Unauthorized
+```
+401 Bad Request
+Content-Type: application/json
+
+{
+    "status": "ERROR",
+    "message": "<parameter> does not exist."
+}
+```
+#### Forbidden
+```
+403 Bad Request
+Content-Type: application/json
+
+{
+    "status": "ERROR",
+    "message": "Already in use" || "<parameter> do not match"
+}
+```
+#### Missing
+```
+404 Fatal
+Content-Type: application/json
+
+{
+    "status": "FAILED",
+    "message": "<parameter> is missing"
+}
+```
+8. ### Deploy
+```
+Work in Progress
+```

@@ -57,7 +57,7 @@ exports.profile = async (req, res) => {
         if (jwt.decode(token)) {
             const id = jwt.decode(token, { complete: true }).payload.id;
             // We then check if user is authenticated or not
-            userDB.query('SELECT firstName, lastName, email, phone, donation FROM users WHERE id = ?', [id], async (err, results) => {
+            userDB.query('SELECT firstName, lastName, email, phone, donation, availability FROM users WHERE id = ?', [id], async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
@@ -78,6 +78,7 @@ exports.profile = async (req, res) => {
                                 "email": results.map(item => item.email),
                                 "phone": results.map(item => item.phone),
                                 "donation": results.map(item => item.donation),
+                                "availability": results.map(item => item.availability),
                             },
                         });
                     }
@@ -100,13 +101,13 @@ exports.asset = async (req, res) => {
     try {
         let asset = [];
         if (jwt.decode(req.headers.authorization)) {
-            assetDB.query('SELECT petName, breed, photo, description, howLong, date FROM assets', async (err, results) => {
+            assetDB.query('SELECT petName, breed, photo, description, howLong, date, token, availability FROM assets', async (err, results) => {
                 if (err) {
                     console.log(err);
                 }
                 else {
                     if (results.length === 0) {
-                        res.status(404).json({
+                        res.status(400).json({
                             auth: false,
                             message: 'Assets no longer exist'
                         });

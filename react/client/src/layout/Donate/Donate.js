@@ -50,12 +50,9 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                     amount: form.radio, // the amounts will be in cents
                     id
                 });
-                console.log(response.data.success);
                 if (response.data.success) {
-                    console.log("Successfully donated");
                     // history.push('/user/donate');
-                    // window.location.reload();
-                    window.location = "/user/donate";
+                    window.location.reload();
                 }
             } catch (error) {
                 console.log("Error", error);
@@ -65,7 +62,6 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
             console.log(error.message);
         }
     }
-
     return (
         <>
             {((localStorage.getItem("donation") === "0" || sessionStorage.getItem("donation") === "0") && !consent) ? <div className="consent-container" key='14'>
@@ -86,7 +82,6 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                             <div className="donate-logo">
                                 <img src={Logo} alt="Logo" />
                             </div>
-
                         </Link>
                     </div>
                     <FaIcons.FaAngleDoubleLeft className="donate-left-arrow" />
