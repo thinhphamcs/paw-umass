@@ -87,20 +87,18 @@ main {
 }
 
 .home-next-button {
-        background-color: #6A150D !important;
-        color: white !important;
-        font-size: 20px !important;
-        padding: 10px 20px !important;
-        border: 0 !important;
-        transition: 0.5s all ease-in-out !important;
-        cursor: pointer !important;
-        width: 100%;
-        border-radius: .50rem;
-        display: flex;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-    
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 80%;
+    border-radius: .50rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Cards include row + column + card */
@@ -155,6 +153,11 @@ main {
     justify-content: center;
 }
 
+.home-form-button:disabled {
+    background-color: #a26254 !important;
+    cursor: auto !important;
+}
+
 .text-muted {
     display: flex !important;
     justify-content: center !important;
@@ -174,7 +177,9 @@ main {
     .asset-container {
         transform: translate(0%, -7%);
     }
-    
+    .home-next {
+        margin: -85% 0 0 0 !important;
+    }
     /* .home-container {
         
     }
@@ -242,7 +247,7 @@ main {
         height: 40% !important;
     }
     .home-next {
-        margin: 5%;
+        margin: 10% 0 0 0;
     }
 }
 
@@ -302,6 +307,6 @@ main {
        margin-bottom: 30px !important;
      }
      .home-next {
-        margin: 15%;
+        margin: 10%;
     }
 }
