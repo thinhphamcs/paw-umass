@@ -165,6 +165,34 @@ main {
     margin-bottom: 10px !important;
 }
 
+
+/* === Body === */
+.home-body {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    height: 840px;
+    margin-top: -100px;
+    padding: 100px 15px 15px 15px;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: overflow;
+}
+
+.home-content {
+    color: var(--bg-primary);
+    overflow-x: hidden;
+    height: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    font-size: 20px !important;
+}
+
+.home-content::-webkit-scrollbar {
+    display: none;
+}
+
 /* Testing */
 @media screen and (max-width: 667px) and (orientation: landscape) {
     .all-container {
@@ -172,23 +200,22 @@ main {
         position: fixed;
         width: 400px !important;
         height: 670px !important;
-        overflow: auto;
+        overflow: hidden;
     }
     .asset-container {
-        transform: translate(0%, -7%);
+        transform: translate(0%, 0%);
     }
     .home-next {
-        margin: -85% 0 0 0 !important;
-    }
-    /* .home-container {
-        
-    }
-    .top-nav-bar {
-
+        margin: 5% 0 0 0 !important;
     }
     .nav-bar {
-
-    } */
+        bottom: 0 !important;
+    }
+    .home-body {
+        height: 480px !important;
+        margin-top: 0px !important;
+        padding: 15px 15px 15px 15px !important;
+    }
 }
 
 /* Small Screens */
@@ -219,18 +246,15 @@ main {
     .nav-link {
         justify-content: center;
     }
-
     main {
         margin: 0;
-        margin-top: 25rem;
-        margin-bottom: 5rem;
+        margin-top: 5rem;
         position: relative;
         top: 50%;
         left: 50%;
         width: 375px;
         height: 667px;
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);    
+        transform: translate(-50%, -50%);
     }
     .row {
         margin: 0 -15px !important;
@@ -247,7 +271,13 @@ main {
         height: 40% !important;
     }
     .home-next {
-        margin: 10% 0 0 0;
+        font-size: 15px !important;
+        margin: 20% 0 0 0;
+    }
+    .home-body {
+        height: 640px;
+        margin-top: 280px;
+        padding: 15px 15px 15px 15px;
     }
 }
 

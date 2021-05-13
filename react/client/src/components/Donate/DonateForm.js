@@ -18,7 +18,7 @@ export function DonateForm() {
     let donateFormValid = true;
 
     // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
+    const { authState: { auth: { loading, data }, }, } = useContext(GlobalContext);
 
     // useEffect so we can use history to redirect
     useEffect(() => {

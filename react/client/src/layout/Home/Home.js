@@ -78,56 +78,60 @@ function HomeUI({ form: { error, data, imgPath, searchTerm, onChange, resetSubmi
                 </nav>
             </div>
             <main>
-                {error ?
-                    [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
-                    [(localStorage.getItem("availability") === "0" || sessionStorage.getItem("availability") === "0") ?
-                        <div className="asset-container" key='13'>
-                            <div className="row" key='14'>
-                                {data.asset ? data.asset.filter((value) => {
-                                    if (searchTerm.search === "" || (value.breed.toString().toLowerCase().includes(searchTerm.search.toString().toLowerCase()))) {
-                                        return value;
-                                    }
-                                    // Return something here but it will break the filter
-                                }).map((value, index) => (
-                                    <div className="column" key={index}>
-                                        <Card>
-                                            <Card.Img variant="top" src={imgPath + value.photo} />
-                                            <Card.Body>
-                                                <Card.Text>
-                                                    <b>Name: {value.petName}</b>
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    <b>Breed: {value.breed}</b>
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    <b>Description: {value.description}</b>
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    <b>Willing to give {value.howLong}</b>
-                                                </Card.Text>
-                                            </Card.Body>
-                                            <Card.Footer>
-                                                <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
-                                                {value.availability === 1 ?
-                                                    <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                                    <button className="home-form-button" type="submit" onClick={() => { setTesting(value.token) }}><FaIcons.FaPaw /></button>}
-                                            </Card.Footer>
+                <div className="home-body">
+                    <div className="home-content">
+                        {error ?
+                            [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
+                            [(localStorage.getItem("availability") === "0" || sessionStorage.getItem("availability") === "0") ?
+                                <div className="asset-container" key='13'>
+                                    <div className="row" key='14'>
+                                        {data.asset ? data.asset.filter((value) => {
+                                            if (searchTerm.search === "" || (value.breed.toString().toLowerCase().includes(searchTerm.search.toString().toLowerCase()))) {
+                                                return value;
+                                            }
+                                            // Return something here but it will break the filter
+                                        }).map((value, index) => (
+                                            <div className="column" key={index}>
+                                                <Card>
+                                                    <Card.Img variant="top" src={imgPath + value.photo} />
+                                                    <Card.Body>
+                                                        <Card.Text>
+                                                            <b>Name: {value.petName}</b>
+                                                        </Card.Text>
+                                                        <Card.Text>
+                                                            <b>Breed: {value.breed}</b>
+                                                        </Card.Text>
+                                                        <Card.Text>
+                                                            <b>Description: {value.description}</b>
+                                                        </Card.Text>
+                                                        <Card.Text>
+                                                            <b>Willing to give {value.howLong}</b>
+                                                        </Card.Text>
+                                                    </Card.Body>
+                                                    <Card.Footer>
+                                                        <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                                        {value.availability === 1 ?
+                                                            <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
+                                                            <button className="home-form-button" type="submit" onClick={() => { setTesting(value.token) }}><FaIcons.FaPaw /></button>}
+                                                    </Card.Footer>
 
-                                        </Card>
+                                                </Card>
+                                            </div>
+                                        )) : null}
                                     </div>
-                                )) : null}
-                            </div>
-                        </div>
-                        :
-                        <div className="home-next" key='17'>
-                            DEAR {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]}, <br /><br />
+                                </div>
+                                :
+                                <div className="home-next" key='17'>
+                                    DEAR {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]}, <br /><br />
                             WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
                             CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
                             WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
                             EMAIL: {sessionStorage.email ? sessionStorage.email.toUpperCase() : [localStorage.email ? localStorage.email.toUpperCase() : null]}<br /><br />
                             PHONE: {sessionStorage.phone ? sessionStorage.phone : [localStorage.phone ? localStorage.phone : null]}<br /><br />
-                            <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                        </div>]}
+                                    <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
+                                </div>]}
+                    </div>
+                </div>
             </main >
         </div >
     );
