@@ -24,7 +24,7 @@ const userDB = mysql.createConnection({
  */
 const assetDB = mysql.createConnection({
     host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
+    user: process.env.DATABASE_USER2,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_ASSET
 });
