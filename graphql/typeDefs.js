@@ -10,9 +10,11 @@ type User {
     phone: String!
     donation: Boolean
     availability:Boolean
+    token: String
 }
    type Query {
      getUsers: [User]!
+     login(email:String!, password:String!): User!
    }
    type Mutation {
      register(
