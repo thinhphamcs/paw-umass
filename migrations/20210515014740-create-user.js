@@ -20,6 +20,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isEmail: {
+            args: true,
+            msg: 'Must be a valid email address',
+          }
+        }
       },
       password: {
         type: Sequelize.STRING,
@@ -30,12 +36,10 @@ module.exports = {
         allowNull: false,
       },
       donation: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       availability: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

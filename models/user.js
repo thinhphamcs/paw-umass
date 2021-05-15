@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -26,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Must be a valid email address',
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -36,12 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     donation: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.BOOLEAN
     },
     availability: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
+      type: DataTypes.BOOLEAN
     },
   }, {
     sequelize,
