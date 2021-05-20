@@ -7,9 +7,10 @@ module.exports = {
     Query: {
         getUsers: async (parent, args, context, info) => {
             try {
-                let user
+                let user;
+                // Check token in headers
                 if (context.req && context.req.headers.authorization) {
-                    const token = context.req.headers.authorization.split('Bearer ')[1]
+                    const token = context.req.headers.authorization.split('Bearer ')[1]; // split after bearer 
                     jwt.verify(token, JWT_SECRET, (error, decodedToken) => {
                         if (error) {
                             throw new AuthenticationError('Unauthenticated');
@@ -17,7 +18,11 @@ module.exports = {
                         user = decodedToken
                     })
                 }
-                const users = await User.findAll()
+
+                const users = await User.findOne({
+                    where: { email: user.email }
+                });
+
                 return users;
             } catch (error) {
                 console.log(error);
@@ -120,7 +125,7 @@ module.exports = {
             } catch (error) {
                 console.log(error);
                 if (error.name === "SequelizeUniqueConstraintError") {
-                    error.errors.forEach(e => (errors[e.value] = `${e.value} is already taken`));
+                    error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
                 }
                 else if (error.name === "SequelizeValidationError") {
                     error.errors.forEach(e => (errors[e.value] = e.message));

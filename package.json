@@ -8,7 +8,7 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm start --prefix ./react/client",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js --ignore react/client/"
   },
   "repository": {
     "type": "git",

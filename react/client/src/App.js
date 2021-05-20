@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'; //useHistory
 import './App.css';
 import routes from './routes/Routes';
-import { GlobalProvider } from './context/Provider';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApolloProvider from './ApolloProvider';
 
 // Function to determine authentication
 const AuthRoute = (route) => {
@@ -35,8 +35,7 @@ function App() {
      * Switch will make sure we only render one component per url
      * Define routes in a different file then map it
      */
-    // 
-    <GlobalProvider>
+    <ApolloProvider>
       <BrowserRouter>
         <Switch>
           {routes.map(
@@ -44,8 +43,7 @@ function App() {
           )}
         </Switch>
       </BrowserRouter>
-
-    </GlobalProvider>
+    </ApolloProvider>
   );
 }
 

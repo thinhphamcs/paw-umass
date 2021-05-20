@@ -13,7 +13,7 @@ type User {
     token: String
 }
    type Query {
-     getUsers: [User]!
+     getUsers: User!
      login(email:String!, password:String!): User!
    }
    type Mutation {
