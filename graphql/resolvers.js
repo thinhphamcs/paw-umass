@@ -57,7 +57,7 @@ module.exports = {
 
                 if (!correctPassword) {
                     errors.password = 'Password is incorrect'
-                    throw new AuthenticationError('Password is incorrect', { errors });
+                    throw new UserInputError('Password is incorrect', { errors });
                 }
 
                 const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
@@ -98,13 +98,6 @@ module.exports = {
                     errors.confirmPassword = "Passwords must match";
                 }
 
-                // Check if email already exists
-                // const userByEmail = await User.findOne({ where: { email } });
-
-                // if (userByEmail) {
-                //     errors.email = "Email already exists"
-                // }
-
                 if (Object.keys(errors).length > 0) {
                     throw errors;
                 }
@@ -128,7 +121,7 @@ module.exports = {
                     error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
                 }
                 else if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.value] = e.message));
+                    error.errors.forEach(e => (errors[e.path] = e.message));
                 }
                 throw new UserInputError('Bad input', { errors });
             }
