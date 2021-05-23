@@ -50,7 +50,7 @@
 }
 
 .privacy-content {
-    color: var(--bg-primary);
+    color: #6A150D;
     overflow-x: hidden;
     height: auto;
     -webkit-overflow-scrolling: touch;

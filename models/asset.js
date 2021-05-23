@@ -1,7 +1,9 @@
 'use strict';
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Asset extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  User.init({
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+  Asset.init({
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,26 +25,46 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    donation: {
-      type: DataTypes.BOOLEAN,
+    petName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    breed: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    howLong: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    token: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     availability: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
+    }
   }, {
     sequelize,
-    modelName: 'User',
-    tableName: 'users'
+    modelName: 'Asset',
+    tableName: 'assets'
   });
-  return User;
+  return Asset;
 };

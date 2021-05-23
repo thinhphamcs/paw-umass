@@ -8,12 +8,12 @@ type User {
     email: String!
     password: String!
     phone: String!
-    donation: Boolean
-    availability:Boolean
-    token: String
+    donation: Boolean!
+    availability:Boolean!
+    token: String!
 }
    type Query {
-     getUsers: User!
+     getUser: User!
      login(email:String!, password:String!): User!
    }
    type Mutation {

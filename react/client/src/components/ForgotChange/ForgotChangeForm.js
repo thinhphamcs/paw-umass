@@ -1,7 +1,5 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { forgotChange } from '../../context/actions/auth/ForgotChange';
-import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
@@ -17,29 +15,6 @@ export function ForgotChangeForm() {
 
     // Use this for disabling the button
     let forgotChangeFormValid = true;
-
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.auth === false) {
-                history.push('/login');
-                // window.location = '/login'
-                sessionStorage.clear(); // clear the token for better security
-            }
-        }
-        else {
-            history.push('/change');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
 
     // onChange function
     const onChange = (event) => {
@@ -61,7 +36,7 @@ export function ForgotChangeForm() {
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        forgotChange(form)(authDispatch); // change
+
     }
 
     // Return this so we can use these as props on the UI (front end)

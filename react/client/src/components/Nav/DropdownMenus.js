@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
 import * as AiIcons from "react-icons/ai";
 import * as BsIcons from "react-icons/bs";
 import * as FiIcons from "react-icons/fi";
@@ -11,6 +12,7 @@ import './Nav.css';
 function DropdownMenus(props) {
     const [activateMenu, setActivateMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
+    const dispatch = useAuthDispatch();
     function calcHeight(el) {
         const height = el.offsetHeight;
         setMenuHeight(height + 30);
@@ -33,8 +35,8 @@ function DropdownMenus(props) {
         )
     }
     const logout = () => {
-        sessionStorage.clear();
-        localStorage.clear();
+        dispatch({ type: 'LOGOUT' });
+        props.history.push('/login');
     }
     return (
         <div className="drop-down" style={{ height: menuHeight }}>

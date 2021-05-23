@@ -1,6 +1,5 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
@@ -16,27 +15,6 @@ export function DonateForm() {
 
     // Use this for disabling the button
     let donateFormValid = true;
-
-    // Dispatch, need to understand this
-    const { authState: { auth: { loading, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.success) {
-                history.push('/user/donate');
-            }
-        }
-        else {
-            history.push('/user/donate');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
 
     // onChange function
     const onChange = (event) => {

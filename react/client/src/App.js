@@ -1,32 +1,26 @@
 // Import
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'; //useHistory
-import './App.css';
-import routes from './routes/Routes';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Switch } from 'react-router-dom'; //useHistory
+import DynamicRoute from './routes/DynamicRoute';
 import ApolloProvider from './ApolloProvider';
-
-// Function to determine authentication
-const AuthRoute = (route) => {
-  document.title = route.title;
-  // const history = useHistory();
-  // Checking for both localStorage AND sessionStorage
-  if ((route.auth && !(!!localStorage.token)) && (route.auth && !(!!sessionStorage.token))) {
-    // if (history) {
-    //   history.push("/"); // this causes error but it is the correct way
-    // }
-    // else {
-    //   window.location = "/"; // temporary solution for now
-    // }
-    window.location = "/"; // temporary solution for now
-  }
-  // If user have neither then we just return the component at hand
-  else {
-    return (
-      <Route exact path={route.path} render={(props) => <route.component {...props} />}></Route>
-    );
-  }
-}
+import { AuthProvider } from './context/auth';
+import Choose from './components/Choose/Choose';
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import Profile from './components/Profile/Profile';
+import Deactivate from './components/Deactivate/Deactivate';
+import Change from './components/Change/Change';
+import Forgot from './components/Forgot/Forgot';
+import ForgotChange from './components/ForgotChange/ForgotChange';
+import Submit from './components/Submit/Submit';
+import Donate from './components/Donate/Donate';
+import About from './components/About/About';
+import ToS from './components/ToS/ToS';
+import Privacy from './components/Privacy/Privacy';
+import Cookies from './components/Cookies/Cookies';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   return (
@@ -36,13 +30,29 @@ function App() {
      * Define routes in a different file then map it
      */
     <ApolloProvider>
-      <BrowserRouter>
-        <Switch>
-          {routes.map(
-            (route, index) => (<AuthRoute {...route} key={index} />)
-          )}
-        </Switch>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Switch>
+            {/* Guest Component */}
+            <DynamicRoute exact path="/" component={Choose} guest />
+            <DynamicRoute exact path="/register" component={Register} guest />
+            <DynamicRoute exact path="/login" component={Login} guest />
+            <DynamicRoute exact path="/forgot" component={Forgot} guest />
+            <DynamicRoute exact path="/about" component={About} guest />
+            <DynamicRoute exact path="/tos" component={ToS} guest />
+            <DynamicRoute exact path="/privacy" component={Privacy} guest />
+            <DynamicRoute exact path="/cookies" component={Cookies} guest />
+            {/* Authenticated Component */}
+            <DynamicRoute exact path="/change" component={ForgotChange} authenticated />
+            <DynamicRoute exact path="/settings/profile" component={Profile} authenticated />
+            <DynamicRoute exact path="/settings/change" component={Change} authenticated />
+            <DynamicRoute exact path="/settings/deactivate" component={Deactivate} authenticated />
+            <DynamicRoute exact path="/home" component={Home} authenticated />
+            <DynamicRoute exact path="/user/submit" component={Submit} authenticated />
+            <DynamicRoute exact path="/user/donate" component={Donate} authenticated />
+          </Switch>
+        </BrowserRouter>
+      </AuthProvider>
     </ApolloProvider>
   );
 }

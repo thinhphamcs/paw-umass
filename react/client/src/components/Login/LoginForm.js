@@ -1,6 +1,7 @@
 // Import
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useLazyQuery } from '@apollo/client';
 
@@ -42,13 +43,12 @@ export function LoginForm() {
         !variables.email?.length ||
         !variables.password?.length
 
+    const dispatch = useAuthDispatch();
+
     // GraphQL mutation, think of this as global provider    
     const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
-        // update(_, __) {
-        //     history.push("/settings/profile");
-        // },
         onCompleted(data) {
-            localStorage.setItem('token', data.login.token);
+            dispatch({ type: 'LOGIN', payload: data.login });
             history.push("/settings/profile");
         },
         onError(error) {
@@ -61,7 +61,6 @@ export function LoginForm() {
         loginUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
-    console.log(errors);
     // Return this so we can use these as props on the UI (front end)
     return { variables, errors, loading, loginFormValid, onSubmit, onChange };
 }

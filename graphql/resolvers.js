@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 module.exports = {
     Query: {
-        getUsers: async (parent, args, context, info) => {
+        getUser: async (parent, args, context, info) => {
             try {
                 let user;
                 // Check token in headers
@@ -33,17 +33,6 @@ module.exports = {
             let { email, password } = args;
             let errors = {}
             try {
-                if (email.trim() === '') {
-                    errors.email = "Email must not be empty"
-                };
-                if (password === '') {
-                    errors.password = "Password must not be empty"
-                };
-
-                if (Object.keys(errors).length > 0) {
-                    throw new UserInputError('bad input', { errors });
-                }
-
                 const user = await User.findOne({
                     where: { email }
                 });
@@ -73,27 +62,10 @@ module.exports = {
     Mutation: {
         register: async (parent, args, context, info) => {
             let { firstName, lastName, email, password, confirmPassword, phone } = args;
+            const donation = false, availability = false;
             let errors = {}
             try {
-                // Validate input data
-                if (firstName.trim() === '') {
-                    errors.firstName = "First name must not be empty";
-                }
-                if (lastName.trim() === '') {
-                    errors.lastName = "Last name must not be empty";
-                }
-                if (email.trim() === '') {
-                    errors.email = "Email must not be empty";
-                }
-                if (password.trim() === '') {
-                    errors.password = "Password must not be empty";
-                }
-                if (confirmPassword.trim() === '') {
-                    errors.confirmPassword = "Confirm Password must not be empty";
-                }
-                if (phone.trim() === '') {
-                    errors.phone = "Phone must not be empty";
-                }
+                // Validate input data 
                 if (password !== confirmPassword) {
                     errors.confirmPassword = "Passwords must match";
                 }
@@ -107,7 +79,7 @@ module.exports = {
 
                 // Create user
                 const user = await User.create({
-                    firstName, lastName, email, password, phone
+                    firstName, lastName, email, password, phone, donation, availability
                 })
 
                 // Return user

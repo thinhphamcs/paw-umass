@@ -59,7 +59,6 @@ export function RegisterForm() {
     const [registerUser, { loading }] = useMutation(REGISTER_USER, {
         update(_, __) {
             history.push("/login");
-            setErrors('');
         },
         onError(error) {
             setErrors(error.graphQLErrors[0].extensions.errors);
@@ -72,10 +71,6 @@ export function RegisterForm() {
         registerUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
-    const setErrorsToNull = () => {
-        setErrors('');
-    }
-
     // Return this so we can use these as props on the UI (front end)
-    return { variables, errors, loading, registerFormValid, setErrorsToNull, onSubmit, onChange, phoneChange };
+    return { variables, errors, loading, registerFormValid, onSubmit, onChange, phoneChange };
 }

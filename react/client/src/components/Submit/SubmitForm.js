@@ -1,7 +1,5 @@
 // Import
 import { useState, useContext, useEffect } from 'react';
-import { submit } from '../../context/actions/user/Submit';
-import { GlobalContext } from '../../context/Provider';
 import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
@@ -21,29 +19,6 @@ export function SubmitForm() {
 
     // Use this for disabling the button
     let submitFormValid = true;
-
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.home) {
-                history.push('/home');
-                data.home = false;
-            }
-        }
-        else {
-            history.push('/user/submit');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
 
     // onChange function
     const onChange = (event) => {
@@ -76,7 +51,7 @@ export function SubmitForm() {
 
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = () => {
-        submit(form)(authDispatch);
+
     }
 
     // Return this so we can use these as props on the UI (front end)
