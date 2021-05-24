@@ -36,5 +36,5 @@ export function DonateForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, donateFormValid, loading, onChange };
+    return { form, donateFormValid, onChange };
 }

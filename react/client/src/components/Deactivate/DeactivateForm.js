@@ -39,5 +39,5 @@ export function DeactivateForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, deactivateFormValid, onSubmit, onChange };
+    return { form, deactivateFormValid, onSubmit, onChange };
 }

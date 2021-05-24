@@ -3,12 +3,21 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
         getUser {
+            firstName lastName email phone
+        }
+    }
+`;
+
+// GraphQL mutation
+const UPDATE_USER = gql`
+    mutation profileUpdate($firstName: String! $lastName: String! $email: String! $phone: String!) {
+        profileUpdate(firstName: $firstName lastName: $lastName email: $email phone: $phone) {
             firstName lastName email phone
         }
     }
@@ -104,6 +113,16 @@ export function ProfileForm() {
 
     // GraphQL mutation, think of this as global provider    
     const { loading, data, error } = useQuery(GET_USER);
+    const [updateUser] = useMutation(UPDATE_USER, {
+        onCompleted(data) {
+            if (data) {
+                window.location.reload();
+            }
+        },
+        onError(error) {
+            setErrors(error.graphQLErrors[0].extensions.errors);
+        }
+    });
     if (error) {
         dispatch({ type: 'LOGOUT' });
         history.push('/login');
@@ -117,7 +136,7 @@ export function ProfileForm() {
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
-        // loginUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
+        updateUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
     // Return this so we can use these as props on the UI (front end)
     return { variables, loading, data, displayPhone, errors, updateFormValid, onSubmit, onChange, phoneChange };

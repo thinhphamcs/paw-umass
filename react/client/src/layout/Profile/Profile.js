@@ -52,7 +52,7 @@ function ProfileUI({ form: { variables, loading, data, displayPhone, errors, upd
                         value={variables.phone}
                         onChange={phoneChange} />
                 </div>
-                <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={updateFormValid || loading}>Update</button>
+                <button className="profile-form-button" type="submit" onClick={onSubmit} disabled={updateFormValid || loading}>{loading ? 'Loading...' : 'Update'}</button>
             </form>
         </div>
     );

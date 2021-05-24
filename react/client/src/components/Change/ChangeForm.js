@@ -41,5 +41,5 @@ export function ChangeForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, changeFormValid, onSubmit, onChange };
+    return { form, changeFormValid, onSubmit, onChange };
 }

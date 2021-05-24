@@ -20,9 +20,9 @@ if (token) {
         user = decodedToken;
     }
 }
-else {
-    console.log("No token found");
-}
+// else {
+//     console.log("No token found");
+// }
 
 // Create reducer
 const authReducer = (state, action) => {

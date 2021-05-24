@@ -26,5 +26,5 @@ export function HomeForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { error, data, imgPath, searchTerm, onChange, resetSubmit };
+    return { searchTerm, onChange, resetSubmit };
 }
