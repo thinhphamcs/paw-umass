@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
-import { axiosInstance } from '../../helpers/axiosInstance';
+// import { axiosInstance } from '../../helpers/axiosInstance';
 import * as FaIcons from "react-icons/fa";
 // import { useHistory } from 'react-router-dom';
 import './Donate.css';
@@ -39,28 +39,28 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
     // onSubmit function
     const onSubmit = async (event) => {
         event.preventDefault();
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: "card",
-            card: elements.getElement(CardElement)
-        });
-        if (!error) {
-            try {
-                const { id } = paymentMethod;
-                const response = await axiosInstance().post("/user/donate", {
-                    amount: form.radio, // the amounts will be in cents
-                    id
-                });
-                if (response.data.success) {
-                    // history.push('/user/donate');
-                    window.location.reload();
-                }
-            } catch (error) {
-                console.log("Error", error);
-            }
-        }
-        else {
-            console.log(error.message);
-        }
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
+        //     type: "card",
+        //     card: elements.getElement(CardElement)
+        // });
+        // if (!error) {
+        //     try {
+        //         const { id } = paymentMethod;
+        //         // const response = await axiosInstance().post("/user/donate", {
+        //         //     amount: form.radio, // the amounts will be in cents
+        //         //     id
+        //         // });
+        //         if (response.data.success) {
+        //             // history.push('/user/donate');
+        //             window.location.reload();
+        //         }
+        //     } catch (error) {
+        //         console.log("Error", error);
+        //     }
+        // }
+        // else {
+        //     console.log(error.message);
+        // }
     }
     return (
         <>

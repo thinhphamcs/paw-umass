@@ -55,5 +55,5 @@ export function SubmitForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, submitFormValid, onSubmit, onChange, limitText };
+    return { form, submitFormValid, onSubmit, onChange, limitText };
 }

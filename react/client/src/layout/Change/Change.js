@@ -6,7 +6,7 @@ import * as FaIcons from "react-icons/fa";
 import './Change.css';
 
 // This will be the font end with props I can use to display data
-function ChangeUI({ form: { onChange, form, changeFormValid, onSubmit, loading, error } }) {
+function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmit, onChange } }) {
     return (
         <div className="change-container">
             <FaIcons.FaAngleDoubleRight className="change-right-arrow" />
@@ -20,17 +20,14 @@ function ChangeUI({ form: { onChange, form, changeFormValid, onSubmit, loading, 
             <FaIcons.FaAngleDoubleLeft className="change-left-arrow" />
             <h2 className="change-form-title">Change Your Password</h2>
             <form className="change-form-container">
-                {error ?
-                    [(error.message === "Passwords do not match" || error.message === "New password must be different from old password" || error.message === "'Your Password is incorrect") ?
-                        <div className="change-error">{error.message}</div> : null]
-                    : null}
+                {errors.password ? <div className="change-error">{errors.password}</div> : null}
                 <div className="change-form-group">
                     <input className="change-input"
                         type="password"
-                        id="current"
-                        name="current"
+                        id="currentPassword"
+                        name="currentPassword"
                         placeholder="Current Password"
-                        value={form.current}
+                        value={variables.currentPassword}
                         onChange={onChange}></input>
                 </div>
                 <div className="change-line"></div>
@@ -40,19 +37,19 @@ function ChangeUI({ form: { onChange, form, changeFormValid, onSubmit, loading, 
                         id="newPassword"
                         name="newPassword"
                         placeholder="New Password"
-                        value={form.newPassword}
+                        value={variables.newPassword}
                         onChange={onChange}></input>
                 </div>
                 <div className="change-form-group">
                     <input className="change-input"
                         type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
+                        id="confirmNewPassword"
+                        name="confirmNewPassword"
                         placeholder="Confirm Password"
-                        value={form.confirmPassword}
+                        value={variables.confirmNewPassword}
                         onChange={onChange}></input>
                 </div>
-                <button className="change-form-button" type="submit" onClick={onSubmit} disabled={changeFormValid || loading} loading={loading.toString()}>Change</button>
+                <button className="change-form-button" type="submit" onClick={onSubmit} disabled={changeFormValid || loading}>{loading ? 'Loading...' : 'Change'}</button>
             </form>
         </div>
     );

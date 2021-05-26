@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
 import { Card } from 'react-bootstrap';
-import { axiosInstance } from '../../helpers/axiosInstance';
+// import { axiosInstance } from '../../helpers/axiosInstance';
 import * as BsIcons from "react-icons/bs";
 import * as CgIcons from "react-icons/cg";
 import * as FaIcons from "react-icons/fa";
@@ -18,25 +18,25 @@ function HomeUI({ form: { error, data, imgPath, searchTerm, onChange, resetSubmi
     // Hook
     const [testing, setTesting] = useState("");
 
-    if (data.asset) {
-        data.asset.filter((value) => {
-            if (value.token === testing) {
-                if ((value.availability === 0 && sessionStorage.availability === "0") || (value.availability === 0 && localStorage.availability === "0")) {
-                    axiosInstance()
-                        .post("/user/check-out", {
-                            testing
-                        }).then(res => {
-                            if (res.data.check) {
-                                window.location.reload();
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                }
-            }
-        });
-    }
+    // if (data.asset) {
+    //     data.asset.filter((value) => {
+    //         if (value.token === testing) {
+    //             if ((value.availability === 0 && sessionStorage.availability === "0") || (value.availability === 0 && localStorage.availability === "0")) {
+    //                 //     axiosInstance()
+    //                 //         .post("/user/check-out", {
+    //                 //             testing
+    //                 //         }).then(res => {
+    //                 //             if (res.data.check) {
+    //                 //                 window.location.reload();
+    //                 //             }
+    //                 //         })
+    //                 //         .catch(err => {
+    //                 //             console.log(err);
+    //                 //         });
+    //                 // }
+    //             }
+    //         });
+    // }
 
     return (
         <div className="all-container" key='9'>

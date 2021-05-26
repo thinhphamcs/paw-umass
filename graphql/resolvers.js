@@ -4,8 +4,8 @@ const { JWT_SECRET } = require('../config/env.json');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
-const user = require('../models/user');
-const { Op } = require("sequelize");
+// const user = require('../models/user');
+// const { Op } = require("sequelize");
 
 module.exports = {
     Query: {
@@ -146,7 +146,6 @@ module.exports = {
         },
         profileUpdate: async (parent, args, context, info) => {
             let { firstName, lastName, email, phone } = args;
-            const donation = false, availability = false;
             let errors = {};
             let user = null;
             const token = context.req.headers.authorization.split("Bearer ")[1];
@@ -220,6 +219,175 @@ module.exports = {
                 //     error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
                 // }
                 // else
+                if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors[e.path] = e.message));
+                }
+                throw new UserInputError('Bad input', { errors });
+            }
+        },
+        changePassword: async (parent, args, context, info) => {
+            let { newPassword, confirmNewPassword } = args;
+            let errors = {};
+            let currentUser = null;
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        errors.token = "Token Expired";
+                    }
+                    else {
+                        // If password do not match
+                        if (newPassword !== confirmNewPassword) {
+                            errors.password = "Passwords must match";
+                        }
+                        else {
+                            currentUser = decodedToken;
+                            if (currentUser.email) {
+                                const databaseUser = await User.findOne({
+                                    where: { email: currentUser.email }
+                                });
+                                // If new password = old password
+                                if (bcrypt.compareSync(confirmNewPassword, databaseUser.password)) {
+                                    errors.password = "New password must be different from old password";
+                                }
+                                else {
+                                    // Hash password
+                                    const newDatabasePassword = await bcrypt.hash(confirmNewPassword, 6);
+                                    const values = { password: newDatabasePassword };
+                                    const selector = {
+                                        where: { email: currentUser.email }
+                                    };
+                                    await User.update(values, selector);
+                                }
+                            }
+                            if (currentUser.phone) {
+                                const databaseUser = await User.findOne({
+                                    where: { phone: currentUser.phone }
+                                });
+                                // If new password = old password
+                                if (bcrypt.compareSync(confirmNewPassword, databaseUser.password)) {
+                                    errors.password = "New password must be different from old password";
+                                }
+                                else {
+                                    // Hash password
+                                    const newDatabasePassword = await bcrypt.hash(confirmNewPassword, 6);
+                                    const values = { password: newDatabasePassword };
+                                    const selector = {
+                                        where: { phone: currentUser.phone }
+                                    };
+                                    await User.update(values, selector);
+                                }
+                            }
+                        }
+                        if (Object.keys(errors).length > 0) {
+                            throw errors;
+                        }
+                    }
+                }
+                else {
+                    console.log("No token found");
+                }
+            } catch (error) {
+                if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors[e.path] = e.message));
+                }
+                throw new UserInputError('Bad input', { errors });
+            }
+        },
+        passwordUpdate: async (parent, args, context, info) => {
+            let { currentPassword, newPassword, confirmNewPassword } = args;
+            let errors = {};
+            let currentUser = null;
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        errors.token = "Token Expired";
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const databaseUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        if (bcrypt.compareSync(currentPassword, databaseUser.password)) {
+                            if (newPassword !== confirmNewPassword) {
+                                errors.password = "Passwords must match";
+                            }
+                            else {
+                                // If new password = old password
+                                if (bcrypt.compareSync(confirmNewPassword, databaseUser.password)) {
+                                    errors.password = "New password must be different from old password";
+                                }
+                                else {
+                                    // Hash password
+                                    const newDatabasePassword = await bcrypt.hash(confirmNewPassword, 6);
+                                    const values = { password: newDatabasePassword };
+                                    const selector = {
+                                        where: { email: currentUser.email }
+                                    };
+                                    await User.update(values, selector);
+                                }
+                            }
+                        }
+                        else {
+                            errors.password = "Your Password is incorrect";
+                        }
+                        if (Object.keys(errors).length > 0) {
+                            throw errors;
+                        }
+                    }
+                }
+                else {
+                    console.log("No token found");
+                }
+            } catch (error) {
+                if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors[e.path] = e.message));
+                }
+                throw new UserInputError('Bad input', { errors });
+            }
+        },
+        deleteProfile: async (parent, args, context, info) => {
+            let { password } = args;
+            let errors = {};
+            let currentUser = null;
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        errors.token = "Token Expired";
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const databaseUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        if (bcrypt.compareSync(password, databaseUser.password)) {
+                            await User.destroy({
+                                where: { email: currentUser.email }
+                            });
+                        }
+                        else {
+                            errors.password = "Your Password is incorrect";
+                        }
+                        if (Object.keys(errors).length > 0) {
+                            throw errors;
+                        }
+                    }
+                }
+                else {
+                    console.log("No token found");
+                }
+            } catch (error) {
                 if (error.name === "SequelizeValidationError") {
                     error.errors.forEach(e => (errors[e.path] = e.message));
                 }
