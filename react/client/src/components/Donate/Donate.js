@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import DonateUI from '../../layout/Donate/Donate';
-import { DonateForm } from './DonateForm';
 // Working with stripe for the first time
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -19,7 +18,7 @@ function Donate() {
     }, [history]);
     return (
         <Elements stripe={stripeTestPromise}>
-            <DonateUI form={DonateForm()} />
+            <DonateUI />
         </Elements>
     );
 }

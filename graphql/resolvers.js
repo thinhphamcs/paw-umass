@@ -1,9 +1,10 @@
 const { User } = require('../models');
 const { UserInputError, AuthenticationError } = require('apollo-server');
-const { JWT_SECRET } = require('../config/env.json');
+const { JWT_SECRET, STRIPE_SECRET_TEST } = require('../config/env.json');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
+const stripe = require("stripe")(STRIPE_SECRET_TEST);
 // const user = require('../models/user');
 // const { Op } = require("sequelize");
 
@@ -392,6 +393,48 @@ module.exports = {
                     error.errors.forEach(e => (errors[e.path] = e.message));
                 }
                 throw new UserInputError('Bad input', { errors });
+            }
+        },
+        stripeSubmit: async (parent, args, context, info) => {
+            const { amount, id } = args;
+            let currentUser = null;
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        errors.token = "Token Expired";
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const databaseUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        // Logic for donation
+                        const donationStripe = await stripe.paymentIntents.create({
+                            amount,
+                            currency: "USD",
+                            description: "PawUMass Donation",
+                            payment_method: id,
+                            confirm: true
+                        });
+                        const donation = databaseUser.donation;
+                        if (donation === false) {
+                            const values = { donation: 1 };
+                            const selector = {
+                                where: { email: currentUser.email }
+                            };
+                            await User.update(values, selector);
+                        }
+                    }
+                }
+                else {
+                    console.log("No token found");
+                }
+            } catch (error) {
+                console.log(error);
             }
         }
     }

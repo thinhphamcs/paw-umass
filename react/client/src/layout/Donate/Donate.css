@@ -71,6 +71,10 @@
     border-color: unset !important;
 }
 
+.read-text {
+    margin-bottom: 1rem;
+    margin: 55px -45px;
+}
 
 /* === Donate === */
 .donate-container {
@@ -275,6 +279,10 @@
     .consent-container {
         width: 365px !important;
     }
+    .read-text {
+        margin-bottom: 1rem;
+        margin: 50px -75px;
+    }
   }
 @media screen and (max-width: 667px) and (orientation: landscape) {
     html {
@@ -296,5 +304,9 @@
     }
     .donate-outer {
         padding: 10px 70px;
+    }
+    .read-text {
+        margin-bottom: 1rem;
+        margin: 50px -75px;
     }
 }

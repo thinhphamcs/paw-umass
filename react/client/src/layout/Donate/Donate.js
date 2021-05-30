@@ -2,12 +2,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
-// import { axiosInstance } from '../../helpers/axiosInstance';
 import * as FaIcons from "react-icons/fa";
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Donate.css';
 // Working with stripe for the first time
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            firstName donation availability
+        }
+    }
+`;
+
+// GraphQL mutation
+const STRIPE_SUBMIT = gql`
+    mutation stripeSubmit($id: String! $amount: String!) {
+        stripeSubmit(id: $id amount: $amount ) {
+            donation
+        }
+    }
+`;
 
 // This will be the font end with props I can use to display data
 const CARD_OPTIONS = {
@@ -29,44 +49,79 @@ const CARD_OPTIONS = {
         }
     }
 }
-function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
+// { form: { form, donateFormValid, loading, onChange } }
+function DonateUI() {
     // Hook
+    const [variables, setVariables] = useState({
+        id: '',
+        nameOnCard: '',
+        radio: '',
+        amount: '',
+    });
     const [consent, setConsent] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
-    // const history = useHistory();
+    const history = useHistory();
+
+    // Use this for disabling the button
+    let donateFormValid = true;
+
+    // onChange function
+    const onChange = (event) => {
+        setVariables({
+            ...variables,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    // Function to check if user have typed everything
+    if (variables.nameOnCard &&
+        (variables.radio === "100" || variables.radio === "500" || variables.radio === "1000" ||
+            variables.radio === "2000" || variables.radio === "5000" || variables.radio === "10000")) {
+        donateFormValid = false;
+    }
+    // if user input nothing then we disabled the button
+    else {
+        donateFormValid = true;
+    }
+
+    const dispatch = useAuthDispatch();
+
+    console.log(dispatch);
+
+    // GraphQL mutation, think of this as global provider    
+    const { data, error } = useQuery(GET_USER);
+    const [stripeSubmit, { loading }] = useMutation(STRIPE_SUBMIT, {
+        onCompleted(data) {
+            window.location.reload();
+        },
+    });
 
     // onSubmit function
     const onSubmit = async (event) => {
         event.preventDefault();
-        // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        //     type: "card",
-        //     card: elements.getElement(CardElement)
-        // });
-        // if (!error) {
-        //     try {
-        //         const { id } = paymentMethod;
-        //         // const response = await axiosInstance().post("/user/donate", {
-        //         //     amount: form.radio, // the amounts will be in cents
-        //         //     id
-        //         // });
-        //         if (response.data.success) {
-        //             // history.push('/user/donate');
-        //             window.location.reload();
-        //         }
-        //     } catch (error) {
-        //         console.log("Error", error);
-        //     }
-        // }
-        // else {
-        //     console.log(error.message);
-        // }
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardElement)
+        });
+        if (!error) {
+            try {
+                const { id } = paymentMethod;
+                stripeSubmit({ variables: { id: id, amount: variables.radio } }); // GraphQL mutation // Error when it is not named "variables"
+            } catch (error) {
+                console.log("Error", error);
+            }
+        }
+        else {
+            console.log(error.message);
+        }
     }
+
     return (
         <>
-            {((localStorage.getItem("donation") === "0" || sessionStorage.getItem("donation") === "0") && !consent) ? <div className="consent-container" key='14'>
-                <p>
-                    <b>Please read carefully: </b>The page is created to show the employer I can work on the payment system.<br />
+            {data ? [((data.getUser.donation === false) && !consent) ? <div className="consent-container" key='14'>
+                <p className="read-text">
+                    <b>Please read carefully: </b>The page is created to show the employer I could work on the payment system.
                     Therefore, this page does work.<br /><br />
                     <b>PLEASE DO NOT GIVE YOUR INFORMATION.</b><br /><br />
                     (If you want to see how it works, test it with 4242 4242 4242 4242 Any Date / Zip)
@@ -74,7 +129,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                 <button className="consent-button" onClick={() => { setConsent(true) }}>
                     I acknowledge
                 </button>
-            </div> : [(localStorage.getItem("donation") === "0" || sessionStorage.getItem("donation") === "0") ?
+            </div> : [(data.getUser.donation === false) ?
                 <div className="donate-container" key='15'>
                     <FaIcons.FaAngleDoubleRight className="donate-right-arrow" />
                     <div className="donate-container-header" key='16'>
@@ -120,7 +175,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                                 <span className="donate-label-text">Name on card</span>
                             </label>
                             <input required className="donate-input" type="text" id="nameOnCard" name="nameOnCard" maxLength="30"
-                                value={form.nameOnCard} onChange={onChange}></input>
+                                value={variables.nameOnCard} onChange={onChange}></input>
                             <label className="donate-label">
                                 <span className="donate-label-text">Card information</span>
                             </label>
@@ -132,7 +187,7 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                         </div>
                         <div className="donate-button-container" key='11'>
                             <button className="donate-form-button" type="submit" onClick={onSubmit}
-                                disabled={donateFormValid || loading} loading={loading.toString()}>Donate</button>
+                                disabled={donateFormValid || loading}>{loading ? 'Loading...' : 'Donate'}</button>
                         </div>
                     </form>
                     <br />
@@ -147,18 +202,16 @@ function DonateUI({ form: { form, donateFormValid, loading, onChange } }) {
                 :
                 <div className="footer-container" key='13'>
                     <p className="footer-text">
-                        THANK YOU {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]} FOR YOUR GENEROUS DONATION AND SUPPORT.<br /><br />
+                        THANK YOU {data.getUser.firstName ? data.getUser.firstName.toUpperCase() : null} FOR YOUR GENEROUS DONATION AND SUPPORT.<br /><br />
                         THIS WEBSITE WILL NOW BE ABLE TO CONTINUE TO OPERATE ADS FREE ALL THANKS TO YOUR DONATION.<br /><br />
                         SINCERELY,<br /><br />
                         THANK YOU FOR YOUR GENEROSITY.<br /><br />
-                        <button className="footer-button">
-                            <Link to="/home" className="footer-link">
-                                Back
-                            </Link>
+                        <button className="footer-button" onClick={() => { history.push('/home') }}>
+                            BACK
                         </button>
                     </p>
                 </div>
-            ]}
+            ]] : null}
         </>
     );
 }

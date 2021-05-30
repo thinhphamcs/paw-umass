@@ -25,5 +25,6 @@ type Mutation {
   changePassword(newPassword:String!, confirmNewPassword:String!): User
   passwordUpdate(currentPassword:String!, newPassword:String!, confirmNewPassword:String!): User
   deleteProfile(password:String!): User
+  stripeSubmit(id: String!, amount: String!): User
 }
  `
