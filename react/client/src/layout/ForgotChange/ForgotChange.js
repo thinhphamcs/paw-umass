@@ -6,7 +6,7 @@ import * as FaIcons from "react-icons/fa";
 import './ForgotChange.css';
 
 // This will be the font end with props I can use to display data
-function ForgotChangeUI({ form: { onChange, form, forgotChangeFormValid, onSubmit, loading, error } }) {
+function ForgotChangeUI({ form: { variables, errors, loading, forgotChangeFormValid, onSubmit, onChange } }) {
     return (
         <div className="forgot-change-container">
             <FaIcons.FaAngleDoubleRight className="forgot-change-right-arrow" />
@@ -27,20 +27,20 @@ function ForgotChangeUI({ form: { onChange, form, forgotChangeFormValid, onSubmi
                         id="newPassword"
                         name="newPassword"
                         placeholder="New Password"
-                        value={form.newPassword}
+                        value={variables.newPassword}
                         onChange={onChange}></input>
                 </div>
-                {error ? <div className="forgot-change-error">{error.message}</div> : null}
+                {errors.password ? <div className="forgot-change-error">{errors.password}</div> : null}
                 <div className="forgot-change-form-group">
                     <input className="forgot-change-input"
                         type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
+                        id="confirmNewPassword"
+                        name="confirmNewPassword"
                         placeholder="Confirm Password"
-                        value={form.confirmPassword}
+                        value={variables.confirmNewPassword}
                         onChange={onChange}></input>
                 </div>
-                <button className="forgot-change-form-button" type="submit" onClick={onSubmit} disabled={forgotChangeFormValid || loading} loading={loading.toString()}>Save</button>
+                <button className="forgot-change-form-button" type="submit" onClick={onSubmit} disabled={forgotChangeFormValid || loading}>{loading ? 'Loading...' : 'Save'}</button>
             </form>
         </div>
     );

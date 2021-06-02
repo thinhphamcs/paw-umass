@@ -1,20 +1,41 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { submit } from '../../context/actions/user/Submit';
-import { GlobalContext } from '../../context/Provider';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
+
+// GraphQL mutation
+const SUBMIT_FORM = gql`
+    mutation submit($petName: String!, $breed: String!, $file: Upload!, $description: String!, $radio: String!) {
+        submit(petName: $petName, breed: $breed, file: $file, description: $description, radio: $radio) {
+            url
+        }
+    }
+`;
 
 // Export it as a form so we can use it as props
 export function SubmitForm() {
     // Hook
-    const [form, setForm] = useState({
+    const [variables, setVariables] = useState({
         petName: '',
         breed: '',
-        photo: '',
+        file: '',
         description: '',
         countdown: '',
         radio: ''
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -22,42 +43,22 @@ export function SubmitForm() {
     // Use this for disabling the button
     let submitFormValid = true;
 
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.home) {
-                history.push('/home');
-                data.home = false;
-            }
-        }
-        else {
-            history.push('/user/submit');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
-
     // onChange function
     const onChange = (event) => {
         const target = event.target;
         const value = target.type === 'file' ? target.files[0] : target.value;
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             [event.target.name]: value
         });
+        // const file = event.target.files[0];
+        // if (!file) return
+        // uploadImage({ variables: { file } })
     };
 
     // Function to check if user have typed everything
-    if (form.petName.length && form.breed.length && form.description.length && form.photo &&
-        (form.radio === "for a day" || form.radio === "for a week" || form.radio === "up for adoption")) {
+    if (variables.petName.length && variables.breed.length && variables.description.length && variables.file
+        && (variables.radio === "for a day" || variables.radio === "for a week" || variables.radio === "up for adoption")) {
         submitFormValid = false;
     }
     // if user input nothing then we disabled the button
@@ -70,15 +71,33 @@ export function SubmitForm() {
         if (limitField.length > limitNum) {
             limitField = limitField.value.substring(0, limitNum);
         } else {
-            form.countdown = limitNum - limitField.length;
+            variables.countdown = limitNum - limitField.length;
         }
     }
 
+    const dispatch = useAuthDispatch();
+
+    // GraphQL mutation, think of this as global provider  
+    const { error } = useQuery(GET_USER);
+    const [submit, { loading }] = useMutation(SUBMIT_FORM, {
+        onCompleted(data) {
+            history.push("/home");
+        },
+        onError(error) {
+            // setErrors(error.graphQLErrors[0].extensions.errors);
+            console.log(error.graphQLErrors[0]);
+        }
+    });
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        submit(form)(authDispatch);
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent react from refresh the page and put data on URL
+        submit({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, submitFormValid, onSubmit, onChange, limitText };
+    return { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText };
 }

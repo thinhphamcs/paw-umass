@@ -8,6 +8,7 @@ const About = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "#6A150D";
+        document.title = "About";
     }, [history]);
     return (
         <AboutUI />

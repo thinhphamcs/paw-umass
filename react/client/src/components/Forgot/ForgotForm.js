@@ -1,16 +1,29 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { forgot } from '../../context/actions/auth/Forgot';
-import { GlobalContext } from '../../context/Provider';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useLazyQuery } from '@apollo/client';
+
+// GraphQL mutation
+const CHECK_USER = gql`
+    query checkUser($email: String $phone: String) {
+        checkUser(email: $email phone: $phone) {
+            email phone token
+        }
+    }
+`;
+
 
 // Export it as a form so we can use it as props
 export function ForgotForm() {
     // Hook
-    const [form, setForm] = useState({
+    const [variables, setVariables] = useState({
         email: '',
         phone: ''
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -18,49 +31,28 @@ export function ForgotForm() {
     // Use this for disabling the button
     let forgotFormValid = true;
 
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.forgot) {
-                history.push('/change');
-            }
-        }
-        else {
-            history.push('/forgot');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
     // onChange function
     const onChange = (event) => {
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             [event.target.name]: event.target.value
         });
     };
 
     // onChange function for child component Phone
     const phoneChange = (value) => {
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             phone: value
         });
     }
 
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.email.length && !form.phone) {
+    if (variables.email.length && !variables.phone) {
         forgotFormValid = false;
     }
-    else if (!form.email.length && form.phone) {
+    else if (!variables.email.length && variables.phone) {
         forgotFormValid = false;
     }
     // if user input nothing then we disabled the button
@@ -68,11 +60,25 @@ export function ForgotForm() {
         forgotFormValid = true;
     }
 
+    const dispatch = useAuthDispatch();
+
+    // GraphQL mutation, think of this as global provider    
+    const [checkUser, { loading }] = useLazyQuery(CHECK_USER, {
+        onCompleted(data) {
+            dispatch({ type: 'LOGIN', payload: data.checkUser });
+            history.push("/change");
+        },
+        onError(error) {
+            setErrors(error.graphQLErrors[0].extensions.errors);
+        }
+    });
+
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        forgot(form)(authDispatch); // change
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent react from refresh the page and put data on URL
+        checkUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, forgotFormValid, onSubmit, onChange, phoneChange };
+    return { variables, loading, errors, forgotFormValid, onSubmit, onChange, phoneChange };
 }

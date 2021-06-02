@@ -1,56 +1,72 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { GlobalContext } from '../../context/Provider';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { axiosInstance } from '../../helpers/axiosInstance';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useQuery } from '@apollo/client';
+
+// GraphQL mutation
+const GET_IMAGES = gql`
+    query uploads($Key: String!) {
+        uploads(Key: $Key ) {
+            File
+        }
+    }
+`;
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
 
 // Export it as a form so we can use it as props
 export function HomeForm() {
     // Hook
-    const [searchTerm, setSearchTerm] = useState({
+    const [variables, setVariables] = useState({
         search: '',
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
 
-    // The variable that store image path
-    const imgPath = process.env.REACT_APP_IMG_PATH;
-
-    // Dispatch, need to understand this
-    const { assetState: { assets: { error, data } } } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.auth) {
-                history.push('/home');
-            }
-        }
-        else {
-            history.push('/user/submit');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
     // onChange function
     const onChange = (event) => {
-        setSearchTerm({
-            ...searchTerm,
+        setVariables({
+            ...variables,
             search: event.target.value
         });
     };
 
-    const resetSubmit = () => {
-        axiosInstance().post("/user/reset-order").catch(err => { console.log(err); });
-        window.location.reload();
+    const dispatch = useAuthDispatch();
+
+    // GraphQL mutation, think of this as global provider    
+    const { data } = useQuery(GET_IMAGES);
+    const { error } = useQuery(GET_USER);
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
     }
+    console.log(data);
+
+    // onSubmit function that will submit the form and the dispatch
+    // const onSubmit = (event) => {
+    //     event.preventDefault(); // Prevent react from refresh the page and put data on URL
+    //     console.log(variables)
+    //     uploadImage({ variables }); // GraphQL mutation // Error when it is not named "variables"
+    // }
+
+    // const resetSubmit = () => {
+    //     // axiosInstance().post("/user/reset-order").catch(err => { console.log(err); });
+    //     // window.location.reload();
+    // }
 
     // Return this so we can use these as props on the UI (front end)
-    return { error, data, imgPath, searchTerm, onChange, resetSubmit };
+    // resetSubmit
+    return { variables, data, error, onChange };
 }

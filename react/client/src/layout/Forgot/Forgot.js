@@ -7,7 +7,7 @@ import * as FaIcons from "react-icons/fa";
 import './Forgot.css';
 
 // This will be the font end with props I can use to display data
-function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, error, phoneChange } }) {
+function ForgotUI({ form: { variables, loading, errors, forgotFormValid, onSubmit, onChange, phoneChange } }) {
     return (
         <div className="forgot-container">
             <FaIcons.FaAngleDoubleRight className="forgot-right-arrow" />
@@ -19,14 +19,15 @@ function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, 
             <FaIcons.FaAngleDoubleLeft className="forgot-left-arrow" />
             <h1 className="forgot-form-title">Find Your Account</h1>
             <form className="forgot-form-container">
-                {error ? <div className="forgot-error">{error.message}</div> : null}
+                {errors.email ?
+                    <div className="forgot-error">{errors.email}</div> : [errors.phone ? <div className="forgot-error">{errors.phone}</div> : null]}
                 <div className="forgot-form-group">
                     <input className="forgot-input"
                         type="text"
                         id="email"
                         name="email"
                         placeholder="Email address"
-                        value={form.email}
+                        value={variables.email}
                         onChange={onChange}></input>
                 </div>
                 <div className="forgot-line"></div>
@@ -37,10 +38,10 @@ function ForgotUI({ form: { onChange, form, forgotFormValid, onSubmit, loading, 
                         name="phone"
                         country="US"
                         placeholder="123 456 7890"
-                        value={form.phone}
+                        value={variables.phone}
                         onChange={phoneChange} />
                 </div>
-                <button className="forgot-form-button" type="submit" onClick={onSubmit} disabled={forgotFormValid || loading} loading={loading.toString()}>Search</button>
+                <button className="forgot-form-button" type="submit" onClick={onSubmit} disabled={forgotFormValid || loading} >{loading ? 'Loading...' : 'Search'}</button>
             </form>
         </div>
     );

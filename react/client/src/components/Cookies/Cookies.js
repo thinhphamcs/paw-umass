@@ -8,6 +8,7 @@ const Cookies = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "#6A150D";
+        document.title = "Cookies";
     }, [history]);
     return (
         <CookiesUI />

@@ -1,77 +1,76 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { register } from '../../context/actions/auth/Register';
-import { GlobalContext } from '../../context/Provider';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+// GraphQL mutation
+import { gql, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const REGISTER_USER = gql`
+    mutation register($firstName: String! $lastName: String! $email: String! $password: String! $confirmPassword: String! $phone: String!) {
+        register(firstName: $firstName lastName: $lastName email: $email password: $password confirmPassword: $confirmPassword phone: $phone) {
+            firstName lastName email phone
+        }
+    }
+`;
 
 // Export it as a form so we can use it as props
 export function RegisterForm() {
     // Hook
-    const [form, setForm] = useState({
+    const [variables, setVariables] = useState({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
-        passwordConfirm: '',
+        confirmPassword: '',
         phone: '',
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
 
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            if (data.message) {
-                history.push('/login');
-                data.message = "";
-            }
-        }
-        else {
-            history.push('/register');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
-
     // onChange function
     const onChange = (event) => {
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             [event.target.name]: event.target.value
         });
     };
 
     // onChange function for child component Phone
     const phoneChange = (value) => {
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             phone: value
         });
     }
 
     // Function to check if user have typed everything
     const registerFormValid =
-        !form.firstName?.length ||
-        !form.lastName?.length ||
-        !form.email?.length ||
-        !form.password?.length ||
-        !form.passwordConfirm?.length ||
-        !form.phone?.length;
+        !variables.firstName?.length ||
+        !variables.lastName?.length ||
+        !variables.email?.length ||
+        !variables.password?.length ||
+        !variables.confirmPassword?.length ||
+        !variables.phone?.length;
+
+    // GraphQL mutation, think of this as global provider    
+    const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+        update(_, __) {
+            history.push("/login");
+        },
+        onError(error) {
+            setErrors(error.graphQLErrors[0].extensions.errors);
+        }
+    });
 
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        register(form)(authDispatch);
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent react from refresh the page and put data on URL
+        registerUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, registerFormValid, onSubmit, onChange, phoneChange };
+    return { variables, errors, loading, registerFormValid, onSubmit, onChange, phoneChange };
 }

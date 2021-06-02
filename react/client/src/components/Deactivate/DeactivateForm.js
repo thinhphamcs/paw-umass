@@ -1,15 +1,36 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { deactivate } from '../../context/actions/settings/Deactivate';
-import { GlobalContext } from '../../context/Provider';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
+
+// GraphQL mutation
+const DELETE_PROFILE = gql`
+    mutation deleteProfile($password: String!) {
+        deleteProfile(password: $password) {
+            password
+        }
+    }
+`;
 
 // Export it as a form so we can use it as props
 export function DeactivateForm() {
     // Hook
-    const [form, setForm] = useState({
+    const [variables, setVariables] = useState({
         password: '',
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -17,38 +38,17 @@ export function DeactivateForm() {
     // Use this for disabling the button
     let deactivateFormValid = true;
 
-    // Dispatch, need to understand this
-    const { authDispatch, authState: { auth: { loading, error, data }, }, } = useContext(GlobalContext);
-
-    // useEffect so we can use history to redirect
-    useEffect(() => {
-        if (data) {
-            // if (data.auth) {
-            //     history.push('/');
-            // }
-        }
-        else {
-            history.push('/settings/deactivate');
-        }
-    }, [data, history]);
-
-    // useEffect(() => {
-    //     if (error) {
-    //         console.log(error);
-    //     }
-    // }, [error]);
-
     // onChange function
     const onChange = (event) => {
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             [event.target.name]: event.target.value
         });
     };
 
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
-    if (form.password.length) {
+    if (variables.password.length) {
         deactivateFormValid = false;
     }
     // if user input nothing then we disabled the button
@@ -56,11 +56,29 @@ export function DeactivateForm() {
         deactivateFormValid = true;
     }
 
+    const dispatch = useAuthDispatch();
+
+    // GraphQL mutation, think of this as global provider    
+    const { error } = useQuery(GET_USER);
+    const [deleteProfile, { loading }] = useMutation(DELETE_PROFILE, {
+        onCompleted(data) {
+            dispatch({ type: 'LOGOUT' });
+            history.push("/");
+        },
+        onError(error) {
+            setErrors(error.graphQLErrors[0].extensions.errors);
+        }
+    });
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
-        deactivate(form)(authDispatch); // change
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent react from refresh the page and put data on URL
+        deleteProfile({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, error, loading, deactivateFormValid, onSubmit, onChange };
+    return { variables, loading, errors, deactivateFormValid, onSubmit, onChange };
 }

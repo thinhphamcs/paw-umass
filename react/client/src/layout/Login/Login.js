@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 // This will be the font end with props I can use to display data
-function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, error } }) {
+function LoginUI({ form: { variables, errors, loading, loginFormValid, onSubmit, onChange } }) {
     return (
         <div className="login-container">
             <div className="login-container-header">
@@ -14,24 +14,25 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
             <h1 className="login-form-title">Log in to PawUMass </h1>
             <form className="login-form-container">
                 <div className="login-form-group">
-                    <input required className="login-input" type="email" id="email" name="email" placeholder="Email" value={form.email} onChange={onChange} ></input>
+                    <input required className="login-input" type="email" id="email" name="email" placeholder="Email" value={variables.email} onChange={onChange} ></input>
                 </div>
-                {error ?
-                    [error.message === "Please provide valid email or password" ?
-                        <div className="login-error">
-                            {error.message}, don't have an account?
-                            <Link to="/register" className='login-list-items' >
-                                Sign up
+                {errors.email ? <div className="login-error">
+                    {errors.email},<br /> don't have an account?
+                            <Link to="/register" className='login-list-items'>
+                        Sign up
                             </Link>
-                        </div> :
-                        null] :
-                    null}
+                </div> : [errors.password ? <div className="login-error">
+                    {errors.password},<br /> don't have an account?
+                            <Link to="/register" className='login-list-items'>
+                        Sign up
+                            </Link>
+                </div> : null]}
                 <div className="login-form-group">
-                    <input required className="login-input" type="password" id="password" name="password" placeholder="Password" value={form.password} onChange={onChange}></input>
+                    <input required className="login-input" type="password" id="password" name="password" placeholder="Password" value={variables.password} onChange={onChange}></input>
                 </div>
                 <div className="options">
                     <div className="login-form-check">
-                        <input type="checkbox" className="checkBox" id="checkBox" name="checkBox" value={form.checkBox} onChange={onChange}></input>
+                        <input type="checkbox" className="checkBox" id="checkBox" name="checkBox" value={variables.checkBox} onChange={onChange}></input>
                         <label className="login-label">Remember Me</label>
                     </div>
                     <div className="login-forgot">
@@ -40,11 +41,11 @@ function LoginUI({ form: { onChange, form, loginFormValid, onSubmit, loading, er
                         </Link>
                     </div>
                 </div>
-                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} loading={loading.toString()} type="submit" >Login</button>
+                <button className="login-form-button" onClick={onSubmit} disabled={loginFormValid || loading} type="submit" >{loading ? 'Loading...' : 'Login'}</button>
             </form>
             <div className="login-container-footer">
                 Already have an account?
-                <Link to="/register" className='login-list-items' >
+                <Link to="/register" className='login-list-items'>
                     Sign up
                 </Link>
             </div>

@@ -7,7 +7,7 @@ import * as RiIcons from "react-icons/ri";
 import './Submit.css';
 
 // This will be the font end with props I can use to display data
-function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, error, limitText } }) {
+function SubmitUI({ form: { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText } }) {
     return (
         <div className="submit-container">
             <FaIcons.FaAngleDoubleRight className="submit-right-arrow" />
@@ -21,18 +21,15 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
             <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
-                {error ?
-                    [(error.message === "No files were uploaded" || error.message === "The image is too large") ?
-                        <div className="submit-error">{error.message}</div> : null]
-                    : null}
+                {errors.image ? <div className="submit-error">{errors.image}</div> : null}
                 <div className="submit-form-group">
-                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={form.petName} onChange={onChange}></input>
+                    <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={variables.petName} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
-                    <input required className="submit-input" type="text" id="breed" name="breed" placeholder="Pet Breed" maxLength="30" value={form.breed} onChange={onChange}></input>
+                    <input required className="submit-input" type="text" id="breed" name="breed" placeholder="Pet Breed" maxLength="30" value={variables.breed} onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
-                    <input required className="submit-file" type="file" id="photo" name="photo" accept="image/*" onChange={onChange}></input>
+                    <input required className="submit-file" type="file" id="file" name="file" accept="image/*" onChange={onChange}></input>
                 </div>
                 <div className="submit-form-group">
                     <div className="submit-maximum">
@@ -43,14 +40,14 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                         id="description"
                         name="description"
                         placeholder="Tell us something about your companion"
-                        value={form.description}
+                        value={variables.description}
                         onChange={onChange}
                         maxLength="100"
                         rows="3"
-                        onKeyDown={limitText(form.description, 100)}
-                        onKeyUp={limitText(form.description, 100)}></textarea>
+                        onKeyDown={limitText(variables.description, 100)}
+                        onKeyUp={limitText(variables.description, 100)}></textarea>
                     <div className="submit-limit">
-                        <font>You have&nbsp;<input readOnly type="text" className="submit-countdown" name="countdown" size="3" value={form.countdown}></input>&nbsp;characters left.</font>
+                        <font>You have&nbsp;<input readOnly type="text" className="submit-countdown" name="countdown" size="3" value={variables.countdown}></input>&nbsp;characters left.</font>
                     </div>
                 </div>
                 <div className="submit-outer">
@@ -73,8 +70,8 @@ function SubmitUI({ form: { onChange, form, submitFormValid, onSubmit, loading, 
                         </label>
                     </div>
                 </div>
-                <button className="submit-form-button" type="submit" onClick={onSubmit} disabled={submitFormValid || loading} loading={loading.toString()}>
-                    <RiIcons.RiHandHeartFill />
+                <button className="submit-form-button" type="submit" disabled={submitFormValid || loading} onClick={onSubmit} >
+                    {loading ? 'Loading...' : <RiIcons.RiHandHeartFill />}
                 </button>
             </form>
         </div>
