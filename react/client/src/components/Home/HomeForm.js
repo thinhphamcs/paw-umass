@@ -14,6 +14,15 @@ const GET_IMAGES = gql`
     }
 `;
 
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
+
 // Export it as a form so we can use it as props
 export function HomeForm() {
     // Hook
@@ -37,8 +46,12 @@ export function HomeForm() {
     const dispatch = useAuthDispatch();
 
     // GraphQL mutation, think of this as global provider    
-    const { loading, data, error } = useQuery(GET_IMAGES);
-
+    const { data } = useQuery(GET_IMAGES);
+    const { error } = useQuery(GET_USER);
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     console.log(data);
 
     // onSubmit function that will submit the form and the dispatch
@@ -55,5 +68,5 @@ export function HomeForm() {
 
     // Return this so we can use these as props on the UI (front end)
     // resetSubmit
-    return { variables, loading, data, error, onChange };
+    return { variables, data, error, onChange };
 }

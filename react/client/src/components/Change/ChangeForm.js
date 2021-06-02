@@ -3,7 +3,16 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
-import { gql, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
 
 // GraphQL mutation
 const PASSWORD_UPDATE = gql`
@@ -51,7 +60,8 @@ export function ChangeForm() {
 
     const dispatch = useAuthDispatch();
 
-    // GraphQL mutation, think of this as global provider    
+    // GraphQL mutation, think of this as global provider  
+    const { error } = useQuery(GET_USER);
     const [passwordUpdate, { loading }] = useMutation(PASSWORD_UPDATE, {
         onCompleted(data) {
             dispatch({ type: 'LOGOUT' });
@@ -61,7 +71,10 @@ export function ChangeForm() {
             setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });
-
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL

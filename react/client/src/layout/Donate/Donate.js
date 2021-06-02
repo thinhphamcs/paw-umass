@@ -87,16 +87,17 @@ function DonateUI() {
 
     const dispatch = useAuthDispatch();
 
-    console.log(dispatch);
-
     // GraphQL mutation, think of this as global provider    
-    const { data } = useQuery(GET_USER);
+    const { data, error } = useQuery(GET_USER);
     const [stripeSubmit, { loading }] = useMutation(STRIPE_SUBMIT, {
         onCompleted(data) {
             window.location.reload();
         },
     });
-
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     // onSubmit function
     const onSubmit = async (event) => {
         event.preventDefault();

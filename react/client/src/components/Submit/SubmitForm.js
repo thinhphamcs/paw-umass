@@ -3,7 +3,16 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
-import { gql, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const GET_USER = gql`
+    query getUser {
+        getUser {
+            email
+        }
+    }
+`;
 
 // GraphQL mutation
 const SUBMIT_FORM = gql`
@@ -68,7 +77,8 @@ export function SubmitForm() {
 
     const dispatch = useAuthDispatch();
 
-    // GraphQL mutation, think of this as global provider    
+    // GraphQL mutation, think of this as global provider  
+    const { error } = useQuery(GET_USER);
     const [submit, { loading }] = useMutation(SUBMIT_FORM, {
         onCompleted(data) {
             history.push("/home");
@@ -78,7 +88,10 @@ export function SubmitForm() {
             console.log(error.graphQLErrors[0]);
         }
     });
-
+    if (error) {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/");
+    }
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
