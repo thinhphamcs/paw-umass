@@ -52,7 +52,7 @@ export function HomeForm() {
         dispatch({ type: 'LOGOUT' });
         history.push("/");
     }
-    console.log(data);
+    // console.log(data);
 
     // onSubmit function that will submit the form and the dispatch
     // const onSubmit = (event) => {

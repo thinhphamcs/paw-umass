@@ -493,13 +493,22 @@ module.exports = {
                             const databaseUser = await User.findOne({
                                 where: { email: currentUser.email }
                             });
-                            console.log(databaseUser);
-                            // const availability = false;
-                            // let errors = {}
-                            // // Create assets
-                            // const asset = await Asset.create({
-                            //     firstName, lastName, email, password, phone, donation, availability
-                            // })
+                            const id = databaseUser.id;
+                            const email = databaseUser.email;
+                            const phone = databaseUser.phone;
+                            const photo = filename;
+                            const howLong = radio;
+                            const date = new Date();
+                            const number = Math.floor(Math.random() * id);
+                            const token = jwt.sign({ id: id + number }, JWT_SECRET);
+                            const availability = false;
+                            // Create assets
+                            const asset = await Asset.create({
+                                email, phone, petName, breed, photo, description, howLong, date, token, availability
+                            });
+                            return {
+                                url: `/images/${result.key}`
+                            }
                         }
                     }
                     else {
@@ -508,10 +517,6 @@ module.exports = {
                 } catch (error) {
                     console.log(error);
                 }
-            }
-            // This will change in production
-            return {
-                url: `/images/${result.key}`
             }
         },
     }

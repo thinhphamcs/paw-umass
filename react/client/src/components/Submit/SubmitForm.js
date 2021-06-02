@@ -85,7 +85,7 @@ export function SubmitForm() {
         },
         onError(error) {
             // setErrors(error.graphQLErrors[0].extensions.errors);
-            console.log(error.graphQLErrors[0]);
+            console.log(error);
         }
     });
     if (error) {
