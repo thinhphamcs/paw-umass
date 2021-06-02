@@ -8,6 +8,7 @@ const Choose = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "#6A150D";
+        document.title = "PawUMass";
     }, [history]);
     return (
         <ChooseUI />

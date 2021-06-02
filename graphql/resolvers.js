@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Asset } = require('../models');
 const { UserInputError, AuthenticationError } = require('apollo-server');
 const { JWT_SECRET, STRIPE_SECRET_TEST } = require('../config/env.json');
 const bcrypt = require('bcryptjs');
@@ -7,7 +7,7 @@ const jwtDecode = require('jwt-decode');
 const stripe = require("stripe")(STRIPE_SECRET_TEST);
 const path = require('path');
 const fs = require('fs');
-const { upload } = require('../s3');
+const { upload, getFileStream } = require('../s3');
 // const user = require('../models/user');
 // const { Op } = require("sequelize");
 
@@ -30,7 +30,6 @@ module.exports = {
                 const users = await User.findOne({
                     where: { email: user.email }
                 });
-
                 return users;
             } catch (error) {
                 console.log(error);
@@ -118,7 +117,12 @@ module.exports = {
 
 
 
-        uploads: (parent, args) => { }
+        getImages: (parent, args) => {
+            const { key } = args;
+            const readStream = getFileStream(key);
+
+            readStream.pipe(args);
+        }
 
 
 
@@ -465,16 +469,49 @@ module.exports = {
                 console.log(error);
             }
         },
-        uploadFile: async (parent, { file }) => {
-            const { createReadStream, filename, mimetype, encoding } = await file;
+        submit: async (parent, args, context, info) => {
+            const { petName, breed, description, radio } = args;
+            const { createReadStream, filename, mimetype, encoding } = await args.file;
             const stream = createReadStream();
             const pathName = path.join(__dirname, `../public/images/${filename}`);
             await stream.pipe(fs.createWriteStream(pathName));
             // Upload to AWS S3
             const result = await upload(pathName, filename);
+            if (result) {
+                let currentUser = null;
+                const token = context.req.headers.authorization.split("Bearer ")[1];
+                try {
+                    if (token) {
+                        const decodedToken = jwtDecode(token);
+                        const expiresAt = new Date(decodedToken.exp * 1000);
+                        // Expired token
+                        if (new Date() > expiresAt) {
+                            errors.token = "Token Expired";
+                        }
+                        else {
+                            currentUser = decodedToken;
+                            const databaseUser = await User.findOne({
+                                where: { email: currentUser.email }
+                            });
+                            console.log(databaseUser);
+                            // const availability = false;
+                            // let errors = {}
+                            // // Create assets
+                            // const asset = await Asset.create({
+                            //     firstName, lastName, email, password, phone, donation, availability
+                            // })
+                        }
+                    }
+                    else {
+                        console.log("No token found");
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
             // This will change in production
             return {
-                url: `http://localhost:4000/images/${filename}`
+                url: `/images/${result.key}`
             }
         },
     }

@@ -6,9 +6,9 @@ import { useAuthDispatch } from '../../context/auth';
 import { gql, useMutation } from '@apollo/client';
 
 // GraphQL mutation
-const UPLOAD_IMAGE = gql`
-    mutation uploadFile($file: Upload!) {
-        uploadFile(file: $file ) {
+const SUBMIT_FORM = gql`
+    mutation submit($petName: String!, $breed: String!, $file: Upload!, $description: String!, $radio: String!) {
+        submit(petName: $petName, breed: $breed, file: $file, description: $description, radio: $radio) {
             url
         }
     }
@@ -69,7 +69,7 @@ export function SubmitForm() {
     const dispatch = useAuthDispatch();
 
     // GraphQL mutation, think of this as global provider    
-    const [uploadImage, { loading }] = useMutation(UPLOAD_IMAGE, {
+    const [submit, { loading }] = useMutation(SUBMIT_FORM, {
         onCompleted(data) {
             history.push("/home");
         },
@@ -82,8 +82,7 @@ export function SubmitForm() {
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
-        console.log(variables)
-        uploadImage({ variables }); // GraphQL mutation // Error when it is not named "variables"
+        submit({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)

@@ -12,6 +12,19 @@ type User {
     availability:Boolean!
     token: String!
 },
+type Asset {
+    id: Int!
+    email: String!
+    phone: String!
+    petName: String!
+    breed: String!
+    photo: String!
+    description: String!
+    howLong:String!
+    date: String!
+    token: String!
+    availability: Boolean!
+},
 type File {
     url: String!
 }
@@ -20,7 +33,7 @@ type Query {
   getUser: User!
   login(email:String!, password:String!): User!
   checkUser(email:String, phone:String): User
-  uploads: [File]
+  getImages(Key: String!): File!
 }
 # Mutation — for creating new and updating/deleting existing data (INSERT, UPDATE, DELETE)
 type Mutation {
@@ -30,6 +43,6 @@ type Mutation {
   passwordUpdate(currentPassword:String!, newPassword:String!, confirmNewPassword:String!): User
   deleteProfile(password:String!): User
   stripeSubmit(id: String!, amount: String!): User
-  uploadFile(file: Upload!): File!
+  submit(petName: String!, breed: String!, file: Upload!, description: String!, radio: String!): File
 }
  `

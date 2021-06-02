@@ -14,9 +14,13 @@ import TimeAgo from 'react-timeago';
 import './Home.css';
 
 // This will be the font end with props I can use to display data
-function HomeUI({ form: { error, data, imgPath, searchTerm, onChange, resetSubmit } }) {
+// , resetSubmit
+function HomeUI({ form: { variables, loading, data, error, onChange } }) {
     // Hook
-    const [testing, setTesting] = useState("");
+    /**
+     * const [testing, setTesting] = useState("");
+     */
+
 
     // if (data.asset) {
     //     data.asset.filter((value) => {
@@ -80,7 +84,9 @@ function HomeUI({ form: { error, data, imgPath, searchTerm, onChange, resetSubmi
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {error ?
+                        <img src="/images/1.jpg" />
+                        {/* {errors.image ? <div className="submit-error">{errors.image}</div> : null} */}
+                        {/* {error ?
                             [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
                             [(localStorage.getItem("availability") === "0" || sessionStorage.getItem("availability") === "0") ?
                                 <div className="asset-container" key='13'>
@@ -129,7 +135,7 @@ function HomeUI({ form: { error, data, imgPath, searchTerm, onChange, resetSubmi
                             EMAIL: {sessionStorage.email ? sessionStorage.email.toUpperCase() : [localStorage.email ? localStorage.email.toUpperCase() : null]}<br /><br />
                             PHONE: {sessionStorage.phone ? sessionStorage.phone : [localStorage.phone ? localStorage.phone : null]}<br /><br />
                                     <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                                </div>]}
+                                </div>]} */}
                     </div>
                 </div>
             </main >

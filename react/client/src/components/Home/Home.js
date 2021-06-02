@@ -9,6 +9,7 @@ const Home = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
+        document.title = "PawUMass";
     }, [history]);
     return (
         <HomeUI form={HomeForm()} />

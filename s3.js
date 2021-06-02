@@ -29,3 +29,13 @@ function upload(pathName, filename) {
 exports.upload = upload
 
 // download a file to s3
+function getFileStream(fileKey) {
+    const downloadParams = {
+        Key: fileKey,
+        Bucket: bucketName
+    }
+
+    return s3.getObject(downloadParams).createReadStream()
+}
+
+exports.getFileStream = getFileStream
