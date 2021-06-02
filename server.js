@@ -11,41 +11,6 @@
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 
 /**
- * Apollo Sever, first time using
- */
-const { ApolloServer } = require('apollo-server');
-
-const { sequelize } = require('./models')
-
-// The GraphQL schema
-const typeDefs = require('./graphql/typeDefs');
-// A map of functions which return data for the schema.
-const resolvers = require('./graphql/resolvers');
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ctx => ctx
-});
-
-server.listen().then(({ url }) => {
-    console.log(`🚀 Server ready at ${url}`);
-    sequelize
-        .authenticate()
-        .then(() => console.log('Database Connected'))
-        .catch((err) => console.log(err))
-});
-
-
-
-
-
-
-
-
-
-
-/**
  * Tell dotenv where are the environment setting variables
  * ./ means the same directory
  * The file .env can be name anything such as password.env or stuff.env
@@ -95,3 +60,29 @@ server.listen().then(({ url }) => {
 // app.listen(process.env.PORT, () => {
 //     console.log("Server started on port " + process.env.PORT);
 // });
+
+/**
+ * Apollo Sever, first time using
+ */
+const { ApolloServer } = require('apollo-server');
+
+const { sequelize } = require('./models');
+
+// The GraphQL schema
+const typeDefs = require('./graphql/typeDefs');
+// A map of functions which return data for the schema.
+const resolvers = require('./graphql/resolvers');
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ctx => ctx,
+});
+
+server.listen().then(({ url }) => {
+    console.log(`🚀 Server ready at ${url}`);
+    sequelize
+        .authenticate()
+        .then(() => console.log('Database Connected'))
+        .catch((err) => console.log(err))
+});

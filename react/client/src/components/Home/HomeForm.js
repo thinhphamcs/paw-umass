@@ -1,6 +1,6 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 
 // Export it as a form so we can use it as props
 export function HomeForm() {
@@ -10,7 +10,7 @@ export function HomeForm() {
     });
 
     // use history from react-router-dom to redirect
-    const history = useHistory();
+    // const history = useHistory();
 
     // onChange function
     const onChange = (event) => {

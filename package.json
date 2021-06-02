@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "This is the idea I had when taking COMPSCI 326 at UMass Amherst. The idea was mine alone but the site never finished due to lack of time. Therefore, I will try to finish this as a side project.",
   "main": "index.js",
+  "resolutions": {
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm start --prefix ./react/client",
-    "dev": "nodemon server.js --ignore react/client/"
+    "dev": "nodemon server.js --ignore react/client/",
+    "preinstall": "npx npm-force-resolutions"
   },
   "repository": {
     "type": "git",
@@ -25,6 +30,7 @@
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.14.0",
     "apollo-server": "^2.24.0",
+    "aws-sdk": "^2.919.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

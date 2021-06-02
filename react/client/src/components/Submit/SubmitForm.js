@@ -1,18 +1,32 @@
 // Import
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuthDispatch } from '../../context/auth';
+// GraphQL mutation
+import { gql, useMutation } from '@apollo/client';
+
+// GraphQL mutation
+const UPLOAD_IMAGE = gql`
+    mutation uploadFile($file: Upload!) {
+        uploadFile(file: $file ) {
+            url
+        }
+    }
+`;
 
 // Export it as a form so we can use it as props
 export function SubmitForm() {
     // Hook
-    const [form, setForm] = useState({
+    const [variables, setVariables] = useState({
         petName: '',
         breed: '',
-        photo: '',
+        file: '',
         description: '',
         countdown: '',
         radio: ''
     });
+
+    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -24,15 +38,18 @@ export function SubmitForm() {
     const onChange = (event) => {
         const target = event.target;
         const value = target.type === 'file' ? target.files[0] : target.value;
-        setForm({
-            ...form,
+        setVariables({
+            ...variables,
             [event.target.name]: value
         });
+        // const file = event.target.files[0];
+        // if (!file) return
+        // uploadImage({ variables: { file } })
     };
 
     // Function to check if user have typed everything
-    if (form.petName.length && form.breed.length && form.description.length && form.photo &&
-        (form.radio === "for a day" || form.radio === "for a week" || form.radio === "up for adoption")) {
+    if (variables.petName.length && variables.breed.length && variables.description.length && variables.file
+        && (variables.radio === "for a day" || variables.radio === "for a week" || variables.radio === "up for adoption")) {
         submitFormValid = false;
     }
     // if user input nothing then we disabled the button
@@ -45,15 +62,30 @@ export function SubmitForm() {
         if (limitField.length > limitNum) {
             limitField = limitField.value.substring(0, limitNum);
         } else {
-            form.countdown = limitNum - limitField.length;
+            variables.countdown = limitNum - limitField.length;
         }
     }
 
-    // onSubmit function that will submit the form and the dispatch
-    const onSubmit = () => {
+    const dispatch = useAuthDispatch();
 
+    // GraphQL mutation, think of this as global provider    
+    const [uploadImage, { loading }] = useMutation(UPLOAD_IMAGE, {
+        onCompleted(data) {
+            history.push("/home");
+        },
+        onError(error) {
+            // setErrors(error.graphQLErrors[0].extensions.errors);
+            console.log(error.graphQLErrors[0]);
+        }
+    });
+
+    // onSubmit function that will submit the form and the dispatch
+    const onSubmit = (event) => {
+        event.preventDefault(); // Prevent react from refresh the page and put data on URL
+        console.log(variables)
+        uploadImage({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { form, submitFormValid, onSubmit, onChange, limitText };
+    return { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText };
 }

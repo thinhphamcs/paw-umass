@@ -11,12 +11,16 @@ type User {
     donation: Boolean!
     availability:Boolean!
     token: String!
+},
+type File {
+    url: String!
 }
 # Query — for querying data (SELECT operations)
 type Query {
   getUser: User!
   login(email:String!, password:String!): User!
   checkUser(email:String, phone:String): User
+  uploads: [File]
 }
 # Mutation — for creating new and updating/deleting existing data (INSERT, UPDATE, DELETE)
 type Mutation {
@@ -26,5 +30,6 @@ type Mutation {
   passwordUpdate(currentPassword:String!, newPassword:String!, confirmNewPassword:String!): User
   deleteProfile(password:String!): User
   stripeSubmit(id: String!, amount: String!): User
+  uploadFile(file: Upload!): File!
 }
  `

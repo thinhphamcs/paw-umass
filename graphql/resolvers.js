@@ -5,6 +5,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
 const stripe = require("stripe")(STRIPE_SECRET_TEST);
+const path = require('path');
+const fs = require('fs');
+const { upload } = require('../s3');
 // const user = require('../models/user');
 // const { Op } = require("sequelize");
 
@@ -104,7 +107,32 @@ module.exports = {
                 console.log(error);
                 throw error;
             }
-        }
+        },
+
+
+
+
+
+
+
+
+
+
+        uploads: (parent, args) => { }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     },
     Mutation: {
         register: async (parent, args, context, info) => {
@@ -436,6 +464,18 @@ module.exports = {
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+        uploadFile: async (parent, { file }) => {
+            const { createReadStream, filename, mimetype, encoding } = await file;
+            const stream = createReadStream();
+            const pathName = path.join(__dirname, `../public/images/${filename}`);
+            await stream.pipe(fs.createWriteStream(pathName));
+            // Upload to AWS S3
+            const result = await upload(pathName, filename);
+            // This will change in production
+            return {
+                url: `http://localhost:4000/images/${filename}`
+            }
+        },
     }
 }
