@@ -51,9 +51,6 @@ export function SubmitForm() {
             ...variables,
             [event.target.name]: value
         });
-        // const file = event.target.files[0];
-        // if (!file) return
-        // uploadImage({ variables: { file } })
     };
 
     // Function to check if user have typed everything
@@ -84,8 +81,7 @@ export function SubmitForm() {
             history.push("/home");
         },
         onError(error) {
-            // setErrors(error.graphQLErrors[0].extensions.errors);
-            console.log(error);
+            setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });
     if (error) {

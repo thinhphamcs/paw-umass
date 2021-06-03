@@ -472,14 +472,15 @@ module.exports = {
         submit: async (parent, args, context, info) => {
             const { petName, breed, description, radio } = args;
             const { createReadStream, filename, mimetype, encoding } = await args.file;
-            const stream = createReadStream();
-            const pathName = path.join(__dirname, `../public/images/${filename}`);
-            await stream.pipe(fs.createWriteStream(pathName));
-            // Upload to AWS S3
-            const result = await upload(pathName, filename);
-            if (result) {
-                let currentUser = null;
-                const token = context.req.headers.authorization.split("Bearer ")[1];
+            let currentUser = null;
+            let errors = {}
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            if (mimetype === 'image/jpeg') {
+                const stream = createReadStream();
+                const pathName = path.join(__dirname, `../public/images/${filename}`);
+                const local = new Promise((resolve, reject) => {
+                    stream.pipe(fs.createWriteStream(pathName))
+                }).then(upload(pathName, filename)).catch(error => { console.log(error) });
                 try {
                     if (token) {
                         const decodedToken = jwtDecode(token);
@@ -506,17 +507,20 @@ module.exports = {
                             const asset = await Asset.create({
                                 email, phone, petName, breed, photo, description, howLong, date, token, availability
                             });
-                            return {
-                                url: `/images/${result.key}`
-                            }
                         }
                     }
                     else {
-                        console.log("No token found");
+                        errors.token = "No token found";
                     }
                 } catch (error) {
-                    console.log(error);
+                    errors.s3 = error;
                 }
+            }
+            else {
+                errors.type = "Image is not in .jpg format "
+            }
+            if (Object.keys(errors).length > 0) {
+                throw errors;
             }
         },
     }
