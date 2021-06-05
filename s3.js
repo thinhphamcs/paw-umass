@@ -1,41 +1,61 @@
-const S3 = require('aws-sdk/clients/s3');
-const fs = require('fs');
+const AWS = require('aws-sdk');
 const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_ACCESS_KEY, AWS_SECRET_KEY } = require('./config/env.json');
 
-const bucketName = AWS_BUCKET_NAME;
+const bucket = AWS_BUCKET_NAME;
 const region = AWS_BUCKET_REGION;
 const accessKeyId = AWS_ACCESS_KEY;
 const secretAccessKey = AWS_SECRET_KEY;
 
-const s3 = new S3({
-    region,
-    accessKeyId,
-    secretAccessKey
+
+AWS.config.update({
+    accessKeyId: accessKeyId,
+    secretAccessKey: secretAccessKey,
+    region: region,
 });
 
-// uploads a file to s3
-function upload(pathName, filename) {
-    const fileStream = fs.createReadStream(pathName);
+const s3 = new AWS.S3({ region: region });
 
-    const uploadParams = {
-        Bucket: bucketName,
-        Body: fileStream,
-        Key: filename
-    }
+// upload a file to S3 function
+async function uploadToS3(file) {
+    const { createReadStream, filename } = await file;
 
-    return s3.upload(uploadParams).promise();
+    return new Promise((resolve, reject) => {
+        s3.upload(
+            {
+                Bucket: bucket,
+                Body: createReadStream(),
+                Key: filename,
+            },
+            (err, data) => {
+                if (err) {
+                    console.log('error uploading...', err);
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            },
+        );
+    });
+};
+
+exports.uploadToS3 = uploadToS3
+
+// get a file to S3 function
+function getObjectFromS3(fileKey) {
+    return new Promise((resolve, reject) => {
+        s3.getObject({
+            Bucket: bucket,
+            Key: fileKey,
+        },
+            (err, data) => {
+                if (err) {
+                    console.log('error fetching...', err);
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+    });
 }
 
-exports.upload = upload
-
-// download a file to s3
-function getFileStream(fileKey) {
-    const downloadParams = {
-        Key: fileKey,
-        Bucket: bucketName
-    }
-
-    return s3.getObject(downloadParams).createReadStream()
-}
-
-exports.getFileStream = getFileStream
+exports.getObjectFromS3 = getObjectFromS3

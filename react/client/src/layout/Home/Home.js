@@ -15,13 +15,11 @@ import './Home.css';
 
 // This will be the font end with props I can use to display data
 // , resetSubmit
-function HomeUI({ form: { variables, loading, data, error, onChange } }) {
+function HomeUI({ form: { variables, data, error, onChange } }) {
     // Hook
     /**
      * const [testing, setTesting] = useState("");
      */
-
-
     // if (data.asset) {
     //     data.asset.filter((value) => {
     //         if (value.token === testing) {
@@ -41,6 +39,12 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
     //             }
     //         });
     // }
+    if (data !== undefined) {
+        console.log(data);
+        // data.getAssets.map((value, index) => (
+        //     console.log(value.email)
+        // ));
+    }
 
     return (
         <div className="all-container" key='9'>
@@ -84,22 +88,21 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        <img src="/images/1.jpg" />
                         {/* {errors.image ? <div className="submit-error">{errors.image}</div> : null} */}
-                        {/* {error ?
+                        {error ?
                             [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
-                            [(localStorage.getItem("availability") === "0" || sessionStorage.getItem("availability") === "0") ?
+                            [data ?
                                 <div className="asset-container" key='13'>
                                     <div className="row" key='14'>
-                                        {data.asset ? data.asset.filter((value) => {
-                                            if (searchTerm.search === "" || (value.breed.toString().toLowerCase().includes(searchTerm.search.toString().toLowerCase()))) {
+                                        {data.getAssets ? data.getAssets.filter((value) => {
+                                            if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
                                                 return value;
                                             }
                                             // Return something here but it will break the filter
                                         }).map((value, index) => (
                                             <div className="column" key={index}>
                                                 <Card>
-                                                    <Card.Img variant="top" src={imgPath + value.photo} />
+                                                    <Card.Img variant="top" src={value.photo} />
                                                     <Card.Body>
                                                         <Card.Text>
                                                             <b>Name: {value.petName}</b>
@@ -116,11 +119,11 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
                                                     </Card.Body>
                                                     <Card.Footer>
                                                         <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
-                                                        {value.availability === 1 ?
+                                                        {value.availability === true ?
                                                             <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                                            <button className="home-form-button" type="submit" onClick={() => { setTesting(value.token) }}><FaIcons.FaPaw /></button>}
+                                                            // onClick={() => { setTesting(value.token) }}
+                                                            <button className="home-form-button" type="submit"><FaIcons.FaPaw /></button>}
                                                     </Card.Footer>
-
                                                 </Card>
                                             </div>
                                         )) : null}
@@ -128,14 +131,18 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
                                 </div>
                                 :
                                 <div className="home-next" key='17'>
-                                    DEAR {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]}, <br /><br />
+                                    {/* {data.getUser.firstName ? data.getUser.firstName.toUpperCase() : null} */}
+                                    {/* {data.getAssets.email ? data.getAssets.email.toUpperCase() : null} */}
+                                    {/* {data.getAssets.phone ? data.getAssets.phone : null} */}
+                                    DEAR , <br /><br />
                             WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
                             CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
                             WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
-                            EMAIL: {sessionStorage.email ? sessionStorage.email.toUpperCase() : [localStorage.email ? localStorage.email.toUpperCase() : null]}<br /><br />
-                            PHONE: {sessionStorage.phone ? sessionStorage.phone : [localStorage.phone ? localStorage.phone : null]}<br /><br />
-                                    <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                                </div>]} */}
+                            EMAIL: <br /><br />
+                            PHONE: <br /><br />
+                                    {/* onClick={resetSubmit} */}
+                                    <button className="home-next-button" >CHANGE YOUR MIND?</button>
+                                </div>]}
                     </div>
                 </div>
             </main >

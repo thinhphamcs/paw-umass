@@ -7,7 +7,7 @@ import * as RiIcons from "react-icons/ri";
 import './Submit.css';
 
 // This will be the font end with props I can use to display data
-function SubmitUI({ form: { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText } }) {
+function SubmitUI({ form: { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText } }) {
     return (
         <div className="submit-container">
             <FaIcons.FaAngleDoubleRight className="submit-right-arrow" />
@@ -21,7 +21,7 @@ function SubmitUI({ form: { variables, loading, errors, submitFormValid, onChang
             <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
-                {errors.type ? <div className="submit-error">{errors.type}</div> : null}
+                {submitError ? <div className="submit-error">{"Image is not in .jpg format"}</div> : null}
                 <div className="submit-form-group">
                     <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={variables.petName} onChange={onChange}></input>
                 </div>

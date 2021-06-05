@@ -6,10 +6,19 @@ import { useAuthDispatch } from '../../context/auth';
 import { gql, useQuery } from '@apollo/client';
 
 // GraphQL mutation
+const GET_ASSETS = gql`
+    query getAssets {
+        getAssets {
+            email, phone petName, breed, description, howLong, date
+        }
+    }
+`;
+
+// GraphQL mutation
 const GET_IMAGES = gql`
-    query uploads($Key: String!) {
-        uploads(Key: $Key ) {
-            File
+    query getImages {
+        getImages {
+            url
         }
     }
 `;
@@ -45,15 +54,22 @@ export function HomeForm() {
 
     const dispatch = useAuthDispatch();
 
-    // GraphQL mutation, think of this as global provider    
-    const { data } = useQuery(GET_IMAGES);
+    // GraphQL mutation, think of this as global provider  
+    // const queryMultiple = () => {
+    //     const assets = useQuery(GET_ASSETS);
+    //     const images = useQuery(GET_IMAGES);
+    //     return assets, images;
+    // }
+    const { data: assetData, error: assetError } = useQuery(GET_ASSETS);
+    const { data: imageData } = useQuery(GET_IMAGES);
+
+    console.log(assetData);
+    console.log(imageData);
     const { error } = useQuery(GET_USER);
     if (error) {
         dispatch({ type: 'LOGOUT' });
         history.push("/");
     }
-    // console.log(data);
-
     // onSubmit function that will submit the form and the dispatch
     // const onSubmit = (event) => {
     //     event.preventDefault(); // Prevent react from refresh the page and put data on URL
@@ -68,5 +84,6 @@ export function HomeForm() {
 
     // Return this so we can use these as props on the UI (front end)
     // resetSubmit
-    return { variables, data, error, onChange };
+
+    return { variables, error, onChange };
 }

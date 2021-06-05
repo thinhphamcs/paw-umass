@@ -77,6 +77,9 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ctx => ctx,
+    uploads: {
+        maxFileSize: 2500000 // 1 MB
+    }
 });
 
 server.listen().then(({ url }) => {

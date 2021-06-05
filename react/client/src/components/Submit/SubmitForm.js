@@ -76,8 +76,8 @@ export function SubmitForm() {
 
     // GraphQL mutation, think of this as global provider  
     const { error } = useQuery(GET_USER);
-    const [submit, { loading }] = useMutation(SUBMIT_FORM, {
-        onCompleted(data) {
+    const [submit, { data: submitData, error: submitError, loading }] = useMutation(SUBMIT_FORM, {
+        onCompleted(submitData) {
             history.push("/home");
         },
         onError(error) {
@@ -95,5 +95,6 @@ export function SubmitForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText };
+    console.log(submitError);
+    return { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText };
 }

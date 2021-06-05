@@ -7,7 +7,9 @@ const jwtDecode = require('jwt-decode');
 const stripe = require("stripe")(STRIPE_SECRET_TEST);
 const path = require('path');
 const fs = require('fs');
-const { upload, getFileStream } = require('../s3');
+// const { upload, getFileStream } = require('../s3');
+const { uploadToS3, getObjectFromS3 } = require('../s3');
+const asset = require('../models/asset');
 // const user = require('../models/user');
 // const { Op } = require("sequelize");
 
@@ -117,19 +119,49 @@ module.exports = {
 
 
 
-        getImages: (parent, args) => {
-            const { key } = args;
-            const readStream = getFileStream(key);
+        getAssets: async (parent, args, context, info) => {
+            try {
+                let errors = {};
+                const assets = await Asset.findAll();
+                if (assets) {
+                    return assets;
+                }
+                else {
+                    errors.message = "Assets no longer exist";
+                }
+                if (Object.keys(errors).length > 0) {
+                    throw errors;
+                }
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
 
-            readStream.pipe(args);
-        }
+        },
 
+        getImages: async (parent, args, context, info) => {
+            try {
+                // const data = await getObjectFromS3('11.jpg');
+                // console.log(data.Body.toString('base64'));
+                // const readStream = await getFileStream('1.jpg');
+                // const testing = readStream.Body.toString('base64');
+                // console.log(testing);
+                // console.log(url);
+                // assets.map(async (value, index) => {
+                //     const readStream = await getFileStream(value.photo);
+                //     if (readStream) {
+                //         url.push(readStream.Body);
+                //     }
 
+                // });
+                // console.log(url);
+                // return url;
 
-
-
-
-
+            } catch (error) {
+                console.log(error);
+                throw error;
+            }
+        },
 
 
 
@@ -471,56 +503,51 @@ module.exports = {
         },
         submit: async (parent, args, context, info) => {
             const { petName, breed, description, radio } = args;
-            const { createReadStream, filename, mimetype, encoding } = await args.file;
+            const { filename } = await args.file;
             let currentUser = null;
-            let errors = {}
             const token = context.req.headers.authorization.split("Bearer ")[1];
-            if (mimetype === 'image/jpeg') {
-                const stream = createReadStream();
-                const pathName = path.join(__dirname, `../public/images/${filename}`);
-                const local = new Promise((resolve, reject) => {
-                    stream.pipe(fs.createWriteStream(pathName))
-                }).then(upload(pathName, filename)).catch(error => { console.log(error) });
-                try {
-                    if (token) {
-                        const decodedToken = jwtDecode(token);
-                        const expiresAt = new Date(decodedToken.exp * 1000);
-                        // Expired token
-                        if (new Date() > expiresAt) {
-                            errors.token = "Token Expired";
-                        }
-                        else {
-                            currentUser = decodedToken;
-                            const databaseUser = await User.findOne({
-                                where: { email: currentUser.email }
-                            });
-                            const id = databaseUser.id;
-                            const email = databaseUser.email;
-                            const phone = databaseUser.phone;
-                            const photo = filename;
-                            const howLong = radio;
-                            const date = new Date();
-                            const number = Math.floor(Math.random() * id);
-                            const token = jwt.sign({ id: id + number }, JWT_SECRET);
-                            const availability = false;
-                            // Create assets
-                            const asset = await Asset.create({
-                                email, phone, petName, breed, photo, description, howLong, date, token, availability
-                            });
-                        }
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        throw new Error("Token Expired");
                     }
                     else {
-                        errors.token = "No token found";
+                        currentUser = decodedToken;
+                        const databaseUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        const id = databaseUser.id;
+                        const email = databaseUser.email;
+                        const phone = databaseUser.phone;
+                        const photo = filename;
+                        const howLong = radio;
+                        const date = new Date();
+                        const number = Math.floor(Math.random() * id);
+                        const token = jwt.sign({ id: id + number }, JWT_SECRET);
+                        const availability = false;
+                        // Create assets
+                        const asset = await Asset.create({
+                            email, phone, petName, breed, photo, description, howLong, date, token, availability
+                        });
+                        const s3 = await uploadToS3(args.file);
+                        if (asset && s3) {
+                            return {
+                                url: 'SUCCESS'
+                            }
+                        }
+                        else {
+                            throw new Error("FAILED TO SUBMIT");
+                        }
                     }
-                } catch (error) {
-                    errors.s3 = error;
                 }
-            }
-            else {
-                errors.type = "Image is not in .jpg format "
-            }
-            if (Object.keys(errors).length > 0) {
-                throw errors;
+                else {
+                    throw new Error("No Token Found");
+                }
+            } catch (error) {
+                throw new Error(error);
             }
         },
     }
