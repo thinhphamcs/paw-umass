@@ -81,7 +81,8 @@ export function SubmitForm() {
             history.push("/home");
         },
         onError(error) {
-            setErrors(error.graphQLErrors[0].extensions.errors);
+            // setErrors(error.graphQLErrors[0].extensions.errors);
+            setErrors(error.message);
         }
     });
     if (error) {
@@ -95,6 +96,5 @@ export function SubmitForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    console.log(submitError);
     return { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText };
 }

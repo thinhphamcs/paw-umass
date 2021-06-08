@@ -15,7 +15,7 @@ import './Home.css';
 
 // This will be the font end with props I can use to display data
 // , resetSubmit
-function HomeUI({ form: { variables, data, error, onChange } }) {
+function HomeUI({ form: { variables, assetData, userData, assetError, onChange } }) {
     // Hook
     /**
      * const [testing, setTesting] = useState("");
@@ -39,12 +39,6 @@ function HomeUI({ form: { variables, data, error, onChange } }) {
     //             }
     //         });
     // }
-    if (data !== undefined) {
-        console.log(data);
-        // data.getAssets.map((value, index) => (
-        //     console.log(value.email)
-        // ));
-    }
 
     return (
         <div className="all-container" key='9'>
@@ -88,13 +82,12 @@ function HomeUI({ form: { variables, data, error, onChange } }) {
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {/* {errors.image ? <div className="submit-error">{errors.image}</div> : null} */}
-                        {error ?
-                            [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
-                            [data ?
+                        {assetData ?
+                            [assetData.getAssets.length === 0 ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
+                            [assetData ?
                                 <div className="asset-container" key='13'>
                                     <div className="row" key='14'>
-                                        {data.getAssets ? data.getAssets.filter((value) => {
+                                        {assetData.getAssets ? assetData.getAssets.filter((value) => {
                                             if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
                                                 return value;
                                             }
@@ -131,15 +124,12 @@ function HomeUI({ form: { variables, data, error, onChange } }) {
                                 </div>
                                 :
                                 <div className="home-next" key='17'>
-                                    {/* {data.getUser.firstName ? data.getUser.firstName.toUpperCase() : null} */}
-                                    {/* {data.getAssets.email ? data.getAssets.email.toUpperCase() : null} */}
-                                    {/* {data.getAssets.phone ? data.getAssets.phone : null} */}
-                                    DEAR , <br /><br />
+                                    DEAR {userData ? userData.getUser.firstName.toUpperCase() : null}, <br /><br />
                             WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
                             CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
                             WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
-                            EMAIL: <br /><br />
-                            PHONE: <br /><br />
+                            EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
+                            PHONE: {userData ? userData.getUser.phone : null}<br /><br />
                                     {/* onClick={resetSubmit} */}
                                     <button className="home-next-button" >CHANGE YOUR MIND?</button>
                                 </div>]}

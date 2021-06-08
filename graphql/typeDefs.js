@@ -34,7 +34,6 @@ type Query {
   login(email:String!, password:String!): User!
   checkUser(email:String, phone:String): User
   getAssets: [Asset]!
-  getImages: [File]
 }
 # Mutation — for creating new and updating/deleting existing data (INSERT, UPDATE, DELETE)
 type Mutation {

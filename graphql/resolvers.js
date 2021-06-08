@@ -109,22 +109,30 @@ module.exports = {
                 throw error;
             }
         },
-
-
-
-
-
-
-
-
-
-
         getAssets: async (parent, args, context, info) => {
             try {
                 let errors = {};
                 const assets = await Asset.findAll();
                 if (assets) {
-                    return assets;
+                    const mapping = assets.map((value, index) => {
+                        const readStream = getObjectFromS3(value.photo);
+                        return {
+                            id: value.id,
+                            email: value.email,
+                            phone: value.phone,
+                            petName: value.petName,
+                            breed: value.breed,
+                            photo: readStream,
+                            description: value.description,
+                            howLong: value.howLong,
+                            date: value.date.toISOString().slice(0, 19).replace('T', ' '),
+                            token: value.token,
+                            availability: value.availability
+                        };
+                    });
+
+                    const data = await Promise.all(mapping);
+                    return data;
                 }
                 else {
                     errors.message = "Assets no longer exist";
@@ -136,39 +144,7 @@ module.exports = {
                 console.log(error);
                 throw error;
             }
-
         },
-
-        getImages: async (parent, args, context, info) => {
-            try {
-                // const data = await getObjectFromS3('11.jpg');
-                // console.log(data.Body.toString('base64'));
-                // const readStream = await getFileStream('1.jpg');
-                // const testing = readStream.Body.toString('base64');
-                // console.log(testing);
-                // console.log(url);
-                // assets.map(async (value, index) => {
-                //     const readStream = await getFileStream(value.photo);
-                //     if (readStream) {
-                //         url.push(readStream.Body);
-                //     }
-
-                // });
-                // console.log(url);
-                // return url;
-
-            } catch (error) {
-                console.log(error);
-                throw error;
-            }
-        },
-
-
-
-
-
-
-
     },
     Mutation: {
         register: async (parent, args, context, info) => {
@@ -192,11 +168,6 @@ module.exports = {
                 const user = await User.create({
                     firstName, lastName, email, password, phone, donation, availability
                 })
-
-                // Return user
-                // .toJSON() but no need since returning sequelize instance it automatic converts to json
-                // But required if use let say ...user.toJSON()
-                // Date can be user.date.toISOString()
                 return user;
             } catch (error) {
                 console.log(error);
@@ -280,10 +251,6 @@ module.exports = {
                     console.log("No token found");
                 }
             } catch (error) {
-                // if (error.name === "SequelizeUniqueConstraintError") {
-                //     error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
-                // }
-                // else
                 if (error.name === "SequelizeValidationError") {
                     error.errors.forEach(e => (errors[e.path] = e.message));
                 }
@@ -503,8 +470,9 @@ module.exports = {
         },
         submit: async (parent, args, context, info) => {
             const { petName, breed, description, radio } = args;
-            const { filename } = await args.file;
+            const { filename, mimetype } = await args.file;
             let currentUser = null;
+            let errors = {};
             const token = context.req.headers.authorization.split("Bearer ")[1];
             try {
                 if (token) {
@@ -515,25 +483,25 @@ module.exports = {
                         throw new Error("Token Expired");
                     }
                     else {
-                        currentUser = decodedToken;
-                        const databaseUser = await User.findOne({
-                            where: { email: currentUser.email }
-                        });
-                        const id = databaseUser.id;
-                        const email = databaseUser.email;
-                        const phone = databaseUser.phone;
-                        const photo = filename;
-                        const howLong = radio;
-                        const date = new Date();
-                        const number = Math.floor(Math.random() * id);
-                        const token = jwt.sign({ id: id + number }, JWT_SECRET);
-                        const availability = false;
-                        // Create assets
-                        const asset = await Asset.create({
-                            email, phone, petName, breed, photo, description, howLong, date, token, availability
-                        });
                         const s3 = await uploadToS3(args.file);
-                        if (asset && s3) {
+                        if (s3) {
+                            currentUser = decodedToken;
+                            const databaseUser = await User.findOne({
+                                where: { email: currentUser.email }
+                            });
+                            const id = databaseUser.id;
+                            const email = databaseUser.email;
+                            const phone = databaseUser.phone;
+                            const photo = filename;
+                            const howLong = radio;
+                            const date = new Date();
+                            const number = Math.floor(Math.random() * id);
+                            const token = jwt.sign({ id: id + number }, JWT_SECRET);
+                            const availability = false;
+                            // Create assets
+                            const asset = await Asset.create({
+                                email, phone, petName, breed, photo, description, howLong, date, token, availability
+                            });
                             return {
                                 url: 'SUCCESS'
                             }
@@ -547,8 +515,9 @@ module.exports = {
                     throw new Error("No Token Found");
                 }
             } catch (error) {
-                throw new Error(error);
+                throw new Error("SUBMIT ERROR", error);
             }
+
         },
     }
 }

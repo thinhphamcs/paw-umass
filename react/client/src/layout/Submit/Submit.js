@@ -21,7 +21,7 @@ function SubmitUI({ form: { variables, loading, submitError, submitFormValid, on
             <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
-                {submitError ? <div className="submit-error">{"Image is not in .jpg format"}</div> : null}
+                {submitError ? <div className="submit-error">{"Image is too large"}</div> : null}
                 <div className="submit-form-group">
                     <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={variables.petName} onChange={onChange}></input>
                 </div>

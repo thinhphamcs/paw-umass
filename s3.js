@@ -42,19 +42,10 @@ exports.uploadToS3 = uploadToS3
 
 // get a file to S3 function
 function getObjectFromS3(fileKey) {
-    return new Promise((resolve, reject) => {
-        s3.getObject({
-            Bucket: bucket,
-            Key: fileKey,
-        },
-            (err, data) => {
-                if (err) {
-                    console.log('error fetching...', err);
-                    reject(err);
-                } else {
-                    resolve(data);
-                }
-            });
+    return s3.getSignedUrl('getObject', {
+        Bucket: bucket,
+        Key: fileKey,
+        Expires: 3600
     });
 }
 

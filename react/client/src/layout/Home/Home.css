@@ -76,6 +76,7 @@ main {
 
 .home-error {
     text-align: center;
+    margin-top: 30px;
     font-size: 30px !important;
     color: var(--bg-primary);
 }

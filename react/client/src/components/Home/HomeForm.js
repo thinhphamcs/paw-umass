@@ -9,16 +9,7 @@ import { gql, useQuery } from '@apollo/client';
 const GET_ASSETS = gql`
     query getAssets {
         getAssets {
-            email, phone petName, breed, description, howLong, date
-        }
-    }
-`;
-
-// GraphQL mutation
-const GET_IMAGES = gql`
-    query getImages {
-        getImages {
-            url
+            email, phone, photo, petName, breed, description, howLong, date
         }
     }
 `;
@@ -27,7 +18,7 @@ const GET_IMAGES = gql`
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            firstName email phone
         }
     }
 `;
@@ -61,12 +52,8 @@ export function HomeForm() {
     //     return assets, images;
     // }
     const { data: assetData, error: assetError } = useQuery(GET_ASSETS);
-    const { data: imageData } = useQuery(GET_IMAGES);
-
-    console.log(assetData);
-    console.log(imageData);
-    const { error } = useQuery(GET_USER);
-    if (error) {
+    const { data: userData, error: userError } = useQuery(GET_USER);
+    if (userError) {
         dispatch({ type: 'LOGOUT' });
         history.push("/");
     }
@@ -84,6 +71,5 @@ export function HomeForm() {
 
     // Return this so we can use these as props on the UI (front end)
     // resetSubmit
-
-    return { variables, error, onChange };
+    return { variables, assetData, userData, assetError, onChange };
 }
