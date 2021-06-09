@@ -44,5 +44,7 @@ type Mutation {
   deleteProfile(password:String!): User
   stripeSubmit(id: String!, amount: String!): User
   submit(petName: String!, breed: String!, file: Upload!, description: String!, radio: String!): File
+  orderCheck(token: String!): File
+  resetOrder: File
 }
  `

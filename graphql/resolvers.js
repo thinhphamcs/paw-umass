@@ -149,7 +149,7 @@ module.exports = {
     Mutation: {
         register: async (parent, args, context, info) => {
             let { firstName, lastName, email, password, confirmPassword, phone } = args;
-            const donation = false, availability = false;
+            const donation = false, availability = false, token = "JmLTEyMy11LTEyMy1jLTEyMy1rLTEyMy15LTEyMy1vLTEyMy11";
             let errors = {}
             try {
                 // Validate input data 
@@ -166,7 +166,7 @@ module.exports = {
 
                 // Create user
                 const user = await User.create({
-                    firstName, lastName, email, password, phone, donation, availability
+                    firstName, lastName, email, password, phone, donation, availability, token
                 })
                 return user;
             } catch (error) {
@@ -517,7 +517,94 @@ module.exports = {
             } catch (error) {
                 throw new Error("SUBMIT ERROR", error);
             }
-
+        },
+        orderCheck: async (parent, args, context, info) => {
+            const { token } = args;
+            let currentUser = null;
+            const userToken = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (userToken) {
+                    const decodedToken = jwtDecode(userToken);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        throw new Error("Token Expired");
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const values = { availability: 1, token: token };
+                        const whereInUser = {
+                            where: { email: currentUser.email }
+                        };
+                        const whereInAsset = {
+                            where: { token: token }
+                        };
+                        const user = await User.update(values, whereInUser);
+                        const asset = await Asset.update(values, whereInAsset);
+                        if (user && asset) {
+                            return {
+                                url: "Updated"
+                            }
+                        }
+                        else {
+                            return {
+                                url: "Failed to Update"
+                            }
+                        }
+                    }
+                }
+                else {
+                    throw new Error("No Token Found");
+                }
+            } catch (error) {
+                throw new Error("SUBMIT ORDER ERROR", error);
+            }
+        },
+        resetOrder: async (parent, args, context, info) => {
+            let currentUser = null;
+            const token = "JmLTEyMy11LTEyMy1jLTEyMy1rLTEyMy15LTEyMy1vLTEyMy11";
+            const userToken = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (userToken) {
+                    const decodedToken = jwtDecode(userToken);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        throw new Error("Token Expired");
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const dataBaseUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        const userValues = { availability: 0, token: token };
+                        const whereInUser = {
+                            where: { email: dataBaseUser.email }
+                        };
+                        const assetValues = { availability: 0 };
+                        const whereInAsset = {
+                            where: { token: dataBaseUser.token }
+                        };
+                        const asset = await Asset.update(assetValues, whereInAsset);
+                        const user = await User.update(userValues, whereInUser);
+                        if (user && asset) {
+                            return {
+                                url: "Updated"
+                            }
+                        }
+                        else {
+                            return {
+                                url: "Failed to Update"
+                            }
+                        }
+                    }
+                }
+                else {
+                    throw new Error("No Token Found");
+                }
+            } catch (error) {
+                throw new Error("RESET ORDER ERROR", error);
+            }
         },
     }
 }

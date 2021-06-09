@@ -1,5 +1,5 @@
 // Import
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
 import { Card } from 'react-bootstrap';
@@ -15,31 +15,7 @@ import './Home.css';
 
 // This will be the font end with props I can use to display data
 // , resetSubmit
-function HomeUI({ form: { variables, assetData, userData, assetError, onChange } }) {
-    // Hook
-    /**
-     * const [testing, setTesting] = useState("");
-     */
-    // if (data.asset) {
-    //     data.asset.filter((value) => {
-    //         if (value.token === testing) {
-    //             if ((value.availability === 0 && sessionStorage.availability === "0") || (value.availability === 0 && localStorage.availability === "0")) {
-    //                 //     axiosInstance()
-    //                 //         .post("/user/check-out", {
-    //                 //             testing
-    //                 //         }).then(res => {
-    //                 //             if (res.data.check) {
-    //                 //                 window.location.reload();
-    //                 //             }
-    //                 //         })
-    //                 //         .catch(err => {
-    //                 //             console.log(err);
-    //                 //         });
-    //                 // }
-    //             }
-    //         });
-    // }
-
+function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" key='9'>
             <div className="home-container" key='10'>
@@ -82,9 +58,8 @@ function HomeUI({ form: { variables, assetData, userData, assetError, onChange }
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {assetData ?
-                            [assetData.getAssets.length === 0 ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
-                            [assetData ?
+                        {assetData && userData ?
+                            [assetData.getAssets.length === 0 ? <div className="home-error" key='12'>Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" key='13'>
                                     <div className="row" key='14'>
                                         {assetData.getAssets ? assetData.getAssets.filter((value) => {
@@ -114,8 +89,7 @@ function HomeUI({ form: { variables, assetData, userData, assetError, onChange }
                                                         <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
                                                         {value.availability === true ?
                                                             <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                                            // onClick={() => { setTesting(value.token) }}
-                                                            <button className="home-form-button" type="submit"><FaIcons.FaPaw /></button>}
+                                                            <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
                                                     </Card.Footer>
                                                 </Card>
                                             </div>
@@ -125,14 +99,13 @@ function HomeUI({ form: { variables, assetData, userData, assetError, onChange }
                                 :
                                 <div className="home-next" key='17'>
                                     DEAR {userData ? userData.getUser.firstName.toUpperCase() : null}, <br /><br />
-                            WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
-                            CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
-                            WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
-                            EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
-                            PHONE: {userData ? userData.getUser.phone : null}<br /><br />
-                                    {/* onClick={resetSubmit} */}
-                                    <button className="home-next-button" >CHANGE YOUR MIND?</button>
-                                </div>]}
+                                    WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
+                                    CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
+                                    WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
+                                    EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
+                                    PHONE: {userData ? displayPhone : null}<br /><br />
+                                    <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
+                                </div>]] : null}
                     </div>
                 </div>
             </main >
