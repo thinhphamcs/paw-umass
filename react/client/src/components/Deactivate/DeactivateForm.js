@@ -9,7 +9,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            token
         }
     }
 `;
@@ -18,7 +18,7 @@ const GET_USER = gql`
 const DELETE_PROFILE = gql`
     mutation deleteProfile($password: String!) {
         deleteProfile(password: $password) {
-            password
+            status message
         }
     }
 `;

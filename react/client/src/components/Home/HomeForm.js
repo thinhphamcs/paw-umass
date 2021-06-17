@@ -27,7 +27,7 @@ const GET_USER = gql`
 const ORDER_CHECK = gql`
     mutation orderCheck($token: String!) {
         orderCheck(token: $token) {
-            url
+            status message
         }
     }
 `;
@@ -36,7 +36,7 @@ const ORDER_CHECK = gql`
 const RESET_ORDER = gql`
     mutation resetOrder {
         resetOrder {
-            url
+            status message
         }
     }
 `;

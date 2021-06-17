@@ -18,7 +18,7 @@ const GET_USER = gql`
 const UPDATE_USER = gql`
     mutation profileUpdate($firstName: String! $lastName: String! $email: String! $phone: String!) {
         profileUpdate(firstName: $firstName lastName: $lastName email: $email phone: $phone) {
-            firstName lastName email phone
+            status message
         }
     }
 `;

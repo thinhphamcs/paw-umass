@@ -9,7 +9,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            token
         }
     }
 `;
@@ -18,7 +18,7 @@ const GET_USER = gql`
 const SUBMIT_FORM = gql`
     mutation submit($petName: String!, $breed: String!, $file: Upload!, $description: String!, $radio: String!) {
         submit(petName: $petName, breed: $breed, file: $file, description: $description, radio: $radio) {
-            url
+            status message
         }
     }
 `;
@@ -34,8 +34,6 @@ export function SubmitForm() {
         countdown: '',
         radio: ''
     });
-
-    const [errors, setErrors] = useState({});
 
     // use history from react-router-dom to redirect
     const history = useHistory();
@@ -80,10 +78,6 @@ export function SubmitForm() {
         onCompleted(submitData) {
             history.push("/home");
         },
-        onError(error) {
-            // setErrors(error.graphQLErrors[0].extensions.errors);
-            setErrors(error.message);
-        }
     });
     if (error) {
         dispatch({ type: 'LOGOUT' });

@@ -15,7 +15,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            firstName donation availability
+            firstName donation
         }
     }
 `;
@@ -24,7 +24,7 @@ const GET_USER = gql`
 const STRIPE_SUBMIT = gql`
     mutation stripeSubmit($id: String! $amount: String!) {
         stripeSubmit(id: $id amount: $amount ) {
-            donation
+            status message
         }
     }
 `;
@@ -204,7 +204,7 @@ function DonateUI() {
                 <div className="footer-container" key='13'>
                     <p className="footer-text">
                         THANK YOU {data.getUser.firstName ? data.getUser.firstName.toUpperCase() : null} FOR YOUR GENEROUS DONATION AND SUPPORT.<br /><br />
-                        THIS WEBSITE WILL NOW BE ABLE TO CONTINUE TO OPERATE ADS FREE ALL THANKS TO YOUR DONATION.<br /><br />
+                        THIS WEBSITE WILL NOW BE ABLE TO CONTINUE TO OPERATE ADS FREE <br /> ALL THANKS TO YOUR DONATION.<br /><br />
                         SINCERELY,<br /><br />
                         THANK YOU FOR YOUR GENEROSITY.<br /><br />
                         <button className="footer-button" onClick={() => { history.push('/home') }}>

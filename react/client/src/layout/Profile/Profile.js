@@ -20,7 +20,7 @@ function ProfileUI({ form: { variables, loading, data, displayPhone, errors, upd
             <h1 className="profile-form-title">Welcome {data ? data.firstName : null}</h1>
             <form className="profile-form-container">
                 {errors.email ?
-                    <div className="profile-error">{errors.email}</div> : [errors.phone ? <div className="profile-error">{errors.phone}</div> : null]}
+                    <div className="profile-error">{errors.email}</div> : [errors.phone ? <div className="profile-error">{errors.phone}</div> : [errors.update ? <div className="profile-error">{errors.update}</div> : null]]}
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         {data ? data.getUser.firstName : null}
