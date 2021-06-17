@@ -21,7 +21,7 @@ if (token) {
     }
 }
 // else {
-//     console.log("No token found");
+//     throw new Error("No Token Found"); // Throw error here will crash the app
 // }
 
 // Create reducer

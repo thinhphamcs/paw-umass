@@ -1,5 +1,5 @@
 // Import
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
 import { Card } from 'react-bootstrap';
@@ -15,33 +15,7 @@ import './Home.css';
 
 // This will be the font end with props I can use to display data
 // , resetSubmit
-function HomeUI({ form: { variables, loading, data, error, onChange } }) {
-    // Hook
-    /**
-     * const [testing, setTesting] = useState("");
-     */
-
-
-    // if (data.asset) {
-    //     data.asset.filter((value) => {
-    //         if (value.token === testing) {
-    //             if ((value.availability === 0 && sessionStorage.availability === "0") || (value.availability === 0 && localStorage.availability === "0")) {
-    //                 //     axiosInstance()
-    //                 //         .post("/user/check-out", {
-    //                 //             testing
-    //                 //         }).then(res => {
-    //                 //             if (res.data.check) {
-    //                 //                 window.location.reload();
-    //                 //             }
-    //                 //         })
-    //                 //         .catch(err => {
-    //                 //             console.log(err);
-    //                 //         });
-    //                 // }
-    //             }
-    //         });
-    // }
-
+function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" key='9'>
             <div className="home-container" key='10'>
@@ -84,22 +58,19 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        <img src="/images/1.jpg" />
-                        {/* {errors.image ? <div className="submit-error">{errors.image}</div> : null} */}
-                        {/* {error ?
-                            [error.message === "Assets no longer exist" ? <div className="home-error" key='12'>Be the first to upload</div> : null] :
-                            [(localStorage.getItem("availability") === "0" || sessionStorage.getItem("availability") === "0") ?
+                        {assetData && userData ?
+                            [assetData.getAssets.length === 0 ? <div className="home-error" key='12'>Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" key='13'>
                                     <div className="row" key='14'>
-                                        {data.asset ? data.asset.filter((value) => {
-                                            if (searchTerm.search === "" || (value.breed.toString().toLowerCase().includes(searchTerm.search.toString().toLowerCase()))) {
+                                        {assetData.getAssets ? assetData.getAssets.filter((value) => {
+                                            if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
                                                 return value;
                                             }
                                             // Return something here but it will break the filter
                                         }).map((value, index) => (
                                             <div className="column" key={index}>
                                                 <Card>
-                                                    <Card.Img variant="top" src={imgPath + value.photo} />
+                                                    <Card.Img variant="top" src={value.photo} />
                                                     <Card.Body>
                                                         <Card.Text>
                                                             <b>Name: {value.petName}</b>
@@ -116,11 +87,10 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
                                                     </Card.Body>
                                                     <Card.Footer>
                                                         <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
-                                                        {value.availability === 1 ?
+                                                        {value.availability === true ?
                                                             <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                                            <button className="home-form-button" type="submit" onClick={() => { setTesting(value.token) }}><FaIcons.FaPaw /></button>}
+                                                            <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
                                                     </Card.Footer>
-
                                                 </Card>
                                             </div>
                                         )) : null}
@@ -128,14 +98,14 @@ function HomeUI({ form: { variables, loading, data, error, onChange } }) {
                                 </div>
                                 :
                                 <div className="home-next" key='17'>
-                                    DEAR {sessionStorage.firstName ? sessionStorage.firstName.toUpperCase() : [localStorage.firstName ? localStorage.firstName.toUpperCase() : null]}, <br /><br />
-                            WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
-                            CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
-                            WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
-                            EMAIL: {sessionStorage.email ? sessionStorage.email.toUpperCase() : [localStorage.email ? localStorage.email.toUpperCase() : null]}<br /><br />
-                            PHONE: {sessionStorage.phone ? sessionStorage.phone : [localStorage.phone ? localStorage.phone : null]}<br /><br />
+                                    DEAR {userData ? userData.getUser.firstName.toUpperCase() : null}, <br /><br />
+                                    WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
+                                    CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
+                                    WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
+                                    EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
+                                    PHONE: {userData ? displayPhone : null}<br /><br />
                                     <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                                </div>]} */}
+                                </div>]] : null}
                     </div>
                 </div>
             </main >

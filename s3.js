@@ -1,41 +1,48 @@
-const S3 = require('aws-sdk/clients/s3');
-const fs = require('fs');
+// Import require
+const AWS = require('aws-sdk');
 const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_ACCESS_KEY, AWS_SECRET_KEY } = require('./config/env.json');
-
-const bucketName = AWS_BUCKET_NAME;
+// Without const variables the config won't work
+const bucket = AWS_BUCKET_NAME;
 const region = AWS_BUCKET_REGION;
 const accessKeyId = AWS_ACCESS_KEY;
 const secretAccessKey = AWS_SECRET_KEY;
-
-const s3 = new S3({
-    region,
-    accessKeyId,
-    secretAccessKey
+// Standard AWS config
+AWS.config.update({
+    accessKeyId: accessKeyId,
+    secretAccessKey: secretAccessKey,
+    region: region,
 });
-
-// uploads a file to s3
-function upload(pathName, filename) {
-    const fileStream = fs.createReadStream(pathName);
-
-    const uploadParams = {
-        Bucket: bucketName,
-        Body: fileStream,
-        Key: filename
-    }
-
-    return s3.upload(uploadParams).promise();
-}
-
-exports.upload = upload
-
-// download a file to s3
-function getFileStream(fileKey) {
-    const downloadParams = {
+// New instance of S3
+const s3 = new AWS.S3({ region: region });
+// Upload a file to S3 function
+async function uploadToS3(file) {
+    const { createReadStream, filename } = await file; // Without await, can't access the file
+    return new Promise((resolve, reject) => {
+        s3.upload(
+            {
+                Bucket: bucket,
+                Body: createReadStream(),
+                Key: filename,
+            },
+            (err, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            },
+        );
+    });
+};
+// Export the function to use
+exports.uploadToS3 = uploadToS3
+// Get a file from S3 function
+function getObjectFromS3(fileKey) {
+    return s3.getSignedUrl('getObject', {
+        Bucket: bucket,
         Key: fileKey,
-        Bucket: bucketName
-    }
-
-    return s3.getObject(downloadParams).createReadStream()
+        Expires: 3600
+    });
 }
-
-exports.getFileStream = getFileStream
+// Export the function to use
+exports.getObjectFromS3 = getObjectFromS3

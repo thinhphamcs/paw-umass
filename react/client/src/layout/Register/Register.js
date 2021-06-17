@@ -11,7 +11,7 @@ function RegisterUI({ form: { variables, errors, loading, registerFormValid, onS
         <div className="register-container">
             <h1 className="register-form-title">Create your account </h1>
             <form className="register-form-container">
-                {errors.confirmPassword ? <div className="register-error">{errors.confirmPassword}</div> : [errors.email ? <div className="register-error">{errors.email}</div> : null]}
+                {errors.confirmPassword ? <div className="register-error">{errors.confirmPassword}</div> : [errors.email ? <div className="register-error">{errors.email}</div> : [errors.phone ? <div className="register-error">{errors.phone}</div> : [errors.create ? <div className="register-error">{errors.create}</div> : null]]]}
                 <div className="register-form-group">
                     <input required className="register-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={variables.firstName} onChange={onChange}></input>
                 </div>

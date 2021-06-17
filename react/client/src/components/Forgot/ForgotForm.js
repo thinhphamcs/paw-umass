@@ -9,11 +9,10 @@ import { gql, useLazyQuery } from '@apollo/client';
 const CHECK_USER = gql`
     query checkUser($email: String $phone: String) {
         checkUser(email: $email phone: $phone) {
-            email phone token
+            token
         }
     }
 `;
-
 
 // Export it as a form so we can use it as props
 export function ForgotForm() {
@@ -48,7 +47,7 @@ export function ForgotForm() {
     }
 
     // Function to check if user have typed something
-    // if user input the first/last/email/phone field then we open the button
+    // if user input the email/phone field then we open the button
     if (variables.email.length && !variables.phone) {
         forgotFormValid = false;
     }

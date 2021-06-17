@@ -9,7 +9,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            token
         }
     }
 `;
@@ -18,7 +18,7 @@ const GET_USER = gql`
 const CHANGE_PASSWORD = gql`
     mutation changePassword($newPassword: String! $confirmNewPassword: String!) {
         changePassword(newPassword: $newPassword confirmNewPassword: $confirmNewPassword) {
-            password
+            status message
         }
     }
 `;
@@ -80,6 +80,11 @@ export function ForgotChangeForm() {
         changePassword({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
 
+    const goHome = () => {
+        dispatch({ type: 'LOGOUT' });
+        history.push("/login");
+    }
+
     // Return this so we can use these as props on the UI (front end)
-    return { variables, errors, loading, forgotChangeFormValid, onSubmit, onChange };
+    return { variables, errors, loading, forgotChangeFormValid, onSubmit, onChange, goHome };
 }

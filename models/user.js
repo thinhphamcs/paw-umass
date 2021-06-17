@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'User',

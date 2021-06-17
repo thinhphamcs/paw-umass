@@ -9,7 +9,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            token
         }
     }
 `;
@@ -18,7 +18,7 @@ const GET_USER = gql`
 const PASSWORD_UPDATE = gql`
     mutation passwordUpdate($currentPassword: String! $newPassword: String! $confirmNewPassword: String!) {
         passwordUpdate(currentPassword: $currentPassword newPassword: $newPassword confirmNewPassword: $confirmNewPassword) {
-            password
+            status message
         }
     }
 `;

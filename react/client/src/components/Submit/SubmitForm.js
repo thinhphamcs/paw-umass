@@ -9,7 +9,7 @@ import { gql, useQuery, useMutation } from '@apollo/client';
 const GET_USER = gql`
     query getUser {
         getUser {
-            email
+            token
         }
     }
 `;
@@ -18,7 +18,7 @@ const GET_USER = gql`
 const SUBMIT_FORM = gql`
     mutation submit($petName: String!, $breed: String!, $file: Upload!, $description: String!, $radio: String!) {
         submit(petName: $petName, breed: $breed, file: $file, description: $description, radio: $radio) {
-            url
+            status message
         }
     }
 `;
@@ -35,8 +35,6 @@ export function SubmitForm() {
         radio: ''
     });
 
-    const [errors, setErrors] = useState({});
-
     // use history from react-router-dom to redirect
     const history = useHistory();
 
@@ -51,9 +49,6 @@ export function SubmitForm() {
             ...variables,
             [event.target.name]: value
         });
-        // const file = event.target.files[0];
-        // if (!file) return
-        // uploadImage({ variables: { file } })
     };
 
     // Function to check if user have typed everything
@@ -79,14 +74,10 @@ export function SubmitForm() {
 
     // GraphQL mutation, think of this as global provider  
     const { error } = useQuery(GET_USER);
-    const [submit, { loading }] = useMutation(SUBMIT_FORM, {
-        onCompleted(data) {
+    const [submit, { data: submitData, error: submitError, loading }] = useMutation(SUBMIT_FORM, {
+        onCompleted(submitData) {
             history.push("/home");
         },
-        onError(error) {
-            // setErrors(error.graphQLErrors[0].extensions.errors);
-            console.log(error.graphQLErrors[0]);
-        }
     });
     if (error) {
         dispatch({ type: 'LOGOUT' });
@@ -99,5 +90,5 @@ export function SubmitForm() {
     }
 
     // Return this so we can use these as props on the UI (front end)
-    return { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText };
+    return { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText };
 }

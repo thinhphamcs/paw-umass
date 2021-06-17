@@ -43,6 +43,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
