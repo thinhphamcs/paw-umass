@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
 import './Privacy.css';
-
 // This will be the font end with props I can use to display data
 function PrivacyUI() {
     return (
@@ -88,12 +87,10 @@ function PrivacyUI() {
                     <h3><strong>Contact Us</strong></h3>
                     <p>For any questions or concerns regarding your privacy, you may contact us using the following details: </p>
                     <p>PawUMass Dev Team<br />
-                    pawumass@gmail.com </p>
+                        pawumass@gmail.com </p>
                 </div>
             </div>
         </div>
     );
 }
-
 export default PrivacyUI;
-

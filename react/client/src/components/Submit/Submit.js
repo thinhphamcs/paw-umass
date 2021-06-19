@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import SubmitUI from '../../layout/Submit/Submit';
 import { SubmitForm } from './SubmitForm';
-
 // Export this component with UI for cleaner and more organized way
 const Submit = () => {
     const history = useHistory();
@@ -15,5 +14,4 @@ const Submit = () => {
         <SubmitUI form={SubmitForm()} />
     );
 }
-
 export default Submit;

@@ -3,7 +3,6 @@ import React from 'react';
 import Logo from '../../assets/images/logo3.png';
 import { Link } from 'react-router-dom';
 import './Login.css';
-
 // This will be the font end with props I can use to display data
 function LoginUI({ form: { variables, errors, loading, loginFormValid, onSubmit, onChange } }) {
     return (
@@ -16,17 +15,10 @@ function LoginUI({ form: { variables, errors, loading, loginFormValid, onSubmit,
                 <div className="login-form-group">
                     <input required className="login-input" type="email" id="email" name="email" placeholder="Email" value={variables.email} onChange={onChange} ></input>
                 </div>
-                {errors.email ? <div className="login-error">
-                    {errors.email},<br /> don't have an account?
-                            <Link to="/register" className='login-list-items'>
+                {errors.message ? <div className="login-error">{errors.message},<br /> don't have an account?
+                    <Link to="/register" className='login-list-items'>
                         Sign up
-                            </Link>
-                </div> : [errors.password ? <div className="login-error">
-                    {errors.password},<br /> don't have an account?
-                            <Link to="/register" className='login-list-items'>
-                        Sign up
-                            </Link>
-                </div> : null]}
+                    </Link> </div> : null}
                 <div className="login-form-group">
                     <input required className="login-input" type="password" id="password" name="password" placeholder="Password" value={variables.password} onChange={onChange}></input>
                 </div>
@@ -52,5 +44,4 @@ function LoginUI({ form: { variables, errors, loading, loginFormValid, onSubmit,
         </div>
     );
 }
-
 export default LoginUI;

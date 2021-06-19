@@ -12,7 +12,6 @@ import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
 import TimeAgo from 'react-timeago';
 import './Home.css';
-
 // This will be the font end with props I can use to display data
 // , resetSubmit
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
@@ -112,6 +111,4 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
         </div >
     );
 }
-
 export default HomeUI;
-

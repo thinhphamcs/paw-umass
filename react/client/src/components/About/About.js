@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import AboutUI from '../../layout/About/About';
-
 // Export it as a form so we can use it as props
 const About = () => {
     const history = useHistory();

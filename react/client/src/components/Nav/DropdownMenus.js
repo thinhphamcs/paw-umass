@@ -1,3 +1,4 @@
+// Import
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Link, useHistory } from 'react-router-dom';
@@ -8,7 +9,7 @@ import * as FiIcons from "react-icons/fi";
 import * as FaIcons from "react-icons/fa";
 import * as ImIcons from "react-icons/im";
 import './Nav.css';
-
+// We export it as component so we can use it somewhere else
 function DropdownMenus(props) {
     const [activateMenu, setActivateMenu] = useState('main');
     const [menuHeight, setMenuHeight] = useState(null);
@@ -26,7 +27,6 @@ function DropdownMenus(props) {
             </Link>
         )
     }
-
     function DropDownLogOut(props) {
         return (
             <Link to="/home" className="top-menu-item" onClick={logout}>
@@ -68,5 +68,4 @@ function DropdownMenus(props) {
         </div>
     )
 }
-
 export default DropdownMenus;

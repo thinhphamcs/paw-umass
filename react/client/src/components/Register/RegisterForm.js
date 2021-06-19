@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 // GraphQL mutation
 import { gql, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const REGISTER_USER = gql`
     mutation register($firstName: String! $lastName: String! $email: String! $password: String! $confirmPassword: String! $phone: String!) {
@@ -12,7 +11,6 @@ const REGISTER_USER = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function RegisterForm() {
     // Hook
@@ -24,12 +22,9 @@ export function RegisterForm() {
         confirmPassword: '',
         phone: '',
     });
-
     const [errors, setErrors] = useState({});
-
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -37,7 +32,6 @@ export function RegisterForm() {
             [event.target.name]: event.target.value
         });
     };
-
     // onChange function for child component Phone
     const phoneChange = (value) => {
         setVariables({
@@ -45,7 +39,6 @@ export function RegisterForm() {
             phone: value
         });
     }
-
     // Function to check if user have typed everything
     const registerFormValid =
         !variables.firstName?.length ||
@@ -54,7 +47,6 @@ export function RegisterForm() {
         !variables.password?.length ||
         !variables.confirmPassword?.length ||
         !variables.phone?.length;
-
     // GraphQL mutation, think of this as global provider    
     const [registerUser, { loading }] = useMutation(REGISTER_USER, {
         update(_, __) {
@@ -64,13 +56,11 @@ export function RegisterForm() {
             setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });
-
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
         registerUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
-
     // Return this so we can use these as props on the UI (front end)
     return { variables, errors, loading, registerFormValid, onSubmit, onChange, phoneChange };
 }

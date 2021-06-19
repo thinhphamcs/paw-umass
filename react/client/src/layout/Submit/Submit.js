@@ -5,7 +5,6 @@ import Logo from '../../assets/images/logo.png';
 import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 import './Submit.css';
-
 // This will be the font end with props I can use to display data
 function SubmitUI({ form: { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText } }) {
     return (
@@ -77,5 +76,4 @@ function SubmitUI({ form: { variables, loading, submitError, submitFormValid, on
         </div>
     );
 }
-
 export default SubmitUI;

@@ -24,16 +24,28 @@ module.exports = {
                     })
                 }
                 if (user.email) {
-                    const users = await User.findOne({
+                    const userDB = await User.findOne({
                         where: { email: user.email }
                     });
-                    return users;
+                    if (userDB) {
+                        return userDB;
+                    }
+                    else {
+                        errors.message = "User no longer exist";
+                        throw errors;
+                    }
                 }
                 if (user.phone) {
-                    const users = await User.findOne({
+                    const userDB = await User.findOne({
                         where: { phone: user.phone }
                     });
-                    return users;
+                    if (userDB) {
+                        return userDB;
+                    }
+                    else {
+                        errors.message = "User no longer exist";
+                        throw errors;
+                    }
                 }
             } catch (error) {
                 throw error;
@@ -47,12 +59,12 @@ module.exports = {
                     where: { email }
                 });
                 if (!user) {
-                    errors.email = 'Email is not exist'
+                    errors.message = 'Email is not exist'
                     throw new UserInputError('User is not found', { errors });
                 }
                 const correctPassword = await bcrypt.compare(password, user.password);
                 if (!correctPassword) {
-                    errors.password = 'Password is incorrect'
+                    errors.message = 'Password is incorrect'
                     throw new UserInputError('Password is incorrect', { errors });
                 }
                 const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
@@ -74,7 +86,7 @@ module.exports = {
                         }
                     });
                     if (!user) {
-                        errors.email = 'Email is not exist';
+                        errors.message = 'Email is not exist';
                         throw new UserInputError('User is not found', { errors });
                     }
                     else {
@@ -90,7 +102,7 @@ module.exports = {
                         }
                     });
                     if (!user) {
-                        errors.phone = 'Phone number does not exist';
+                        errors.message = 'Phone number does not exist';
                         throw new UserInputError('User is not found', { errors });
                     }
                     else {
@@ -145,11 +157,11 @@ module.exports = {
             try {
                 // Validate input data 
                 if (password !== confirmPassword) {
-                    errors.confirmPassword = "Passwords must match";
+                    errors.message = "Passwords must match";
                     throw errors;
                 }
                 if (phone.length > 12 || phone.length < 12) {
-                    errors.phone = "Must be a valid phone number";
+                    errors.message = "Must be a valid phone number";
                     throw errors;
                 }
                 // Hash password
@@ -166,7 +178,7 @@ module.exports = {
                     }
                 }
                 else {
-                    errors.create = "Failed to create user"
+                    errors.message = "Failed to create user"
                     throw errors;
                 }
             } catch (error) {
@@ -192,7 +204,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -211,7 +223,7 @@ module.exports = {
                                 }
                             }
                             else {
-                                errors.update = "Failed to update"
+                                errors.message = "Failed to update"
                                 throw errors;
                             }
                         }
@@ -229,7 +241,7 @@ module.exports = {
                                 }
                             }
                             else {
-                                errors.update = "Failed to update"
+                                errors.message = "Failed to update"
                                 throw errors;
                             }
                         }
@@ -247,14 +259,14 @@ module.exports = {
                                 }
                             }
                             else {
-                                errors.update = "Failed to update"
+                                errors.message = "Failed to update"
                                 throw errors;
                             }
                         }
                         // If phone field only case
                         if (phone && !firstName && !lastName && !email) {
                             if (phone.length > 12 || phone.length < 12) {
-                                errors.phone = "Must be a valid phone number"
+                                errors.message = "Must be a valid phone number"
                                 throw errors;
                             }
                             else if (phone.length === 12) {
@@ -270,7 +282,7 @@ module.exports = {
                                     }
                                 }
                                 else {
-                                    errors.update = "Failed to update"
+                                    errors.message = "Failed to update"
                                     throw errors;
                                 }
                             }
@@ -278,7 +290,7 @@ module.exports = {
                         // If everything only case
                         if (firstName && lastName && email && phone) {
                             if (phone.length > 12 || phone.length < 12) {
-                                errors.phone = "Must be a valid phone number"
+                                errors.message = "Must be a valid phone number"
                                 throw errors;
                             }
                             else if (phone.length === 12) {
@@ -294,7 +306,7 @@ module.exports = {
                                     }
                                 }
                                 else {
-                                    errors.update = "Failed to update"
+                                    errors.message = "Failed to update"
                                     throw errors;
                                 }
                             }
@@ -302,7 +314,7 @@ module.exports = {
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
@@ -327,13 +339,13 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
                         // If password do not match
                         if (newPassword !== confirmNewPassword) {
-                            errors.password = "Passwords must match";
+                            errors.message = "Passwords must match";
                             throw errors;
                         }
                         else {
@@ -344,7 +356,7 @@ module.exports = {
                                 });
                                 // If new password = old password
                                 if (bcrypt.compareSync(confirmNewPassword, dbUser.password)) {
-                                    errors.password = "New password must be different from old password";
+                                    errors.message = "New password must be different from old password";
                                     throw errors;
                                 }
                                 else {
@@ -362,7 +374,7 @@ module.exports = {
                                         }
                                     }
                                     else {
-                                        errors.update = "Failed to update password"
+                                        errors.message = "Failed to update password"
                                         throw errors;
                                     }
                                 }
@@ -373,7 +385,7 @@ module.exports = {
                                 });
                                 // If new password = old password
                                 if (bcrypt.compareSync(confirmNewPassword, dbUser.password)) {
-                                    errors.password = "New password must be different from old password";
+                                    errors.message = "New password must be different from old password";
                                     throw errors;
                                 }
                                 else {
@@ -391,7 +403,7 @@ module.exports = {
                                         }
                                     }
                                     else {
-                                        errors.update = "Failed to update password"
+                                        errors.message = "Failed to update password"
                                         throw errors;
                                     }
                                 }
@@ -400,14 +412,11 @@ module.exports = {
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
         passwordUpdate: async (parent, args, context, info) => {
@@ -421,7 +430,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -431,13 +440,13 @@ module.exports = {
                         });
                         if (bcrypt.compareSync(currentPassword, dbUser.password)) {
                             if (newPassword !== confirmNewPassword) {
-                                errors.password = "Passwords must match";
+                                errors.message = "Passwords must match";
                                 throw errors;
                             }
                             else {
                                 // If new password = old password
                                 if (bcrypt.compareSync(confirmNewPassword, dbUser.password)) {
-                                    errors.password = "New password must be different from old password";
+                                    errors.message = "New password must be different from old password";
                                     throw errors;
                                 }
                                 else {
@@ -455,27 +464,24 @@ module.exports = {
                                         }
                                     }
                                     else {
-                                        errors.update = "Failed to update password"
+                                        errors.message = "Failed to update password"
                                         throw errors;
                                     }
                                 }
                             }
                         }
                         else {
-                            errors.password = "Your Password is incorrect";
+                            errors.message = "Your Password is incorrect";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
         deleteProfile: async (parent, args, context, info) => {
@@ -489,7 +495,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -508,25 +514,22 @@ module.exports = {
                                 }
                             }
                             else {
-                                errors.delete = "Failed to delete user";
+                                errors.message = "Failed to delete user";
                                 throw errors;
                             }
                         }
                         else {
-                            errors.password = "Your Password is incorrect";
+                            errors.message = "Your Password is incorrect";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
         stripeSubmit: async (parent, args, context, info) => {
@@ -540,7 +543,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -571,30 +574,27 @@ module.exports = {
                                     }
                                 }
                                 else {
-                                    errors.donation = "Failed to donate";
+                                    errors.message = "Failed to donate";
                                     throw errors;
                                 }
                             }
                             else {
-                                errors.donation = "Already donated"
+                                errors.message = "Already donated"
                                 throw errors;
                             }
                         }
                         else {
-                            errors.donation = "Failed to donate";
+                            errors.message = "Failed to donate";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
         submit: async (parent, args, context, info) => {
@@ -609,7 +609,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -640,26 +640,23 @@ module.exports = {
                                 }
                             }
                             else {
-                                errors.create = "Failed to create"
+                                errors.message = "Failed to create"
                                 throw errors;
                             }
 
                         }
                         else {
-                            errors.s3 = "Failed to submit";
+                            errors.message = "Failed to submit";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "PayloadTooLargeError") {
-                    errors.s3 = "Image is too large";
-                    throw errors;
-                }
+                throw error;
             }
         },
         orderCheck: async (parent, args, context, info) => {
@@ -673,7 +670,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -694,20 +691,17 @@ module.exports = {
                             }
                         }
                         else {
-                            errors.update = "Failed to update";
+                            errors.message = "Failed to update";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
         resetOrder: async (parent, args, context, info) => {
@@ -721,7 +715,7 @@ module.exports = {
                     const expiresAt = new Date(decodedToken.exp * 1000);
                     // Expired token
                     if (new Date() > expiresAt) {
-                        errors.token = "Token Expired";
+                        errors.message = "Token Expired";
                         throw errors;
                     }
                     else {
@@ -746,20 +740,17 @@ module.exports = {
                             }
                         }
                         else {
-                            errors.update = "Failed to update";
+                            errors.message = "Failed to update";
                             throw errors;
                         }
                     }
                 }
                 else {
-                    errors.token = "No token found";
+                    errors.message = "No token found";
                     throw errors;
                 }
             } catch (error) {
-                if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
-                }
-                throw new UserInputError('Bad input', { errors });
+                throw error;
             }
         },
     }

@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import ChooseUI from '../../layout/Choose/Choose';
-
 // Export it as a form so we can use it as props
 const Choose = () => {
     const history = useHistory();

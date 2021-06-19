@@ -3,15 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input/input';
 import './Register.css';
-
 // This will be the font end with props I can use to display data
 function RegisterUI({ form: { variables, errors, loading, registerFormValid, onSubmit, onChange, phoneChange } }) {
-
     return (
         <div className="register-container">
             <h1 className="register-form-title">Create your account </h1>
             <form className="register-form-container">
-                {errors.confirmPassword ? <div className="register-error">{errors.confirmPassword}</div> : [errors.email ? <div className="register-error">{errors.email}</div> : [errors.phone ? <div className="register-error">{errors.phone}</div> : [errors.create ? <div className="register-error">{errors.create}</div> : null]]]}
+                {errors.message ? <div className="register-error">{errors.message}</div> : null}
                 <div className="register-form-group">
                     <input required className="register-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={variables.firstName} onChange={onChange}></input>
                 </div>
@@ -48,5 +46,4 @@ function RegisterUI({ form: { variables, errors, loading, registerFormValid, onS
         </div>
     );
 }
-
 export default RegisterUI;

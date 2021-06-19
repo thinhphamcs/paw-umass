@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as FaIcons from "react-icons/fa";
 import './Change.css';
-
 // This will be the font end with props I can use to display data
 function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmit, onChange } }) {
     return (
@@ -20,7 +19,7 @@ function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmi
             <FaIcons.FaAngleDoubleLeft className="change-left-arrow" />
             <h2 className="change-form-title">Change Your Password</h2>
             <form className="change-form-container">
-                {errors.password ? <div className="change-error">{errors.password}</div> : null}
+                {errors.message ? <div className="change-error">{errors.message}</div> : null}
                 <div className="change-form-group">
                     <input className="change-input"
                         type="password"
@@ -54,6 +53,4 @@ function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmi
         </div>
     );
 }
-
 export default ChangeUI;
-

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as FaIcons from "react-icons/fa";
 import './Deactivate.css';
-
 // This will be the font end with props I can use to display data
 function DeactivateUI({ form: { variables, loading, errors, deactivateFormValid, onSubmit, onChange } }) {
     return (
@@ -20,7 +19,7 @@ function DeactivateUI({ form: { variables, loading, errors, deactivateFormValid,
             <FaIcons.FaAngleDoubleLeft className="deactivate-left-arrow" />
             <h2 className="deactivate-form-title">Deactivate Your Account</h2>
             <form className="deactivate-form-container">
-                {errors.password ? <div className="deactivate-error">{errors.password}</div> : [errors.delete ? <div className="deactivate-error">{errors.delete}</div> : null]}
+                {errors.message ? <div className="deactivate-error">{errors.message}</div> : null}
                 <div className="deactivate-form-group">
                     <input className="deactivate-input"
                         type="password"
@@ -35,6 +34,4 @@ function DeactivateUI({ form: { variables, loading, errors, deactivateFormValid,
         </div>
     );
 }
-
 export default DeactivateUI;
-

@@ -1,7 +1,8 @@
+// Import
 import React from 'react';
 import { useAuthState } from '../context/auth';
 import { Route, Redirect } from 'react-router-dom';
-
+// Export the function
 export default function DynamicRoute(props) {
     const { user } = useAuthState();
     // No user and authenticated route

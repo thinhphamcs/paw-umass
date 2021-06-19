@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useQuery, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
@@ -13,7 +12,6 @@ const GET_USER = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const UPDATE_USER = gql`
     mutation profileUpdate($firstName: String! $lastName: String! $email: String! $phone: String!) {
@@ -22,7 +20,6 @@ const UPDATE_USER = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function ProfileForm() {
     // Hook
@@ -36,10 +33,8 @@ export function ProfileForm() {
     let displayPhone = "";
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // Use this for disabling the button
     let updateFormValid = true;
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -47,7 +42,6 @@ export function ProfileForm() {
             [event.target.name]: event.target.value
         });
     };
-
     // onChange function for child component Phone
     const phoneChange = (value) => {
         setVariables({
@@ -55,7 +49,6 @@ export function ProfileForm() {
             phone: value
         });
     }
-
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
     if (variables.firstName.length || variables.lastName.length || variables.email.length || variables.phone) {
@@ -108,9 +101,7 @@ export function ProfileForm() {
     else {
         updateFormValid = true;
     }
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider    
     const { loading, data, error } = useQuery(GET_USER);
     const [updateUser] = useMutation(UPDATE_USER, {

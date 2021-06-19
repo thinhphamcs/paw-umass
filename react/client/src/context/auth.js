@@ -1,12 +1,10 @@
+// Import
 import React, { createContext, useReducer, useContext } from 'react';
 import jwtDecode from 'jwt-decode';
-
 let user = null;
-
 // Create context
 const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
-
 // Check user validation
 const token = localStorage.getItem('token');
 if (token) {
@@ -23,7 +21,6 @@ if (token) {
 // else {
 //     throw new Error("No Token Found"); // Throw error here will crash the app
 // }
-
 // Create reducer
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -43,7 +40,6 @@ const authReducer = (state, action) => {
             throw new Error(`Unknown action type: ${action.type}`);
     }
 }
-
 // Create Provider
 export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, { user })
@@ -55,6 +51,5 @@ export const AuthProvider = ({ children }) => {
         </AuthDispatchContext.Provider>
     )
 }
-
 export const useAuthState = () => useContext(AuthStateContext)
 export const useAuthDispatch = () => useContext(AuthDispatchContext)
