@@ -8,7 +8,6 @@ const Register = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "#6A150D";
-        document.title = "Register";
     }, [history]);
     return (
         <RegisterUI form={RegisterForm()} />

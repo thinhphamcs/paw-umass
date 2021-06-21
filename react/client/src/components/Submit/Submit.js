@@ -8,7 +8,6 @@ const Submit = () => {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
-        document.title = "Submit";
     }, [history]);
     return (
         <SubmitUI form={SubmitForm()} />

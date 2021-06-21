@@ -8,7 +8,6 @@ function Change() {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
-        document.title = "Change Password";
     }, [history]);
     return (
         <ChangeUI form={ChangeForm()} />

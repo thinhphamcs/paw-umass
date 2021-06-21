@@ -8,7 +8,6 @@ function Profile() {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
-        document.title = "Profile";
     }, [history]);
     return (
         <ProfileUI form={ProfileForm()} />

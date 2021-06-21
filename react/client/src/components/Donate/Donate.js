@@ -13,7 +13,6 @@ function Donate() {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
-        document.title = "Donation";
     }, [history]);
     return (
         <Elements stripe={stripeTestPromise}>

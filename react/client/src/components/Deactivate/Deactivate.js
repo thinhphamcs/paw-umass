@@ -8,7 +8,6 @@ function Deactivate() {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "white";
-        document.title = "Deactivate";
     }, [history]);
     return (
         <DeactivateUI form={DeactivateForm()} />

@@ -8,7 +8,6 @@ function Forgot() {
     const history = useHistory();
     useEffect(() => {
         document.body.style.backgroundColor = "#6A150D";
-        document.title = "Forgot Password";
     }, [history]);
     return (
         <ForgotUI form={ForgotForm()} />
