@@ -1,6 +1,6 @@
+// Import 
 import React from 'react';
 import './Nav.css';
-
 // We export it as component so we can use it somewhere else
 function TopNav(props) {
     return (
@@ -11,5 +11,4 @@ function TopNav(props) {
         </nav>
     );
 }
-
 export default TopNav;

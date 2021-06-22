@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
 import './About.css';
-
 // This will be the font end with props I can use to display data
 function AboutUI() {
     return (
@@ -40,6 +39,4 @@ function AboutUI() {
         </div>
     );
 }
-
 export default AboutUI;
-

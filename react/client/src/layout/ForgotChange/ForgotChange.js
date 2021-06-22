@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
 import './ForgotChange.css';
-
 // This will be the font end with props I can use to display data
 function ForgotChangeUI({ form: { variables, errors, loading, forgotChangeFormValid, onSubmit, onChange, goHome } }) {
     return (
@@ -31,7 +30,7 @@ function ForgotChangeUI({ form: { variables, errors, loading, forgotChangeFormVa
                         value={variables.newPassword}
                         onChange={onChange}></input>
                 </div>
-                {errors.password ? <div className="forgot-change-error">{errors.password}</div> : [errors.update ? <div className="forgot-change-error">{errors.update}</div> : null]}
+                {errors.message ? <div className="forgot-change-error">{errors.message}</div> : null}
                 <div className="forgot-change-form-group">
                     <input className="forgot-change-input"
                         type="password"
@@ -46,6 +45,4 @@ function ForgotChangeUI({ form: { variables, errors, loading, forgotChangeFormVa
         </div>
     );
 }
-
 export default ForgotChangeUI;
-

@@ -5,7 +5,6 @@ import PhoneInput from 'react-phone-number-input/input';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
 import './Forgot.css';
-
 // This will be the font end with props I can use to display data
 function ForgotUI({ form: { variables, loading, errors, forgotFormValid, onSubmit, onChange, phoneChange } }) {
     return (
@@ -19,8 +18,7 @@ function ForgotUI({ form: { variables, loading, errors, forgotFormValid, onSubmi
             <FaIcons.FaAngleDoubleLeft className="forgot-left-arrow" />
             <h1 className="forgot-form-title">Find Your Account</h1>
             <form className="forgot-form-container">
-                {errors.email ?
-                    <div className="forgot-error">{errors.email}</div> : [errors.phone ? <div className="forgot-error">{errors.phone}</div> : null]}
+                {errors.message ? <div className="forgot-error">{errors.message}</div> : null}
                 <div className="forgot-form-group">
                     <input className="forgot-input"
                         type="text"
@@ -46,6 +44,4 @@ function ForgotUI({ form: { variables, loading, errors, forgotFormValid, onSubmi
         </div>
     );
 }
-
 export default ForgotUI;
-

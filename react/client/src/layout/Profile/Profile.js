@@ -5,7 +5,6 @@ import Logo from '../../assets/images/logo.png';
 import PhoneInput from 'react-phone-number-input/input';
 import * as FaIcons from "react-icons/fa";
 import './Profile.css';
-
 // This will be the font end with props I can use to display data
 function ProfileUI({ form: { variables, loading, data, displayPhone, errors, updateFormValid, onSubmit, onChange, phoneChange } }) {
     return (
@@ -19,8 +18,7 @@ function ProfileUI({ form: { variables, loading, data, displayPhone, errors, upd
             <FaIcons.FaAngleDoubleLeft className="profile-left-arrow" />
             <h1 className="profile-form-title">Welcome {data ? data.firstName : null}</h1>
             <form className="profile-form-container">
-                {errors.email ?
-                    <div className="profile-error">{errors.email}</div> : [errors.phone ? <div className="profile-error">{errors.phone}</div> : [errors.update ? <div className="profile-error">{errors.update}</div> : null]]}
+                {errors.message ? <div className="profile-error">{errors.message}</div> : null}
                 <div className="profile-form-group">
                     <div className="profile-data-display">
                         {data ? data.getUser.firstName : null}
@@ -57,6 +55,4 @@ function ProfileUI({ form: { variables, loading, data, displayPhone, errors, upd
         </div>
     );
 }
-
 export default ProfileUI;
-

@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useQuery, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const GET_ASSETS = gql`
     query getAssets {
@@ -13,7 +12,6 @@ const GET_ASSETS = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
@@ -22,7 +20,6 @@ const GET_USER = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const ORDER_CHECK = gql`
     mutation orderCheck($token: String!) {
@@ -31,7 +28,6 @@ const ORDER_CHECK = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const RESET_ORDER = gql`
     mutation resetOrder {
@@ -40,19 +36,15 @@ const RESET_ORDER = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function HomeForm() {
     // Hook
     const [variables, setVariables] = useState({
         search: '',
     });
-
     let displayPhone = "";
-
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -60,13 +52,10 @@ export function HomeForm() {
             search: event.target.value
         });
     };
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider
-    const { data: assetData, error: assetError } = useQuery(GET_ASSETS);
+    const { data: assetData } = useQuery(GET_ASSETS);
     const { data: userData, error: userError } = useQuery(GET_USER);
-
     if (userData) {
         displayPhone = userData.getUser.phone.substring(0, 2)
             .concat(" (" + userData.getUser.phone.substring(2, 5) + ")")
@@ -78,7 +67,6 @@ export function HomeForm() {
         dispatch({ type: 'LOGOUT' });
         history.push("/");
     }
-
     const [orderCheck] = useMutation(ORDER_CHECK, {
         onCompleted(data) {
             if (data) {
@@ -108,7 +96,6 @@ export function HomeForm() {
     const resetSubmit = () => {
         resetOrder();
     }
-
     // Return this so we can use these as props on the UI (front end)
     return { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit };
 }

@@ -10,7 +10,6 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useQuery, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
@@ -19,7 +18,6 @@ const GET_USER = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const STRIPE_SUBMIT = gql`
     mutation stripeSubmit($id: String! $amount: String!) {
@@ -28,7 +26,6 @@ const STRIPE_SUBMIT = gql`
         }
     }
 `;
-
 // This will be the font end with props I can use to display data
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -62,10 +59,8 @@ function DonateUI() {
     const stripe = useStripe();
     const elements = useElements();
     const history = useHistory();
-
     // Use this for disabling the button
     let donateFormValid = true;
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -73,7 +68,6 @@ function DonateUI() {
             [event.target.name]: event.target.value,
         });
     };
-
     // Function to check if user have typed everything
     if (variables.nameOnCard &&
         (variables.radio === "100" || variables.radio === "500" || variables.radio === "1000" ||
@@ -84,9 +78,7 @@ function DonateUI() {
     else {
         donateFormValid = true;
     }
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider    
     const { data, error } = useQuery(GET_USER);
     const [stripeSubmit, { loading }] = useMutation(STRIPE_SUBMIT, {
@@ -117,7 +109,6 @@ function DonateUI() {
             console.log(error.message);
         }
     }
-
     return (
         <>
             {data ? [((data.getUser.donation === false) && !consent) ? <div className="consent-container" key='14'>
@@ -216,5 +207,4 @@ function DonateUI() {
         </>
     );
 }
-
 export default DonateUI;

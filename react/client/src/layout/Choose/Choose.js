@@ -4,7 +4,6 @@ import { Redirect, Link } from 'react-router-dom';
 import './Choose.css';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from 'react-icons/fa';
-
 // This will be the font end with props I can use to display data
 const ChooseUI = () => {
     // Hooks
@@ -60,5 +59,4 @@ const ChooseUI = () => {
         </>
     );
 }
-
 export default ChooseUI;

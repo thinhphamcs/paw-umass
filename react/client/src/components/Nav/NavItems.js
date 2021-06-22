@@ -1,7 +1,8 @@
+// Import
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Nav.css';
-
+// We export it as component so we can use it somewhere else
 function NavItems(props) {
     const [open, setOpen] = useState(false);
     return (
@@ -13,5 +14,4 @@ function NavItems(props) {
         </li>
     )
 }
-
 export default NavItems;

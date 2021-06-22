@@ -3,7 +3,6 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 1. Checkout files with `git clone https://github.com/thinhphamcs/paw-umass.git && cd paw-umass`
 
 2. Build all dependencies with `npm install` which will install:
-
 ```
 "@stripe/react-stripe-js": "^1.4.0",
 "@stripe/stripe-js": "^1.14.0",
@@ -60,22 +59,24 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 6. Build and run client by `cd .\react\client\` then `npm start`
 
 7. ### APIs: \
-    About: `http://localhost:#/about`
-    Change: `http://localhost:#/settings/change`
-    Choose: `http://localhost:#/`
-    Cookies: `http://localhost:#/cookies`
-    Deactivate: `http://localhost:#/settings/deactivate`
-    Donate: `http://localhost:#/user/donate`
-    Forgot: `http://localhost:#/forgot`
-    Forgot Change: `http://localhost:#/change`
-    Forgot: `http://localhost:#/forgot/`
-    Home: `http://localhost:#/home`
-    Login: `http://localhost:#/login`
-    Privacy: `http://localhost:#/privacy`
-    Profile: `http://localhost:#/settings/profile`
-    Register: `http://localhost:#/register`
-    Submit: `http://localhost:#/user/submit`
-    ToS: `http://localhost:#/tos`
+```
+    About: http://localhost:#/about
+    Change: http://localhost:#/settings/change
+    Choose: http://localhost:#/
+    Cookies: http://localhost:#/cookies
+    Deactivate: http://localhost:#/settings/deactivate
+    Donate: http://localhost:#/user/donate
+    Forgot: http://localhost:#/forgot
+    Forgot Change: http://localhost:#/change
+    Forgot: http://localhost:#/forgot/
+    Home: http://localhost:#/home
+    Login: http://localhost:#/login
+    Privacy: http://localhost:#/privacy
+    Profile: http://localhost:#/settings/profile
+    Register: http://localhost:#/register
+    Submit: http://localhost:#/user/submit
+    ToS: http://localhost:#/tos
+```
 
 8. ### Response Codes
 ```
@@ -89,7 +90,7 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 9. ### Responses
 
-`status` will be one of `"PASSED"`, `"FAILED"`, or `"ERRORED"`.
+`status` will be one of `"PASSED"`, `"FAILED"`, or `"ERROR"`.
 
 ### Successful Response
 ```

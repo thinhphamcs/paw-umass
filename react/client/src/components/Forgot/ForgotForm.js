@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useLazyQuery } from '@apollo/client';
-
 // GraphQL mutation
 const CHECK_USER = gql`
     query checkUser($email: String $phone: String) {
@@ -13,7 +12,6 @@ const CHECK_USER = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function ForgotForm() {
     // Hook
@@ -21,15 +19,11 @@ export function ForgotForm() {
         email: '',
         phone: ''
     });
-
     const [errors, setErrors] = useState({});
-
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // Use this for disabling the button
     let forgotFormValid = true;
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -37,7 +31,6 @@ export function ForgotForm() {
             [event.target.name]: event.target.value
         });
     };
-
     // onChange function for child component Phone
     const phoneChange = (value) => {
         setVariables({
@@ -45,7 +38,6 @@ export function ForgotForm() {
             phone: value
         });
     }
-
     // Function to check if user have typed something
     // if user input the email/phone field then we open the button
     if (variables.email.length && !variables.phone) {
@@ -58,9 +50,7 @@ export function ForgotForm() {
     else {
         forgotFormValid = true;
     }
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider    
     const [checkUser, { loading }] = useLazyQuery(CHECK_USER, {
         onCompleted(data) {
@@ -71,13 +61,11 @@ export function ForgotForm() {
             setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });
-
     // onSubmit function that will submit the form and the dispatch
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
         checkUser({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
-
     // Return this so we can use these as props on the UI (front end)
     return { variables, loading, errors, forgotFormValid, onSubmit, onChange, phoneChange };
 }

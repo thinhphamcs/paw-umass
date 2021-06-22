@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useQuery, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
@@ -13,7 +12,6 @@ const GET_USER = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const CHANGE_PASSWORD = gql`
     mutation changePassword($newPassword: String! $confirmNewPassword: String!) {
@@ -22,7 +20,6 @@ const CHANGE_PASSWORD = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function ForgotChangeForm() {
     // Hook
@@ -30,15 +27,11 @@ export function ForgotChangeForm() {
         newPassword: '',
         confirmNewPassword: '',
     });
-
     const [errors, setErrors] = useState({});
-
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // Use this for disabling the button
     let forgotChangeFormValid = true;
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -46,7 +39,6 @@ export function ForgotChangeForm() {
             [event.target.name]: event.target.value
         });
     };
-
     // Function to check if user have typed something
     // if user input the first/last/email/phone field then we open the button
     if (variables.newPassword.length && variables.confirmNewPassword.length) {
@@ -56,17 +48,16 @@ export function ForgotChangeForm() {
     else {
         forgotChangeFormValid = true;
     }
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider
     const { error } = useQuery(GET_USER);
     const [changePassword, { loading }] = useMutation(CHANGE_PASSWORD, {
-        onCompleted(data) {
+        onCompleted() {
             dispatch({ type: 'LOGOUT' });
             history.push("/login");
         },
         onError(error) {
+            // console.log(error.graphQLErrors[0].extensions);
             setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });
@@ -79,12 +70,10 @@ export function ForgotChangeForm() {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
         changePassword({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
-
     const goHome = () => {
         dispatch({ type: 'LOGOUT' });
         history.push("/login");
     }
-
     // Return this so we can use these as props on the UI (front end)
     return { variables, errors, loading, forgotChangeFormValid, onSubmit, onChange, goHome };
 }

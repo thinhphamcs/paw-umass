@@ -1,5 +1,5 @@
 // Import
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
 import { Card } from 'react-bootstrap';
@@ -12,7 +12,6 @@ import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
 import TimeAgo from 'react-timeago';
 import './Home.css';
-
 // This will be the font end with props I can use to display data
 // , resetSubmit
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
@@ -112,6 +111,4 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
         </div >
     );
 }
-
 export default HomeUI;
-

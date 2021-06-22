@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
 import './Cookies.css';
-
 // This will be the font end with props I can use to display data
 function CookiesUI() {
     return (
@@ -83,6 +82,4 @@ function CookiesUI() {
         </div>
     );
 }
-
 export default CookiesUI;
-

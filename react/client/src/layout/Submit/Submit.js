@@ -5,9 +5,8 @@ import Logo from '../../assets/images/logo.png';
 import * as FaIcons from "react-icons/fa";
 import * as RiIcons from "react-icons/ri";
 import './Submit.css';
-
 // This will be the font end with props I can use to display data
-function SubmitUI({ form: { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText } }) {
+function SubmitUI({ form: { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText } }) {
     return (
         <div className="submit-container">
             <FaIcons.FaAngleDoubleRight className="submit-right-arrow" />
@@ -21,7 +20,7 @@ function SubmitUI({ form: { variables, loading, submitError, submitFormValid, on
             <FaIcons.FaAngleDoubleLeft className="submit-left-arrow" />
             <h2 className="submit-form-title">Submit Your Companion</h2>
             <form className="submit-form-container" >
-                {submitError ? <div className="submit-error">{"Image is too large"}</div> : null}
+                {errors.message ? <div className="submit-error">{errors.message}</div> : null}
                 <div className="submit-form-group">
                     <input required className="submit-input" type="text" id="petName" name="petName" placeholder="Pet Name" maxLength="30" value={variables.petName} onChange={onChange}></input>
                 </div>
@@ -77,5 +76,4 @@ function SubmitUI({ form: { variables, loading, submitError, submitFormValid, on
         </div>
     );
 }
-
 export default SubmitUI;

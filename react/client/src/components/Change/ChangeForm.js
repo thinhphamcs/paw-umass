@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { useAuthDispatch } from '../../context/auth';
 // GraphQL mutation
 import { gql, useQuery, useMutation } from '@apollo/client';
-
 // GraphQL mutation
 const GET_USER = gql`
     query getUser {
@@ -13,7 +12,6 @@ const GET_USER = gql`
         }
     }
 `;
-
 // GraphQL mutation
 const PASSWORD_UPDATE = gql`
     mutation passwordUpdate($currentPassword: String! $newPassword: String! $confirmNewPassword: String!) {
@@ -22,7 +20,6 @@ const PASSWORD_UPDATE = gql`
         }
     }
 `;
-
 // Export it as a form so we can use it as props
 export function ChangeForm() {
     // Hook
@@ -31,15 +28,11 @@ export function ChangeForm() {
         newPassword: '',
         confirmNewPassword: '',
     });
-
     const [errors, setErrors] = useState({});
-
     // use history from react-router-dom to redirect
     const history = useHistory();
-
     // Use this for disabling the button
     let changeFormValid = true;
-
     // onChange function
     const onChange = (event) => {
         setVariables({
@@ -47,9 +40,8 @@ export function ChangeForm() {
             [event.target.name]: event.target.value
         });
     };
-
     // Function to check if user have typed something
-    // if user input the first/last/email/phone field then we open the button
+    // if user input the current/new/confirm field then we open the button
     if (variables.currentPassword.length && variables.newPassword.length && variables.confirmNewPassword.length) {
         changeFormValid = false;
     }
@@ -57,9 +49,7 @@ export function ChangeForm() {
     else {
         changeFormValid = true;
     }
-
     const dispatch = useAuthDispatch();
-
     // GraphQL mutation, think of this as global provider  
     const { error } = useQuery(GET_USER);
     const [passwordUpdate, { loading }] = useMutation(PASSWORD_UPDATE, {
@@ -80,7 +70,6 @@ export function ChangeForm() {
         event.preventDefault(); // Prevent react from refresh the page and put data on URL
         passwordUpdate({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
-
     // Return this so we can use these as props on the UI (front end)
     return { variables, loading, errors, changeFormValid, onSubmit, onChange };
 }

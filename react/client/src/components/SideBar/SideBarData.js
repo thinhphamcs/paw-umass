@@ -3,7 +3,6 @@ import React from 'react';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as ImIcons from "react-icons/im";
-
 /**
  * We export each icon with:
  * Title: Which title does this icon belong to?
