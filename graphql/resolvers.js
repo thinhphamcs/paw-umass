@@ -48,7 +48,14 @@ module.exports = {
                     }
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         login: async (parent, args, context, info) => {
@@ -71,7 +78,14 @@ module.exports = {
                 user.token = token;
                 return user;
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         checkUser: async (parent, args, context, info) => {
@@ -113,7 +127,14 @@ module.exports = {
                     }
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         getAssets: async (parent, args, context, info) => {
@@ -145,7 +166,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
     },
@@ -184,10 +212,10 @@ module.exports = {
             } catch (error) {
                 // Add Sequelize errors into errors variable defined above
                 if (error.name === "SequelizeUniqueConstraintError") {
-                    error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
                 }
                 else if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
+                    error.errors.forEach(e => (errors["message"] = e.message));
                 }
                 // Throw errors as Bad input
                 throw new UserInputError('Bad input', { errors });
@@ -319,10 +347,10 @@ module.exports = {
                 }
             } catch (error) {
                 if (error.name === "SequelizeUniqueConstraintError") {
-                    error.errors.forEach(e => (errors[e.path.split(".")[1]] = `Email is already taken`));
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
                 }
                 else if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors[e.path] = e.message));
+                    error.errors.forEach(e => (errors["message"] = e.message));
                 }
                 // Throw errors as Bad input
                 throw new UserInputError('Bad input', { errors });
@@ -356,6 +384,7 @@ module.exports = {
                                 });
                                 // If new password = old password
                                 if (bcrypt.compareSync(confirmNewPassword, dbUser.password)) {
+                                    console.log("HELLO AT EMAIL");
                                     errors.message = "New password must be different from old password";
                                     throw errors;
                                 }
@@ -385,6 +414,7 @@ module.exports = {
                                 });
                                 // If new password = old password
                                 if (bcrypt.compareSync(confirmNewPassword, dbUser.password)) {
+                                    console.log("HELLO AT PHONE");
                                     errors.message = "New password must be different from old password";
                                     throw errors;
                                 }
@@ -416,7 +446,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         passwordUpdate: async (parent, args, context, info) => {
@@ -481,7 +518,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         deleteProfile: async (parent, args, context, info) => {
@@ -529,7 +573,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         stripeSubmit: async (parent, args, context, info) => {
@@ -594,7 +645,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         submit: async (parent, args, context, info) => {
@@ -656,7 +714,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         orderCheck: async (parent, args, context, info) => {
@@ -701,7 +766,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
         resetOrder: async (parent, args, context, info) => {
@@ -750,7 +822,14 @@ module.exports = {
                     throw errors;
                 }
             } catch (error) {
-                throw error;
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
             }
         },
     }

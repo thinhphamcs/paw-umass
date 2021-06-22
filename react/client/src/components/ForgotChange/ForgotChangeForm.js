@@ -52,11 +52,12 @@ export function ForgotChangeForm() {
     // GraphQL mutation, think of this as global provider
     const { error } = useQuery(GET_USER);
     const [changePassword, { loading }] = useMutation(CHANGE_PASSWORD, {
-        onCompleted(data) {
+        onCompleted() {
             dispatch({ type: 'LOGOUT' });
             history.push("/login");
         },
         onError(error) {
+            // console.log(error.graphQLErrors[0].extensions);
             setErrors(error.graphQLErrors[0].extensions.errors);
         }
     });

@@ -54,7 +54,7 @@ export function HomeForm() {
     };
     const dispatch = useAuthDispatch();
     // GraphQL mutation, think of this as global provider
-    const { data: assetData, error: assetError } = useQuery(GET_ASSETS);
+    const { data: assetData } = useQuery(GET_ASSETS);
     const { data: userData, error: userError } = useQuery(GET_USER);
     if (userData) {
         displayPhone = userData.getUser.phone.substring(0, 2)

@@ -31,6 +31,7 @@ export function SubmitForm() {
         countdown: '',
         radio: ''
     });
+    const [errors, setErrors] = useState("");
     // use history from react-router-dom to redirect
     const history = useHistory();
     // Use this for disabling the button
@@ -64,10 +65,15 @@ export function SubmitForm() {
     const dispatch = useAuthDispatch();
     // GraphQL mutation, think of this as global provider  
     const { error } = useQuery(GET_USER);
-    const [submit, { data: submitData, error: submitError, loading }] = useMutation(SUBMIT_FORM, {
-        onCompleted(submitData) {
+    const [submit, { loading }] = useMutation(SUBMIT_FORM, {
+        onCompleted() {
             history.push("/home");
         },
+        onError() {
+            setErrors({
+                message: "Image is too large"
+            });
+        }
     });
     if (error) {
         dispatch({ type: 'LOGOUT' });
@@ -79,5 +85,5 @@ export function SubmitForm() {
         submit({ variables }); // GraphQL mutation // Error when it is not named "variables"
     }
     // Return this so we can use these as props on the UI (front end)
-    return { variables, loading, submitError, submitFormValid, onChange, onSubmit, limitText };
+    return { variables, loading, errors, submitFormValid, onChange, onSubmit, limitText };
 }
