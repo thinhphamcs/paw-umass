@@ -1,11 +1,10 @@
 // Import require
 const AWS = require('aws-sdk');
-const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_ACCESS_KEY, AWS_SECRET_KEY } = require('./config/env.json');
 // Without const variables the config won't work
-const bucket = AWS_BUCKET_NAME;
-const region = AWS_BUCKET_REGION;
-const accessKeyId = AWS_ACCESS_KEY;
-const secretAccessKey = AWS_SECRET_KEY;
+const bucket = process.env.AWS_BUCKET_NAME;
+const region = process.env.AWS_BUCKET_REGION;
+const accessKeyId = process.env.AWS_ACCESS_KEY;
+const secretAccessKey = process.env.AWS_SECRET_KEY;
 // Standard AWS config
 AWS.config.update({
     accessKeyId: accessKeyId,

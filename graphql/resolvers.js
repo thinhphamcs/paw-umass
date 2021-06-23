@@ -1,11 +1,10 @@
 // Import Require
 const { User, Asset } = require('../models');
 const { UserInputError, AuthenticationError } = require('apollo-server');
-const { JWT_SECRET, STRIPE_SECRET_TEST } = require('../config/env.json');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
-const stripe = require("stripe")(STRIPE_SECRET_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 const { uploadToS3, getObjectFromS3 } = require('../s3');
 // Exports the following functions
 module.exports = {
@@ -16,7 +15,7 @@ module.exports = {
                 // Check token in headers
                 if (context.req && context.req.headers.authorization) {
                     const token = context.req.headers.authorization.split('Bearer ')[1]; // split after bearer
-                    jwt.verify(token, JWT_SECRET, (error, decodedToken) => {
+                    jwt.verify(token, process.env.JWT_SECRET, (error, decodedToken) => {
                         if (error) {
                             throw new AuthenticationError('Unauthenticated');
                         }
@@ -74,7 +73,7 @@ module.exports = {
                     errors.message = 'Password is incorrect'
                     throw new UserInputError('Password is incorrect', { errors });
                 }
-                const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+                const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
                 user.token = token;
                 return user;
             } catch (error) {
@@ -104,7 +103,7 @@ module.exports = {
                         throw new UserInputError('User is not found', { errors });
                     }
                     else {
-                        const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+                        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
                         user.token = token;
                         return user;
                     }
@@ -121,7 +120,7 @@ module.exports = {
                     }
                     else {
                         const phone = user.phone;
-                        const token = jwt.sign({ phone }, JWT_SECRET, { expiresIn: '1h' });
+                        const token = jwt.sign({ phone }, process.env.JWT_SECRET, { expiresIn: '1h' });
                         user.token = token;
                         return user;
                     }
@@ -685,7 +684,7 @@ module.exports = {
                             const howLong = radio;
                             const date = new Date();
                             const number = Math.floor(Math.random() * id);
-                            const token = jwt.sign({ id: id + number }, JWT_SECRET);
+                            const token = jwt.sign({ id: id + number }, process.env.JWT_SECRET);
                             const availability = false;
                             // Create assets
                             const create = await Asset.create({

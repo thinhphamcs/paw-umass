@@ -5,7 +5,7 @@ import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
 // Create the uplink
 const uploadLink = createUploadLink({
-    uri: 'http://localhost:4000/'
+    uri: '/graphql/'
 })
 // Set the headers to authorized link
 const authLink = setContext((_, { headers }) => {
