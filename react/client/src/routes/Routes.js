@@ -2,14 +2,14 @@
 import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
-import Home from '../components/Home/Home';
+// import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
 import Deactivate from '../components/Deactivate/Deactivate';
 import Change from '../components/Change/Change';
 import Forgot from '../components/Forgot/Forgot';
 import ForgotChange from '../components/ForgotChange/ForgotChange';
 import Submit from '../components/Submit/Submit';
-// import Donate from '../components/Donate/Donate';
+import Donate from '../components/Donate/Donate';
 import About from '../components/About/About';
 import ToS from '../components/ToS/ToS';
 import Privacy from '../components/Privacy/Privacy';
