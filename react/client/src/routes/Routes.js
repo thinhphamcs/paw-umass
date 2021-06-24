@@ -108,12 +108,12 @@ const routes = [
         title: 'Submit',
         authenticated: true,
     },
-    // {
-    //     path: '/user/donate',
-    //     component: Donate,
-    //     title: 'Donate',
-    //     authenticated: true,
-    // }
+    {
+        path: '/user/donate',
+        component: Donate,
+        title: 'Donate',
+        authenticated: true,
+    }
 ];
 
 export default routes;

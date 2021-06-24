@@ -4,7 +4,7 @@ const { UserInputError, AuthenticationError } = require('apollo-server');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 // const { uploadToS3, getObjectFromS3 } = require('../s3');
 // Exports the following functions
 module.exports = {
@@ -582,78 +582,78 @@ module.exports = {
                 throw new UserInputError('Bad input', { errors });
             }
         },
-        // stripeSubmit: async (parent, args, context, info) => {
-        //     const { amount, id } = args;
-        //     let currentUser = null;
-        //     let errors = {};
-        //     const token = context.req.headers.authorization.split("Bearer ")[1];
-        //     try {
-        //         if (token) {
-        //             const decodedToken = jwtDecode(token);
-        //             const expiresAt = new Date(decodedToken.exp * 1000);
-        //             // Expired token
-        //             if (new Date() > expiresAt) {
-        //                 errors.message = "Token Expired";
-        //                 throw errors;
-        //             }
-        //             else {
-        //                 currentUser = decodedToken;
-        //                 const dbUser = await User.findOne({
-        //                     where: { email: currentUser.email }
-        //                 });
-        //                 // Logic for donation
-        //                 // const donationStripe = await stripe.paymentIntents.create({
-        //                 //     amount,
-        //                 //     currency: "USD",
-        //                 //     description: "PawUMass Donation",
-        //                 //     payment_method: id,
-        //                 //     confirm: true
-        //                 // });
-        //                 // if (donationStripe) {
-        //                 //     const donation = dbUser.donation;
-        //                 //     if (donation === false) {
-        //                 //         const values = { donation: 1 };
-        //                 //         const selector = {
-        //                 //             where: { email: currentUser.email }
-        //                 //         };
-        //                 //         const update = await User.update(values, selector);
-        //                 //         if (update) {
-        //                 //             return {
-        //                 //                 status: 200,
-        //                 //                 message: "Successfully donated"
-        //                 //             }
-        //                 //         }
-        //                 //         else {
-        //                 //             errors.message = "Failed to donate";
-        //                 //             throw errors;
-        //                 //         }
-        //                 //     }
-        //                 //     else {
-        //                 //         errors.message = "Already donated"
-        //                 //         throw errors;
-        //                 //     }
-        //                 // }
-        //                 // else {
-        //                 //     errors.message = "Failed to donate";
-        //                 //     throw errors;
-        //                 // }
-        //             }
-        //         }
-        //         else {
-        //             errors.message = "No token found";
-        //             throw errors;
-        //         }
-        //     } catch (error) {
-        //         if (error.name === "SequelizeUniqueConstraintError") {
-        //             error.errors.forEach(e => (errors["message"] = `Email is already taken`));
-        //         }
-        //         else if (error.name === "SequelizeValidationError") {
-        //             error.errors.forEach(e => (errors["message"] = e.message));
-        //         }
-        //         // Throw errors as Bad input
-        //         throw new UserInputError('Bad input', { errors });
-        //     }
-        // },
+        stripeSubmit: async (parent, args, context, info) => {
+            const { amount, id } = args;
+            let currentUser = null;
+            let errors = {};
+            const token = context.req.headers.authorization.split("Bearer ")[1];
+            try {
+                if (token) {
+                    const decodedToken = jwtDecode(token);
+                    const expiresAt = new Date(decodedToken.exp * 1000);
+                    // Expired token
+                    if (new Date() > expiresAt) {
+                        errors.message = "Token Expired";
+                        throw errors;
+                    }
+                    else {
+                        currentUser = decodedToken;
+                        const dbUser = await User.findOne({
+                            where: { email: currentUser.email }
+                        });
+                        // Logic for donation
+                        const donationStripe = await stripe.paymentIntents.create({
+                            amount,
+                            currency: "USD",
+                            description: "PawUMass Donation",
+                            payment_method: id,
+                            confirm: true
+                        });
+                        if (donationStripe) {
+                            const donation = dbUser.donation;
+                            if (donation === false) {
+                                const values = { donation: 1 };
+                                const selector = {
+                                    where: { email: currentUser.email }
+                                };
+                                const update = await User.update(values, selector);
+                                if (update) {
+                                    return {
+                                        status: 200,
+                                        message: "Successfully donated"
+                                    }
+                                }
+                                else {
+                                    errors.message = "Failed to donate";
+                                    throw errors;
+                                }
+                            }
+                            else {
+                                errors.message = "Already donated"
+                                throw errors;
+                            }
+                        }
+                        else {
+                            errors.message = "Failed to donate";
+                            throw errors;
+                        }
+                    }
+                }
+                else {
+                    errors.message = "No token found";
+                    throw errors;
+                }
+            } catch (error) {
+                if (error.name === "SequelizeUniqueConstraintError") {
+                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+                }
+                else if (error.name === "SequelizeValidationError") {
+                    error.errors.forEach(e => (errors["message"] = e.message));
+                }
+                // Throw errors as Bad input
+                throw new UserInputError('Bad input', { errors });
+            }
+        },
         submit: async (parent, args, context, info) => {
             const { petName, breed, description, radio } = args;
             const { filename } = await args.file;
