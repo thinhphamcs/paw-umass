@@ -15,7 +15,7 @@ import './Home.css';
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" >
-            <div className="home-container" >
+            {/* <div className="home-container" >
                 <TopNav>
                     <div className="search-container" >
                         <div className="search-wrap" >
@@ -51,10 +51,10 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                         })}
                     </ul>
                 </nav>
-            </div>
+            </div> */}
             <main>
                 <div className="home-body">
-                    {/* <div className="home-content">
+                    <div className="home-content">
                         {assetData && userData ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
@@ -103,7 +103,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                                     PHONE: {userData ? displayPhone : null}<br /><br />
                                     <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
                                 </div>]] : null}
-                    </div> */}
+                    </div>
                 </div>
             </main >
         </div >
