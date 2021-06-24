@@ -31,7 +31,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                         <DropdownMenus />
                     </NavItems>
                 </TopNav>
-                <nav className="nav-bar" >
+                {/* <nav className="nav-bar" >
                     <ul className="nav-bar-nav" >
                         <li className="logo" >
                             <Link to="/home" className="nav-link">
@@ -50,7 +50,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                             )
                         })}
                     </ul>
-                </nav>
+                </nav> */}
             </div>
             <main>
                 <div className="home-body">
