@@ -2,7 +2,7 @@
 import Choose from '../components/Choose/Choose';
 import Register from '../components/Register/Register';
 import Login from '../components/Login/Login';
-// import Home from '../components/Home/Home';
+import Home from '../components/Home/Home';
 import Profile from '../components/Profile/Profile';
 import Deactivate from '../components/Deactivate/Deactivate';
 import Change from '../components/Change/Change';
@@ -96,12 +96,12 @@ const routes = [
         title: 'Deactivate',
         authenticated: true,
     },
-    // {
-    //     path: '/home',
-    //     component: Home,
-    //     title: 'PawUMass',
-    //     authenticated: true,
-    // },
+    {
+        path: '/home',
+        component: Home,
+        title: 'PawUMass',
+        authenticated: true,
+    },
     {
         path: '/user/submit',
         component: Submit,
