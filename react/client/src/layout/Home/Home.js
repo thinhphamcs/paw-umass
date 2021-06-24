@@ -58,7 +58,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                         {assetData && userData ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
-                                    <div className="row" >
+                                    {/* <div className="row" >
                                         {assetData.getAssets ? assetData.getAssets.filter((value) => {
                                             if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
                                                 return value;
@@ -83,7 +83,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                                                         </Card.Text>
                                                     </Card.Body>
                                                     <Card.Footer>
-                                                        {/* <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small> */}
+                                                        <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
                                                         {value.availability === true ?
                                                             <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
                                                             <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
@@ -91,7 +91,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                                                 </Card>
                                             </div>
                                         )) : null}
-                                    </div>
+                                    </div> */}
                                 </div>
                                 :
                                 <div className="home-next" >
