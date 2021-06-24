@@ -1,15 +1,15 @@
 // Import
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { SideBarData } from '../../components/SideBar/SideBarData';
-// import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { SideBarData } from '../../components/SideBar/SideBarData';
+import { Card } from 'react-bootstrap';
 import * as BsIcons from "react-icons/bs";
-// import * as CgIcons from "react-icons/cg";
-// import * as FaIcons from "react-icons/fa";
+import * as CgIcons from "react-icons/cg";
+import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
-// import TimeAgo from 'react-timeago';
+import TimeAgo from 'react-timeago';
 import './Home.css';
 // // This will be the font end with props I can use to display data
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
@@ -31,7 +31,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                         <DropdownMenus />
                     </NavItems>
                 </TopNav>
-                {/* <nav className="nav-bar" >
+                <nav className="nav-bar" >
                     <ul className="nav-bar-nav" >
                         <li className="logo" >
                             <Link to="/home" className="nav-link">
@@ -50,12 +50,12 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                             )
                         })}
                     </ul>
-                </nav> */}
+                </nav>
             </div>
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {/* {(assetData && userData) ?
+                        {(assetData && userData) ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
                                     <div className="row" >
@@ -102,7 +102,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                                     EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
                                     PHONE: {userData ? displayPhone : null}<br /><br />
                                     <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                                </div>]] : null}                                                                     */}
+                                </div>]] : null}
                     </div>
                 </div>
             </main >
