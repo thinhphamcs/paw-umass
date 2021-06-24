@@ -1,5 +1,5 @@
 /* === Container === */
-.about-container {
+.acpt-container {
     position: fixed;
     top: 55%;
     left: 50%;
@@ -11,14 +11,14 @@
 }
 
 /* === Logo, Arrows === */
-.about-container-header {
+.acpt-container-header {
     position: fixed;
     top: -6%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.about-right-arrow {
+.acpt-right-arrow {
     top: -5%;
     left: 10%;
     height: 20px;
@@ -27,7 +27,7 @@
     position: fixed;
 }
 
-.about-left-arrow {
+.acpt-left-arrow {
     top: -5%;
     right: 10%;
     height: 20px;
@@ -37,7 +37,7 @@
 }
 
 /* === Body === */
-.about-body {
+.acpt-body {
     display: flex;
     overflow: hidden;
     height: 667px;
@@ -49,7 +49,7 @@
     will-change: overflow;
 }
 
-.about-content {
+.acpt-content {
     color: #6A150D;
     overflow-x: hidden;
     height: auto;
@@ -58,7 +58,7 @@
     font-size: 20px !important;
 }
 
-.about-content::-webkit-scrollbar {
+.acpt-content::-webkit-scrollbar {
     display: none;
 }
 
@@ -69,7 +69,7 @@
         overflow-x: hidden;
         position: absolute;
     }
-    .about-container {
+    .acpt-container {
         width: 360px;
     }
   }
@@ -82,26 +82,26 @@
         top: 50%;
         left: 50%;
     }
-    .about-container {
+    .acpt-container {
         position: fixed;
         width: 360px;
         height: 570px;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-    .about-container-header {
+    .acpt-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -51%);
         transform: translate(-50%, -51%);
     }
-    .about-body {
+    .acpt-body {
         padding: 0px 15px;
         position: fixed;
         height: 530px;
         -webkit-transform: translate(0%, 22%);
         transform: translate(0%, 22%);
     }
-    .about-content {
+    .acpt-content {
         -webkit-transform: translate(0%, 0%);
         transform: translate(0%, 0%);
     }

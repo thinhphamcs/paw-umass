@@ -3,25 +3,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo.png';
 import * as FaIcons from "react-icons/fa";
-import './Change.css';
+import '../StyleSheets/CDP.css';
 // This will be the font end with props I can use to display data
 function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmit, onChange } }) {
     return (
-        <div className="change-container">
-            <FaIcons.FaAngleDoubleRight className="change-right-arrow" />
-            <div className="change-container-header">
+        <div className="cdp-container">
+            <FaIcons.FaAngleDoubleRight className="cdp-right-arrow change-right" />
+            <div className="cdp-container-header change-header">
                 <Link to="/home" >
-                    <div className="change-logo">
+                    <div className="cdp-logo">
                         <img src={Logo} alt="Logo" />
                     </div>
                 </Link>
             </div>
-            <FaIcons.FaAngleDoubleLeft className="change-left-arrow" />
-            <h2 className="change-form-title">Change Your Password</h2>
-            <form className="change-form-container">
-                {errors.message ? <div className="change-error">{errors.message}</div> : null}
-                <div className="change-form-group">
-                    <input className="change-input"
+            <FaIcons.FaAngleDoubleLeft className="cdp-left-arrow change-left" />
+            <h2 className="cdp-form-title">Change Your Password</h2>
+            <form className="cdp-form-container">
+                {errors.message ? <div className="cdp-error">{errors.message}</div> : null}
+                <div className="cdp-form-group">
+                    <input className="cdp-input change-input"
                         type="password"
                         id="currentPassword"
                         name="currentPassword"
@@ -30,8 +30,8 @@ function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmi
                         onChange={onChange}></input>
                 </div>
                 <div className="change-line"></div>
-                <div className="change-form-group">
-                    <input className="change-input"
+                <div className="cdp-form-group">
+                    <input className="cdp-input change-input"
                         type="password"
                         id="newPassword"
                         name="newPassword"
@@ -39,8 +39,8 @@ function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmi
                         value={variables.newPassword}
                         onChange={onChange}></input>
                 </div>
-                <div className="change-form-group">
-                    <input className="change-input"
+                <div className="cdp-form-group">
+                    <input className="cdp-input change-input"
                         type="password"
                         id="confirmNewPassword"
                         name="confirmNewPassword"
@@ -48,7 +48,7 @@ function ChangeUI({ form: { variables, loading, errors, changeFormValid, onSubmi
                         value={variables.confirmNewPassword}
                         onChange={onChange}></input>
                 </div>
-                <button className="change-form-button" type="submit" onClick={onSubmit} disabled={changeFormValid || loading}>{loading ? 'Loading...' : 'Change'}</button>
+                <button className="cdp-form-button" type="submit" onClick={onSubmit} disabled={changeFormValid || loading}>{loading ? 'Loading...' : 'Change'}</button>
             </form>
         </div>
     );

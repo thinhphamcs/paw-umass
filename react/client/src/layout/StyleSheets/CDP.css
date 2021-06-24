@@ -1,5 +1,5 @@
 /* === Container === */
-.change-container {
+.cdp-container {
     position: fixed;
     top: 55%;
     left: 50%;
@@ -12,25 +12,34 @@
 }
 
 /* === Logo, Arrows === */
-.change-logo {
+.cdp-logo {
     display: inline-block; 
     height: 100px;
 }
 
-.change-logo img {
+.cdp-logo img {
     height: 120%;
     width: 100%;
 }
 
-.change-container-header {
+.cdp-container-header {
     position: fixed;
-    top: -8%;
     left: 50%;
     transform: translate(-50%, -60%);
 }
-
-.change-right-arrow {
+.change-header {
     top: -8%;
+}
+
+.deactivate-header {
+    top: -12%;
+}
+
+.profile-header {
+    top: -6%;
+}
+
+.cdp-right-arrow {
     left: 10%;
     height: 20px;
     width: 20px;
@@ -38,8 +47,19 @@
     position: fixed;
 }
 
-.change-left-arrow {
+.change-right {
     top: -8%;
+}
+
+.deactivate-right {
+    top: -12%;
+}
+
+.profile-right {
+    top: -6%;
+}
+
+.cdp-left-arrow {
     right: 10%;
     height: 20px;
     width: 20px;
@@ -47,15 +67,27 @@
     position: fixed;
 }
 
+.change-left {
+    top: -8%;
+}
+
+.deactivate-left {
+    top: -12%;
+}
+
+.profile-left {
+    top: -6%;
+}
+
 /* === Form: title, container, groups, data display, inputs, errors === */
-.change-form-title {
+.cdp-form-title {
     justify-content: center;
     display: flex;
     padding: 15px 5px;
     color: #6A150D;
 }
 
-.change-form-container {
+.cdp-form-container {
     background: none !important;
     width: 100%;
     display: inline-block;
@@ -65,18 +97,27 @@
     margin-bottom: -20px;
 }
 
-.change-form-group {
+.cdp-form-group {
     display: grid;
 }
 
-.change-input {
+.profile-data-display {
+    padding: 10px;
+    color: #6A150D;
+}
+
+.cdp-input {
     font-size: 20px !important;
     line-height: 20px !important;
-    padding: 20px 30px !important;
+    padding: 10px 30px !important;
     margin-bottom: 10px;
     background-color: white;
     border-color: #6A150D;
     color: #6A150D;
+}
+
+.change-input {
+    padding: 20px 30px !important;
 }
 
 .change-line {
@@ -84,14 +125,18 @@
     margin: 20px;
 }
 
-.change-error {
+.cdp-error {
     color: #6A150D;
     font-size: 20px;
     margin-bottom: 35px;
 }
 
+.profile-error {
+    margin-bottom: -25px;
+}
+
 /* === Buttons === */
-.change-form-button {
+.cdp-form-button {
     background-color: #6A150D !important;
     color: white !important;
     font-size: 20px !important;
@@ -107,7 +152,7 @@
     justify-content: center;
 }
 
-.change-form-button:disabled {
+.cdp-form-button:disabled {
     background-color: #a26254 !important;
 }
 
@@ -127,14 +172,18 @@
         top: 50%;
         left: 50%;
     }
-    .change-container {
+    .cdp-container {
         position: fixed;
         -webkit-transform: translate(-50%, -45%);
         transform: translate(-50%, -45%);
     }
-    .change-container-header {
+    .cdp-container-header {
         position: fixed;
         -webkit-transform: translate(-50%, -60%);
         transform: translate(-50%, -60%);
+    }
+    .profile-header {
+        -webkit-transform: translate(-50%, -51%);
+        transform: translate(-50%, -51%);
     }
 }

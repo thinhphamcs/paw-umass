@@ -3,20 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
-import './Cookies.css';
+import '../StyleSheets/ACPT.css';
 // This will be the font end with props I can use to display data
 function CookiesUI() {
     return (
-        <div className="cookies-container">
-            <FaIcons.FaAngleDoubleRight className="cookies-right-arrow" />
-            <div className="cookies-container-header">
+        <div className="acpt-container">
+            <FaIcons.FaAngleDoubleRight className="acpt-right-arrow" />
+            <div className="acpt-container-header">
                 <Link to="/" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <FaIcons.FaAngleDoubleLeft className="cookies-left-arrow" />
-            <div className="cookies-body">
-                <div className="cookies-content">
+            <FaIcons.FaAngleDoubleLeft className="acpt-left-arrow" />
+            <div className="acpt-body">
+                <div className="acpt-content">
                     <h2><strong>Cookies Policy</strong></h2>
                     <p>Last updated: May 10, 2021</p>
                     <p>This Cookies Policy explains what Cookies are and how We use them. You should read this policy so You can understand what type of cookies We use, or the information We collect using Cookies and how that information is used. This Cookies Policy has been created with the help of the <a href="https://www.privacypolicies.com/cookies-policy-generator/" target="_blank" rel="noopener noreferrer">Cookies Policy Generator</a>.</p>
