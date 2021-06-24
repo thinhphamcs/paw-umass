@@ -1,0 +1,456 @@
+/* === Container === */
+.other-container {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    background-color: #F4F6F6;
+}
+
+.submit-container {
+    border: 3px solid #6A150D;
+    padding: 0 0 20px;
+}
+
+.forgot-container {
+    padding: 0 0 41px 0;
+}
+
+.forgot-change-container {
+    border: 1px solid black;
+    padding: 0 0 40px 0;
+}
+
+.register-container {
+    top: 50% !important;
+    padding: 0 0 56px;
+}
+
+.login-container {
+    top: 50% !important;
+    -webkit-transform: translate(-50%, -45%) !important;
+    transform: translate(-50%, -45%) !important;
+    padding: 0 0 50px 0;
+}
+
+/* === Header === */
+.other-container-header {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.forgot-container-header {
+    top: -6%;
+    transform: translate(-50%, -60%) !important;
+}
+
+.forgot-change-container-header {
+    top: -6%;
+    transform: translate(-50%, -55%) !important;
+}
+
+.submit-container-header {
+    top: -8%;
+    transform: translate(-50%, -60%) !important;
+}
+
+.login-container-header {
+    top: -10%;
+}
+
+/* === Error === */
+.other-error {
+    font-size: 20px;
+}
+.register-error {
+    line-height: 30px;
+    padding: 10px;
+    font-weight: unset;
+}
+
+.forgot-error {
+    margin-bottom: 34px;
+}
+
+.forgot-change-error {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.submit-error {
+    line-height: 30px;
+    padding: 10px;
+    font-weight: unset;
+    color: #6A150D;
+    font-size: 20px !important;
+    margin: -30px 0 5px 0 !important;
+}
+/* === Stand alone === */
+.login-error {
+    padding: 0 0 16px 0;
+}
+/* === Form title === */
+.other-form-title {
+    justify-content: center;
+    display: flex;
+    padding: 15px 5px;
+}
+
+.forgot-change-form-title {
+    color: #6A150D;
+}
+
+.submit-form-title {
+    color: #6A150D;
+}
+
+/* === Form container === */
+.other-form-container {
+    background: none !important;
+    display: inline-block;
+    text-align: center !important;
+    min-width: 320px !important;
+}
+
+.register-form-container {
+    width: 320px !important;
+    padding: 0px 20px !important;
+    border: 0 !important;
+}
+
+.forgot-form-container {
+    width: 100%;
+    padding: 20px !important;
+    margin-bottom: -20px;
+}
+
+.forgot-change-form-container {
+    width: 100%;
+    padding: 20px !important;
+    margin-bottom: -20px;
+}
+
+.submit-form-container {
+    width: 320px !important;
+    padding: 0px 20px !important;
+    border: 0 !important;
+}
+
+.login-form-container {
+    width: 320px !important;
+    padding: 20px !important;
+    border: 0 !important;
+}
+
+/* === Stand alone === */
+.register-form-group, .register-form-check {
+    display: table;
+}
+
+.forgot-form-group {
+    display: grid;
+}
+
+.forgot-change-form-group {
+    display: grid;
+}
+
+.submit-form-group {
+    display: table;
+    margin-bottom: -5px !important;
+}
+
+.login-form-group {
+    display: table;
+}
+
+/* === Input === */
+.other-input {
+    font-size: 20px !important;
+}
+.register-input {
+    margin-bottom: 15px !important;
+    line-height: 30px !important;
+    padding: 10px 30px !important;
+}
+
+.forgot-input {
+    line-height: 21px !important;
+    padding: 10px 30px !important;
+}
+
+.forgot-change-input {
+    line-height: 20px !important;
+    padding: 20px 30px !important;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.submit-input {
+    margin-bottom: 15px !important;
+    line-height: 30px !important;
+    padding: 10px 30px !important;
+    resize: none;
+    width: 278px;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
+}
+
+.login-input {
+    margin-bottom: 15px !important;
+    line-height: 40px !important;
+    padding: 10px 30px !important;
+}
+
+/* === Form Button === */
+.other-form-button {
+    background-color: #6A150D !important;
+    color: white !important;
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+    border: 0 !important;
+    transition: 0.5s all ease-in-out !important;
+    cursor: pointer !important;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-form-button {
+    margin-top: 30px;
+}
+
+.forgot-change-form-button {
+    margin-top: 30px;
+}
+
+.other-form-button:disabled {
+    background-color: #a26254 !important;
+}
+
+/* === Footer === */
+.other-container-footer {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+}
+.register-container-footer {
+    padding: 10px;
+}
+
+/* === List Items (Login / Register only) === */
+.other-list-items, .other-list-items:hover {
+    color: #6A150D;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-flex;
+}
+
+/* === Right arrow === */
+.other-right-arrow {
+    left: 10%;
+    height: 20px;
+    width: 20px;
+    position: fixed;
+}
+.forgot-right-arrow {
+    top: -10%;
+    color: white;
+}
+
+.forgot-change-right-arrow {
+    top: -7%;
+    color: white;
+}
+
+.submit-right-arrow {
+    top: -8%;
+    color: #6A150D;
+}
+
+/* === Left arrow === */
+.other-left-arrow {
+    right: 10%;
+    height: 20px;
+    width: 20px;
+    position: fixed;
+}
+.forgot-left-arrow {
+    top: -10%;
+    color: white;
+}
+
+.forgot-change-left-arrow {
+    top: -7%;
+    color: white;
+}
+
+.submit-left-arrow {
+    top: -8%;
+    color: #6A150D;
+}
+
+/* === Stand alone === */
+.forgot-line {
+    border-bottom: 3px solid #6A150D;
+    margin: 20px;
+}
+.reason {
+    padding: 25px;
+    font-size: 19px;
+    margin-bottom: -15px;
+    margin-top: -20px;
+    color: #6A150D;
+}
+
+.submit-logo {
+    display: inline-block; 
+    height: 100px;
+}
+
+.submit-logo img {
+    height: 120%;
+    width: 100%;
+}
+
+.submit-file {
+    font-size: 15px !important;
+    margin-bottom: 15px !important;
+    padding: 10px 30px !important;
+    width: 100%;
+    background-color: white;
+    border-color: #6A150D;
+    color: #6A150D;
+}
+
+/* === Textarea Limit === */
+.submit-countdown {
+    text-align: center;
+}
+.submit-maximum {
+    margin: -5px 0 5px 0 !important;
+}
+.submit-limit {
+    margin: -10px 0 10px 0;
+    text-align: center;
+}
+
+/* === Radio Buttons === */
+.submit-outer {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+.submit-inner{
+    display: inline-block;
+    padding: 0 2px 0 2px;
+}
+  
+.submit-outer input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+  
+.submit-outer label {
+    display: inline-block;
+    background-color: white;
+    padding: 10px 15px;
+    font-family: sans-serif, Arial;
+    font-size: 15px;
+    border: 1px solid #6A150D;
+    border-radius: 5px;
+}
+  
+.submit-outer label:hover {
+    background-color: #a26254;
+    color: white;
+}
+  
+.submit-outer input[type="radio"]:checked + label {
+    background-color: #6A150D;
+    color: white;
+    border-color: #6A150D;
+}
+
+.login-form-check {
+    display: flex;
+    float: left;
+}
+.checkBox {
+    height: 40px;
+}
+
+.login-label {
+    padding: 10px 5px 0 5px;
+}
+
+/* === Links === */
+.login-forgot {
+    position: relative;
+    display: flex;
+    float: right;
+    padding: 0 0px 0 9px;
+}
+
+.options {
+    position: relative;
+    display: flex;
+    padding-bottom: 10px;
+}
+
+/* === Phone and Landscape === */
+@media screen and (max-width: 375px) {
+    html {
+        overflow-x: hidden;
+        position: absolute;
+    }
+  }
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: left top;
+        overflow-x: hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    .other-container {
+        position: fixed;
+        -webkit-transform: translate(-50%, -45%);
+        transform: translate(-50%, -45%);
+    }
+    .register-container {
+        -webkit-transform: translate(-50%, -50%) !important;
+        transform: translate(-50%, -50%) !important;
+    }
+
+    .other-container-header {
+        position: fixed;
+        -webkit-transform: translate(-50%, -55%);
+        transform: translate(-50%, -55%);
+    }
+
+    .forgot-container-header {
+        -webkit-transform: translate(-50%, -60%) !important;
+        transform: translate(-50%, -60%) !important;
+    }
+
+    .submit-container-header {
+        -webkit-transform: translate(-50%, -60%) !important;
+        transform: translate(-50%, -60%) !important;
+    }
+    /* Login and Register Only */
+    .other-container-footer {
+        position: fixed;
+        -webkit-transform: translate(0%, -5%);
+        transform: translate(0%, -5%);
+    }
+}

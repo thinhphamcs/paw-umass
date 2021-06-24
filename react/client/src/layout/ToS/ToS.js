@@ -3,20 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
-import './ToS.css';
+import '../StyleSheets/ACPT.css';
 // This will be the font end with props I can use to display data
 function ToSUI() {
     return (
-        <div className="tos-container">
-            <FaIcons.FaAngleDoubleRight className="tos-right-arrow" />
-            <div className="tos-container-header">
+        <div className="acpt-container">
+            <FaIcons.FaAngleDoubleRight className="acpt-right-arrow" />
+            <div className="acpt-container-header">
                 <Link to="/" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <FaIcons.FaAngleDoubleLeft className="tos-left-arrow" />
-            <div className="tos-body">
-                <div className="tos-content">
+            <FaIcons.FaAngleDoubleLeft className="acpt-left-arrow" />
+            <div className="acpt-body">
+                <div className="acpt-content">
                     <h2><strong>Terms and Service</strong></h2>
                     <p>Welcome to PawUMass!</p>
                     <p>These terms and conditions outline the rules and regulations for the use of PawUMass's Website, located at http://www.pawumass.com.</p>

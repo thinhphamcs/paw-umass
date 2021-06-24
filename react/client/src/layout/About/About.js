@@ -3,20 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
-import './About.css';
+import '../StyleSheets/ACPT.css';
 // This will be the font end with props I can use to display data
 function AboutUI() {
     return (
-        <div className="about-container">
-            <FaIcons.FaAngleDoubleRight className="about-right-arrow" />
-            <div className="about-container-header">
+        <div className="acpt-container">
+            <FaIcons.FaAngleDoubleRight className="acpt-right-arrow" />
+            <div className="acpt-container-header">
                 <Link to="/" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <FaIcons.FaAngleDoubleLeft className="about-left-arrow" />
-            <div className="about-body">
-                <div className="about-content">
+            <FaIcons.FaAngleDoubleLeft className="acpt-left-arrow" />
+            <div className="acpt-body">
+                <div className="acpt-content">
                     <h2><strong>About PawUMass</strong></h2>
                     PawUMass website is designed with one purpose in mind to help students,
                     mostly college students, get through difficult semesters.

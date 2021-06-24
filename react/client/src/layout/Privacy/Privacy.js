@@ -3,20 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/logo3.png';
 import * as FaIcons from "react-icons/fa";
-import './Privacy.css';
+import '../StyleSheets/ACPT.css';
 // This will be the font end with props I can use to display data
 function PrivacyUI() {
     return (
-        <div className="privacy-container">
-            <FaIcons.FaAngleDoubleRight className="privacy-right-arrow" />
-            <div className="privacy-container-header">
+        <div className="acpt-container">
+            <FaIcons.FaAngleDoubleRight className="acpt-right-arrow" />
+            <div className="acpt-container-header">
                 <Link to="/" >
                     <img src={Logo} alt="Logo" />
                 </Link>
             </div>
-            <FaIcons.FaAngleDoubleLeft className="privacy-left-arrow" />
-            <div className="privacy-body">
-                <div className="privacy-content">
+            <FaIcons.FaAngleDoubleLeft className="acpt-left-arrow" />
+            <div className="acpt-body">
+                <div className="acpt-content">
                     <h2><strong>Privacy Policy</strong></h2>
                     <p>Your privacy is important to us. It is PawUMass&#39; policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you, including across our website, http://www.pawumass.com, and other sites we own and operate. </p>
                     <p>This policy is effective as of 10 May 2021 and was last updated on 10 May 2021. </p>
