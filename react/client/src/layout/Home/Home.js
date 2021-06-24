@@ -1,22 +1,22 @@
 // Import
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { SideBarData } from '../../components/SideBar/SideBarData';
-import { Card } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
+// import { SideBarData } from '../../components/SideBar/SideBarData';
+// import { Card } from 'react-bootstrap';
 import * as BsIcons from "react-icons/bs";
-import * as CgIcons from "react-icons/cg";
-import * as FaIcons from "react-icons/fa";
+// import * as CgIcons from "react-icons/cg";
+// import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
-import TimeAgo from 'react-timeago';
+// import TimeAgo from 'react-timeago';
 import './Home.css';
 // // This will be the font end with props I can use to display data
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" >
             <div className="home-container" >
-                {/* <TopNav>
+                <TopNav>
                     <div className="search-container" >
                         <div className="search-wrap" >
                             <div className="search-box" >
@@ -30,8 +30,8 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                     <NavItems icon={<BsIcons.BsFillGearFill />} >
                         <DropdownMenus />
                     </NavItems>
-                </TopNav> */}
-                <nav className="nav-bar" >
+                </TopNav>
+                {/* <nav className="nav-bar" >
                     <ul className="nav-bar-nav" >
                         <li className="logo" >
                             <Link to="/home" className="nav-link">
@@ -50,7 +50,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                             )
                         })}
                     </ul>
-                </nav>
+                </nav> */}
             </div>
             {/* <main>
                 <div className="home-body">
