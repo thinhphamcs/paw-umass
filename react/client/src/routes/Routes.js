@@ -9,7 +9,7 @@ import Change from '../components/Change/Change';
 import Forgot from '../components/Forgot/Forgot';
 import ForgotChange from '../components/ForgotChange/ForgotChange';
 import Submit from '../components/Submit/Submit';
-import Donate from '../components/Donate/Donate';
+// import Donate from '../components/Donate/Donate';
 import About from '../components/About/About';
 import ToS from '../components/ToS/ToS';
 import Privacy from '../components/Privacy/Privacy';
@@ -108,12 +108,12 @@ const routes = [
         title: 'Submit',
         authenticated: true,
     },
-    {
-        path: '/user/donate',
-        component: Donate,
-        title: 'Donate',
-        authenticated: true,
-    }
+    // {
+    //     path: '/user/donate',
+    //     component: Donate,
+    //     title: 'Donate',
+    //     authenticated: true,
+    // }
 ];
 
 export default routes;
