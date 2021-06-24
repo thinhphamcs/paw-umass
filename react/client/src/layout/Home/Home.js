@@ -15,8 +15,8 @@ import './Home.css';
 function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" >
-            {/* <div className="home-container" >
-                <TopNav>
+            <div className="home-container" >
+                {/* <TopNav>
                     <div className="search-container" >
                         <div className="search-wrap" >
                             <div className="search-box" >
@@ -30,7 +30,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                     <NavItems icon={<BsIcons.BsFillGearFill />} >
                         <DropdownMenus />
                     </NavItems>
-                </TopNav>
+                </TopNav> */}
                 <nav className="nav-bar" >
                     <ul className="nav-bar-nav" >
                         <li className="logo" >
@@ -51,8 +51,8 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                         })}
                     </ul>
                 </nav>
-            </div> */}
-            <main>
+            </div>
+            {/* <main>
                 <div className="home-body">
                     <div className="home-content">
                         {assetData && userData ?
@@ -105,7 +105,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
                                 </div>]] : null}
                     </div>
                 </div>
-            </main >
+            </main > */}
         </div >
     );
 }
