@@ -55,7 +55,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {(assetData && userData) ? [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : null] : null}
+                        {assetData ? [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : null] : null}
                         {/* {(assetData && userData) ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
