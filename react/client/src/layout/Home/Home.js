@@ -1,11 +1,11 @@
 // Import
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { SideBarData } from '../../components/SideBar/SideBarData';
-import { Card } from 'react-bootstrap';
+// import { Link } from 'react-router-dom';
+// import { SideBarData } from '../../components/SideBar/SideBarData';
+// import { Card } from 'react-bootstrap';
 import * as BsIcons from "react-icons/bs";
-import * as CgIcons from "react-icons/cg";
-import * as FaIcons from "react-icons/fa";
+// import * as CgIcons from "react-icons/cg";
+// import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
