@@ -4,7 +4,7 @@ const { UserInputError, AuthenticationError } = require('apollo-server');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
-const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
 // const { uploadToS3, getObjectFromS3 } = require('../s3');
 // Exports the following functions
 module.exports = {
@@ -602,41 +602,41 @@ module.exports = {
                             where: { email: currentUser.email }
                         });
                         // Logic for donation
-                        const donationStripe = await stripe.paymentIntents.create({
-                            amount,
-                            currency: "USD",
-                            description: "PawUMass Donation",
-                            payment_method: id,
-                            confirm: true
-                        });
-                        if (donationStripe) {
-                            const donation = dbUser.donation;
-                            if (donation === false) {
-                                const values = { donation: 1 };
-                                const selector = {
-                                    where: { email: currentUser.email }
-                                };
-                                const update = await User.update(values, selector);
-                                if (update) {
-                                    return {
-                                        status: 200,
-                                        message: "Successfully donated"
-                                    }
-                                }
-                                else {
-                                    errors.message = "Failed to donate";
-                                    throw errors;
-                                }
-                            }
-                            else {
-                                errors.message = "Already donated"
-                                throw errors;
-                            }
-                        }
-                        else {
-                            errors.message = "Failed to donate";
-                            throw errors;
-                        }
+                        // const donationStripe = await stripe.paymentIntents.create({
+                        //     amount,
+                        //     currency: "USD",
+                        //     description: "PawUMass Donation",
+                        //     payment_method: id,
+                        //     confirm: true
+                        // });
+                        // if (donationStripe) {
+                        //     const donation = dbUser.donation;
+                        //     if (donation === false) {
+                        //         const values = { donation: 1 };
+                        //         const selector = {
+                        //             where: { email: currentUser.email }
+                        //         };
+                        //         const update = await User.update(values, selector);
+                        //         if (update) {
+                        //             return {
+                        //                 status: 200,
+                        //                 message: "Successfully donated"
+                        //             }
+                        //         }
+                        //         else {
+                        //             errors.message = "Failed to donate";
+                        //             throw errors;
+                        //         }
+                        //     }
+                        //     else {
+                        //         errors.message = "Already donated"
+                        //         throw errors;
+                        //     }
+                        // }
+                        // else {
+                        //     errors.message = "Failed to donate";
+                        //     throw errors;
+                        // }
                     }
                 }
                 else {

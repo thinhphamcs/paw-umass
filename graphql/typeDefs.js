@@ -43,7 +43,7 @@ type Mutation {
   changePassword(newPassword:String!, confirmNewPassword:String!): Response!
   passwordUpdate(currentPassword:String!, newPassword:String!, confirmNewPassword:String!): Response!
   deleteProfile(password:String!): Response!
-  stripeSubmit(id: String!, amount: String!): Response!
+  # stripeSubmit(id: String!, amount: String!): Response!
   submit(petName: String!, breed: String!, file: Upload!, description: String!, radio: String!): Response!
   orderCheck(token: String!): Response!
   resetOrder: Response!
