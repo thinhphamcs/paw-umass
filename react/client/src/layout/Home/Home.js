@@ -55,53 +55,7 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
             <main>
                 <div className="home-body">
                     <div className="home-content">
-                        {(assetData && userData) ? [userData.getUser.availability === false ?
-                            <div className="asset-container" >
-                                <div className="row" >
-                                    {assetData.getAssets ? assetData.getAssets.filter((value) => {
-                                        if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
-                                            return value;
-                                        }
-                                        // Return something here but it will break the filter
-                                    }).map((value, index) => (
-                                        <div className="column" key={index}>
-                                            <Card>
-                                                <Card.Img variant="top" src={value.photo} />
-                                                <Card.Body>
-                                                    <Card.Text>
-                                                        <b>Name: {value.petName}</b>
-                                                    </Card.Text>
-                                                    <Card.Text>
-                                                        <b>Breed: {value.breed}</b>
-                                                    </Card.Text>
-                                                    <Card.Text>
-                                                        <b>Description: {value.description}</b>
-                                                    </Card.Text>
-                                                    <Card.Text>
-                                                        <b>Willing to give {value.howLong}</b>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                                <Card.Footer>
-                                                    <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
-                                                    {value.availability === true ?
-                                                        <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                                        <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
-                                                </Card.Footer>
-                                            </Card>
-                                        </div>
-                                    )) : null}
-                                </div>
-                            </div>
-                            :
-                            <div className="home-next" >
-                                DEAR {userData ? userData.getUser.firstName.toUpperCase() : null}, <br /><br />
-                                WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
-                                CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
-                                WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
-                                EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
-                                PHONE: {userData ? displayPhone : null}<br /><br />
-                                <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                            </div>] : null}
+                        {(assetData && userData) ? [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : null] : null}
                         {/* {(assetData && userData) ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
