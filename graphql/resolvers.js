@@ -582,147 +582,147 @@ module.exports = {
                 throw new UserInputError('Bad input', { errors });
             }
         },
-        stripeSubmit: async (parent, args, context, info) => {
-            const { amount, id } = args;
-            let currentUser = null;
-            let errors = {};
-            const token = context.req.headers.authorization.split("Bearer ")[1];
-            try {
-                if (token) {
-                    const decodedToken = jwtDecode(token);
-                    const expiresAt = new Date(decodedToken.exp * 1000);
-                    // Expired token
-                    if (new Date() > expiresAt) {
-                        errors.message = "Token Expired";
-                        throw errors;
-                    }
-                    else {
-                        currentUser = decodedToken;
-                        const dbUser = await User.findOne({
-                            where: { email: currentUser.email }
-                        });
-                        // Logic for donation
-                        // const donationStripe = await stripe.paymentIntents.create({
-                        //     amount,
-                        //     currency: "USD",
-                        //     description: "PawUMass Donation",
-                        //     payment_method: id,
-                        //     confirm: true
-                        // });
-                        // if (donationStripe) {
-                        //     const donation = dbUser.donation;
-                        //     if (donation === false) {
-                        //         const values = { donation: 1 };
-                        //         const selector = {
-                        //             where: { email: currentUser.email }
-                        //         };
-                        //         const update = await User.update(values, selector);
-                        //         if (update) {
-                        //             return {
-                        //                 status: 200,
-                        //                 message: "Successfully donated"
-                        //             }
-                        //         }
-                        //         else {
-                        //             errors.message = "Failed to donate";
-                        //             throw errors;
-                        //         }
-                        //     }
-                        //     else {
-                        //         errors.message = "Already donated"
-                        //         throw errors;
-                        //     }
-                        // }
-                        // else {
-                        //     errors.message = "Failed to donate";
-                        //     throw errors;
-                        // }
-                    }
-                }
-                else {
-                    errors.message = "No token found";
-                    throw errors;
-                }
-            } catch (error) {
-                if (error.name === "SequelizeUniqueConstraintError") {
-                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
-                }
-                else if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors["message"] = e.message));
-                }
-                // Throw errors as Bad input
-                throw new UserInputError('Bad input', { errors });
-            }
-        },
-        submit: async (parent, args, context, info) => {
-            const { petName, breed, description, radio } = args;
-            const { filename } = await args.file;
-            let currentUser = null;
-            let errors = {};
-            const token = context.req.headers.authorization.split("Bearer ")[1];
-            try {
-                if (token) {
-                    const decodedToken = jwtDecode(token);
-                    const expiresAt = new Date(decodedToken.exp * 1000);
-                    // Expired token
-                    if (new Date() > expiresAt) {
-                        errors.message = "Token Expired";
-                        throw errors;
-                    }
-                    else {
-                        // Upload to S3
-                        // const s3 = await uploadToS3(args.file);
-                        // if (s3) {
-                        //     currentUser = decodedToken;
-                        //     const dbUser = await User.findOne({
-                        //         where: { email: currentUser.email }
-                        //     });
-                        //     const id = dbUser.id;
-                        //     const email = dbUser.email;
-                        //     const phone = dbUser.phone;
-                        //     const photo = filename;
-                        //     const howLong = radio;
-                        //     const date = new Date();
-                        //     const number = Math.floor(Math.random() * id);
-                        //     const token = jwt.sign({ id: id + number }, process.env.JWT_SECRET);
-                        //     const availability = false;
-                        //     // Create assets
-                        //     const create = await Asset.create({
-                        //         email, phone, petName, breed, photo, description, howLong, date, token, availability
-                        //     });
-                        //     if (create) {
-                        //         return {
-                        //             status: 200,
-                        //             message: "Asset created"
-                        //         }
-                        //     }
-                        //     else {
-                        //         errors.message = "Failed to create"
-                        //         throw errors;
-                        //     }
+        // stripeSubmit: async (parent, args, context, info) => {
+        //     const { amount, id } = args;
+        //     let currentUser = null;
+        //     let errors = {};
+        //     const token = context.req.headers.authorization.split("Bearer ")[1];
+        //     try {
+        //         if (token) {
+        //             const decodedToken = jwtDecode(token);
+        //             const expiresAt = new Date(decodedToken.exp * 1000);
+        //             // Expired token
+        //             if (new Date() > expiresAt) {
+        //                 errors.message = "Token Expired";
+        //                 throw errors;
+        //             }
+        //             else {
+        //                 currentUser = decodedToken;
+        //                 const dbUser = await User.findOne({
+        //                     where: { email: currentUser.email }
+        //                 });
+        //                 // Logic for donation
+        //                 // const donationStripe = await stripe.paymentIntents.create({
+        //                 //     amount,
+        //                 //     currency: "USD",
+        //                 //     description: "PawUMass Donation",
+        //                 //     payment_method: id,
+        //                 //     confirm: true
+        //                 // });
+        //                 // if (donationStripe) {
+        //                 //     const donation = dbUser.donation;
+        //                 //     if (donation === false) {
+        //                 //         const values = { donation: 1 };
+        //                 //         const selector = {
+        //                 //             where: { email: currentUser.email }
+        //                 //         };
+        //                 //         const update = await User.update(values, selector);
+        //                 //         if (update) {
+        //                 //             return {
+        //                 //                 status: 200,
+        //                 //                 message: "Successfully donated"
+        //                 //             }
+        //                 //         }
+        //                 //         else {
+        //                 //             errors.message = "Failed to donate";
+        //                 //             throw errors;
+        //                 //         }
+        //                 //     }
+        //                 //     else {
+        //                 //         errors.message = "Already donated"
+        //                 //         throw errors;
+        //                 //     }
+        //                 // }
+        //                 // else {
+        //                 //     errors.message = "Failed to donate";
+        //                 //     throw errors;
+        //                 // }
+        //             }
+        //         }
+        //         else {
+        //             errors.message = "No token found";
+        //             throw errors;
+        //         }
+        //     } catch (error) {
+        //         if (error.name === "SequelizeUniqueConstraintError") {
+        //             error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+        //         }
+        //         else if (error.name === "SequelizeValidationError") {
+        //             error.errors.forEach(e => (errors["message"] = e.message));
+        //         }
+        //         // Throw errors as Bad input
+        //         throw new UserInputError('Bad input', { errors });
+        //     }
+        // },
+        // submit: async (parent, args, context, info) => {
+        //     const { petName, breed, description, radio } = args;
+        //     const { filename } = await args.file;
+        //     let currentUser = null;
+        //     let errors = {};
+        //     const token = context.req.headers.authorization.split("Bearer ")[1];
+        //     try {
+        //         if (token) {
+        //             const decodedToken = jwtDecode(token);
+        //             const expiresAt = new Date(decodedToken.exp * 1000);
+        //             // Expired token
+        //             if (new Date() > expiresAt) {
+        //                 errors.message = "Token Expired";
+        //                 throw errors;
+        //             }
+        //             else {
+        //                 // Upload to S3
+        //                 // const s3 = await uploadToS3(args.file);
+        //                 // if (s3) {
+        //                 //     currentUser = decodedToken;
+        //                 //     const dbUser = await User.findOne({
+        //                 //         where: { email: currentUser.email }
+        //                 //     });
+        //                 //     const id = dbUser.id;
+        //                 //     const email = dbUser.email;
+        //                 //     const phone = dbUser.phone;
+        //                 //     const photo = filename;
+        //                 //     const howLong = radio;
+        //                 //     const date = new Date();
+        //                 //     const number = Math.floor(Math.random() * id);
+        //                 //     const token = jwt.sign({ id: id + number }, process.env.JWT_SECRET);
+        //                 //     const availability = false;
+        //                 //     // Create assets
+        //                 //     const create = await Asset.create({
+        //                 //         email, phone, petName, breed, photo, description, howLong, date, token, availability
+        //                 //     });
+        //                 //     if (create) {
+        //                 //         return {
+        //                 //             status: 200,
+        //                 //             message: "Asset created"
+        //                 //         }
+        //                 //     }
+        //                 //     else {
+        //                 //         errors.message = "Failed to create"
+        //                 //         throw errors;
+        //                 //     }
 
-                        // }
-                        // else {
-                        //     errors.message = "Failed to submit";
-                        //     throw errors;
-                        // }
-                    }
-                }
-                else {
-                    errors.message = "No token found";
-                    throw errors;
-                }
-            } catch (error) {
-                if (error.name === "SequelizeUniqueConstraintError") {
-                    error.errors.forEach(e => (errors["message"] = `Email is already taken`));
-                }
-                else if (error.name === "SequelizeValidationError") {
-                    error.errors.forEach(e => (errors["message"] = e.message));
-                }
-                // Throw errors as Bad input
-                throw new UserInputError('Bad input', { errors });
-            }
-        },
+        //                 // }
+        //                 // else {
+        //                 //     errors.message = "Failed to submit";
+        //                 //     throw errors;
+        //                 // }
+        //             }
+        //         }
+        //         else {
+        //             errors.message = "No token found";
+        //             throw errors;
+        //         }
+        //     } catch (error) {
+        //         if (error.name === "SequelizeUniqueConstraintError") {
+        //             error.errors.forEach(e => (errors["message"] = `Email is already taken`));
+        //         }
+        //         else if (error.name === "SequelizeValidationError") {
+        //             error.errors.forEach(e => (errors["message"] = e.message));
+        //         }
+        //         // Throw errors as Bad input
+        //         throw new UserInputError('Bad input', { errors });
+        //     }
+        // },
         orderCheck: async (parent, args, context, info) => {
             const { token } = args;
             let errors = {};
