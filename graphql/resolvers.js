@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const jwtDecode = require('jwt-decode');
 // const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST);
-const { uploadToS3, getObjectFromS3 } = require('../s3');
+// const { uploadToS3, getObjectFromS3 } = require('../s3');
 // Exports the following functions
 module.exports = {
     Query: {
@@ -140,30 +140,30 @@ module.exports = {
             try {
                 let errors = {};
                 const assets = await Asset.findAll();
-                if (assets) {
-                    const mapping = assets.map((value, index) => {
-                        const readStream = getObjectFromS3(value.photo);
-                        return {
-                            id: value.id,
-                            email: value.email,
-                            phone: value.phone,
-                            petName: value.petName,
-                            breed: value.breed,
-                            photo: readStream,
-                            description: value.description,
-                            howLong: value.howLong,
-                            date: value.date.toISOString().slice(0, 19).replace('T', ' '),
-                            token: value.token,
-                            availability: value.availability
-                        };
-                    });
-                    const data = await Promise.all(mapping);
-                    return data;
-                }
-                else {
-                    errors.message = "Assets no longer exist";
-                    throw errors;
-                }
+                // if (assets) {
+                //     const mapping = assets.map((value, index) => {
+                //         const readStream = getObjectFromS3(value.photo);
+                //         return {
+                //             id: value.id,
+                //             email: value.email,
+                //             phone: value.phone,
+                //             petName: value.petName,
+                //             breed: value.breed,
+                //             photo: readStream,
+                //             description: value.description,
+                //             howLong: value.howLong,
+                //             date: value.date.toISOString().slice(0, 19).replace('T', ' '),
+                //             token: value.token,
+                //             availability: value.availability
+                //         };
+                //     });
+                //     const data = await Promise.all(mapping);
+                //     return data;
+                // }
+                // else {
+                //     errors.message = "Assets no longer exist";
+                //     throw errors;
+                // }
             } catch (error) {
                 if (error.name === "SequelizeUniqueConstraintError") {
                     error.errors.forEach(e => (errors["message"] = `Email is already taken`));
@@ -671,41 +671,41 @@ module.exports = {
                     }
                     else {
                         // Upload to S3
-                        const s3 = await uploadToS3(args.file);
-                        if (s3) {
-                            currentUser = decodedToken;
-                            const dbUser = await User.findOne({
-                                where: { email: currentUser.email }
-                            });
-                            const id = dbUser.id;
-                            const email = dbUser.email;
-                            const phone = dbUser.phone;
-                            const photo = filename;
-                            const howLong = radio;
-                            const date = new Date();
-                            const number = Math.floor(Math.random() * id);
-                            const token = jwt.sign({ id: id + number }, process.env.JWT_SECRET);
-                            const availability = false;
-                            // Create assets
-                            const create = await Asset.create({
-                                email, phone, petName, breed, photo, description, howLong, date, token, availability
-                            });
-                            if (create) {
-                                return {
-                                    status: 200,
-                                    message: "Asset created"
-                                }
-                            }
-                            else {
-                                errors.message = "Failed to create"
-                                throw errors;
-                            }
+                        // const s3 = await uploadToS3(args.file);
+                        // if (s3) {
+                        //     currentUser = decodedToken;
+                        //     const dbUser = await User.findOne({
+                        //         where: { email: currentUser.email }
+                        //     });
+                        //     const id = dbUser.id;
+                        //     const email = dbUser.email;
+                        //     const phone = dbUser.phone;
+                        //     const photo = filename;
+                        //     const howLong = radio;
+                        //     const date = new Date();
+                        //     const number = Math.floor(Math.random() * id);
+                        //     const token = jwt.sign({ id: id + number }, process.env.JWT_SECRET);
+                        //     const availability = false;
+                        //     // Create assets
+                        //     const create = await Asset.create({
+                        //         email, phone, petName, breed, photo, description, howLong, date, token, availability
+                        //     });
+                        //     if (create) {
+                        //         return {
+                        //             status: 200,
+                        //             message: "Asset created"
+                        //         }
+                        //     }
+                        //     else {
+                        //         errors.message = "Failed to create"
+                        //         throw errors;
+                        //     }
 
-                        }
-                        else {
-                            errors.message = "Failed to submit";
-                            throw errors;
-                        }
+                        // }
+                        // else {
+                        //     errors.message = "Failed to submit";
+                        //     throw errors;
+                        // }
                     }
                 }
                 else {

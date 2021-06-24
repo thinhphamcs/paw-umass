@@ -96,12 +96,12 @@ const routes = [
         title: 'Deactivate',
         authenticated: true,
     },
-    {
-        path: '/home',
-        component: Home,
-        title: 'PawUMass',
-        authenticated: true,
-    },
+    // {
+    //     path: '/home',
+    //     component: Home,
+    //     title: 'PawUMass',
+    //     authenticated: true,
+    // },
     {
         path: '/user/submit',
         component: Submit,
