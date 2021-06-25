@@ -16,33 +16,33 @@ function ProfileUI({ form: { variables, loading, data, displayPhone, errors, upd
                 </Link>
             </div>
             <FaIcons.FaAngleDoubleLeft className="cdp-left-arrow profile-left" />
-            <h1 className="cdp-form-title">Welcome {data ? data.firstName : null}</h1>
+            <h1 className="cdp-form-title">Welcome {data ? data.getUser.firstName : null}</h1>
             <form className="cdp-form-container">
                 {errors.message ? <div className="cdp-error profile-error">{errors.message}</div> : null}
                 <div className="cdp-form-group">
                     <div className="profile-data-display">
                         {data ? data.getUser.firstName : null}
                     </div>
-                    <input className="cdp-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={variables.firstName} onChange={onChange} ></input>
+                    <input className="cdp-input profile-input" type="text" id="firstName" name="firstName" placeholder="First Name" value={variables.firstName} onChange={onChange} ></input>
                 </div>
                 <div className="cdp-form-group">
                     <div className="profile-data-display">
                         {data ? data.getUser.lastName : null}
                     </div>
-                    <input className="cdp-input" type="text" id="lastName" name="lastName" placeholder="Last Name" value={variables.lastName} onChange={onChange}></input>
+                    <input className="cdp-input profile-input" type="text" id="lastName" name="lastName" placeholder="Last Name" value={variables.lastName} onChange={onChange}></input>
                 </div>
                 <div className="cdp-form-group">
                     <div className="profile-data-display">
                         {data ? data.getUser.email : null}
                     </div>
-                    <input className="cdp-input" type="email" id="email" name="email" placeholder="Email" value={variables.email} onChange={onChange}></input>
+                    <input className="cdp-input profile-input" type="email" id="email" name="email" placeholder="Email" value={variables.email} onChange={onChange}></input>
                 </div>
                 <div className="cdp-form-group">
                     <div className="profile-data-display">
                         {data ? displayPhone : null}
                     </div>
                     <PhoneInput
-                        className="cdp-input"
+                        className="cdp-input profile-input"
                         id="phone"
                         name="phone"
                         country="US"

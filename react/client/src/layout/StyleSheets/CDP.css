@@ -36,7 +36,7 @@
 }
 
 .profile-header {
-    top: -6%;
+    top: -3%;
 }
 
 .cdp-right-arrow {
@@ -116,6 +116,10 @@
     color: #6A150D;
 }
 
+.profile-input {
+    margin-bottom: 0px !important;
+}
+
 .change-input {
     padding: 20px 30px !important;
 }
@@ -127,12 +131,12 @@
 
 .cdp-error {
     color: #6A150D;
-    font-size: 20px;
+    font-size: 20px !important;
     margin-bottom: 35px;
 }
 
 .profile-error {
-    margin-bottom: -25px;
+    margin: -35px 0 0 0 !important;
 }
 
 /* === Buttons === */
@@ -181,9 +185,5 @@
         position: fixed;
         -webkit-transform: translate(-50%, -60%);
         transform: translate(-50%, -60%);
-    }
-    .profile-header {
-        -webkit-transform: translate(-50%, -51%);
-        transform: translate(-50%, -51%);
     }
 }
