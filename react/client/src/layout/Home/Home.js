@@ -63,9 +63,10 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, testing,
                             EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
                             PHONE: {userData ? displayPhone : null}<br /><br />
                             <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
-                        </div> : [array ? array.map((value, index) => (
-                            <div className="column" key={index}>
-                                {/* <Card>
+                        </div> : [array.map((value, index) => {
+                            return (
+                                <div className="column" key={index}>
+                                    {/* <Card>
                                     <Card.Img variant="top" src={value.photo} />
                                     <Card.Body>
                                         <Card.Text>
@@ -88,19 +89,20 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, testing,
                                             <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
                                     </Card.Footer>
                                 </Card> */}
-                                <div>
-                                    <img src={value.photo} />
-                                    <p><b>Name: {value.petName}</b></p>
-                                    <p><b>Name: {value.breed}</b></p>
-                                    <p><b>Name: {value.description}</b></p>
-                                    <p><b>Name: {value.howLong}</b></p>
-                                    <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
-                                    {value.availability === true ?
-                                        <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
-                                        <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
+                                    <div>
+                                        <img src={value.photo} />
+                                        <p><b>Name: {value.petName}</b></p>
+                                        <p><b>Name: {value.breed}</b></p>
+                                        <p><b>Name: {value.description}</b></p>
+                                        <p><b>Name: {value.howLong}</b></p>
+                                        <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                        {value.availability === true ?
+                                            <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
+                                            <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
+                                    </div>
                                 </div>
-                            </div>
-                        )) : null]}
+                            )
+                        })]}
 
                         {/* {(assetData && userData) ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
