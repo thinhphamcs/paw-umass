@@ -2,17 +2,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SideBarData } from '../../components/SideBar/SideBarData';
-// import { Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import * as BsIcons from "react-icons/bs";
-// import * as CgIcons from "react-icons/cg";
+import * as CgIcons from "react-icons/cg";
 import * as FaIcons from "react-icons/fa";
 import TopNav from '../../components/Nav/TopNav';
 import NavItems from '../../components/Nav/NavItems';
 import DropdownMenus from '../../components/Nav/DropdownMenus';
-// import TimeAgo from 'react-timeago';
+import TimeAgo from 'react-timeago';
 import './Home.css';
 // This will be the font end with props I can use to display data
-function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit } }) {
+function HomeUI({ form: { variables, assetData, userData, displayPhone, testing, array, onChange, onSubmit, resetSubmit } }) {
     return (
         <div className="all-container" >
             <div className="home-container" >
@@ -55,6 +55,42 @@ function HomeUI({ form: { variables, assetData, userData, displayPhone, onChange
             <main>
                 <div className="home-body">
                     <div className="home-content">
+                        {testing ? <div className="home-next" >
+                            DEAR {userData ? userData.getUser.firstName.toUpperCase() : null}, <br /><br />
+                            WE ARE CURRENTLY PROCESSING YOUR ORDER<br /><br />
+                            CHECK YOUR EMAIL AND/OR YOUR PHONE FOR A TEXT MESSAGE WITH THE INSTRUCTIONS FOR THE NEXT STEP.<br /><br />
+                            WE WILL CONTACT YOU WITH THE INFORMATION YOU PROVIDED:<br /><br />
+                            EMAIL: {userData ? userData.getUser.email.toUpperCase() : null}<br /><br />
+                            PHONE: {userData ? displayPhone : null}<br /><br />
+                            <button className="home-next-button" onClick={resetSubmit}>CHANGE YOUR MIND?</button>
+                        </div> : [array ? array.map((value, index) => (
+                            <div className="column" key={index}>
+                                <Card>
+                                    <Card.Img variant="top" src={value.photo} />
+                                    <Card.Body>
+                                        <Card.Text>
+                                            <b>Name: {value.petName}</b>
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <b>Breed: {value.breed}</b>
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <b>Description: {value.description}</b>
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <b>Willing to give {value.howLong}</b>
+                                        </Card.Text>
+                                    </Card.Body>
+                                    <Card.Footer>
+                                        <small className="text-muted">Posted&nbsp;<TimeAgo date={value.date} /></small>
+                                        {value.availability === true ?
+                                            <button className="home-form-button" disabled={value.availability}><CgIcons.CgUnavailable /></button> :
+                                            <button className="home-form-button" type="submit" onClick={() => { onSubmit(value.token) }}><FaIcons.FaPaw /></button>}
+                                    </Card.Footer>
+                                </Card>
+                            </div>
+                        )) : null]}
+
                         {/* {(assetData && userData) ?
                             [assetData.getAssets.length === 0 ? <div className="home-error" >Be the first to upload</div> : [userData.getUser.availability === false ?
                                 <div className="asset-container" >
