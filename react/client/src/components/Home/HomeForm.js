@@ -43,8 +43,6 @@ export function HomeForm() {
         search: '',
     });
     let displayPhone = "";
-    let array = [];
-    let testing = false;
     // use history from react-router-dom to redirect
     const history = useHistory();
     // onChange function
@@ -58,28 +56,12 @@ export function HomeForm() {
     // GraphQL mutation, think of this as global provider
     const { data: assetData } = useQuery(GET_ASSETS);
     const { data: userData, error: userError } = useQuery(GET_USER);
-    // if (userData) {
-    //     displayPhone = userData.getUser.phone.substring(0, 2)
-    //         .concat(" (" + userData.getUser.phone.substring(2, 5) + ")")
-    //         .concat(" " + userData.getUser.phone.substring(5, 8))
-    //         .concat(" - " + userData.getUser.phone.substring(8, 15));
-    // }
-    if (assetData && userData) {
+    if (userData) {
         displayPhone = userData.getUser.phone.substring(0, 2)
             .concat(" (" + userData.getUser.phone.substring(2, 5) + ")")
             .concat(" " + userData.getUser.phone.substring(5, 8))
             .concat(" - " + userData.getUser.phone.substring(8, 15));
-        if (userData.getUser.availability === true) {
-            testing = true;
-        }
-        assetData.getAssets.filter((value) => {
-            if (variables.search === "" || (value.breed.toString().toLowerCase().includes(variables.search.toString().toLowerCase()))) {
-                array.push(value);
-            }
-            // Return something here but it will break the filter
-        }).map((value, index) => (
-            array.push(value)
-        ));
+
     }
     if (userError) {
         dispatch({ type: 'LOGOUT' });
@@ -115,5 +97,5 @@ export function HomeForm() {
         resetOrder();
     }
     // Return this so we can use these as props on the UI (front end)
-    return { variables, assetData, userData, displayPhone, testing, array, onChange, onSubmit, resetSubmit };
+    return { variables, assetData, userData, displayPhone, onChange, onSubmit, resetSubmit };
 }
