@@ -179,7 +179,7 @@ module.exports = {
     Mutation: {
         register: async (parent, args, context, info) => {
             let { firstName, lastName, email, password, confirmPassword, phone } = args;
-            const donation = false, availability = false, token = "JmLTEyMy11LTEyMy1jLTEyMy1rLTEyMy15LTEyMy1vLTEyMy11";
+            const donation = false, availability = false, token = process.env.TEMP_TOKEN;
             let errors = {}
             try {
                 // Validate input data 
@@ -777,7 +777,7 @@ module.exports = {
         resetOrder: async (parent, args, context, info) => {
             let currentUser = null;
             let errors = {};
-            const token = "JmLTEyMy11LTEyMy1jLTEyMy1rLTEyMy15LTEyMy1vLTEyMy11";
+            const token = process.env.TEMP_TOKEN;
             const userToken = context.req.headers.authorization.split("Bearer ")[1];
             try {
                 if (userToken) {
