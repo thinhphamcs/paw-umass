@@ -58,7 +58,7 @@ Prerequisites: [Nodejs](https://nodejs.org/en/) and [XAMPP](https://www.apachefr
 
 6. Build and run client by `cd .\react\client\` then `npm start`
 
-7. ### APIs: \
+7. ### API Routes: \
 ```
     About: http://localhost:#/about
     Change: http://localhost:#/settings/change
@@ -157,6 +157,8 @@ Content-Type: application/json
 ```
 10. ### Deploy
 ```
-Store / Retrieve images from AWS S3
-Server will be running from AWS EC2
+Server will be host and running from AWS EC2
+Images will be store and retrieve from AWS S3
+Database will be host and connected from AWS RDS
+
 ```
